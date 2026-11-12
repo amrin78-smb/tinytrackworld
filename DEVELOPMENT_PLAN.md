@@ -17,7 +17,7 @@ Redmi A3.
 | 8 | Save system | **Tested** | Versioned JSON, atomic write + backup, corruption fallback, autosave. EditMode parse/corruption tests and a PlayMode round-trip. A restart on a real device is not yet tested. |
 | 9 | Visual polish | **In progress** | Blender models (trains, creatures, buildings, nature, tracks) and 3D icons are done. Pending: tunnel hill shape and the remaining shared-helper issues (see TEST_REPORT known issues). |
 | 10 | Performance optimisation | **Implemented** | Low/Medium/High presets, auto Low on 32-bit or <4.5 GB RAM, FPS governor, one shared material (SRP batcher), pooling. **Not profiled on a Redmi A3.** |
-| 11 | QA and Android release | **In progress** | Universal, ARMv7-only and ARM64-only APKs built and verified (see TEST_REPORT.md). Hardware testing on the Redmi A3 is pending. |
+| 11 | QA and Android release | **In progress** | Universal release APK (ARMv7 + ARM64) built 2026-11-12 and verified by inspecting the APK (both IL2CPP libs, GLES3, landscape, no INTERNET), published as GitHub release v0.1.0. Debug-signed. Separate ARMv7-only and ARM64-only APKs not built yet. Hardware testing on the Redmi A3 is pending. |
 
 ## Next steps
 
