@@ -39,8 +39,8 @@ namespace TinyTracks.EditorTools
         public const string SettingsDir = Root + "/Settings";
         public const string ScenePath = Root + "/Scenes/Main.unity";
         public const string AppId = "com.nocvault.tinytracksworld";
-        public const string Version = "0.1.0";
-        public const int VersionCode = 1;
+        public const string Version = "0.2.0";
+        public const int VersionCode = 2;
 
         [MenuItem("Tiny Tracks/Setup Project")]
         public static void Run()
@@ -491,6 +491,15 @@ namespace TinyTracks.EditorTools
             lib.worlds = new List<WorldDefinition> { world };
 
             // Icons
+            // Narrator lines (Tools/voice/voice_lines.json + generated clips) and the Thai-capable caption font.
+            lib.voice.Clear();
+            foreach (VoiceLines.Line l in VoiceLines.Read())
+            {
+                AudioClip V(string lang) => AssetDatabase.LoadAssetAtPath<AudioClip>($"{Root}/Audio/Voice/{lang}/{l.key}.wav");
+                lib.voice.Add(new VoiceLine { key = l.key, en = l.en, th = l.th, enClip = V("en"), thClip = V("th") });
+            }
+            lib.captionFont = AssetDatabase.LoadAssetAtPath<Font>($"{Root}/Art/UI/Fonts/Mitr-Medium.ttf");
+
             lib.icons.Clear();
             foreach (string guid in AssetDatabase.FindAssets("t:Sprite", new[] { Root + "/Art/UI/Icons" }))
             {
@@ -676,6 +685,10 @@ namespace TinyTracks.EditorTools
             foreach (DecorationDefinition d in lib.decorations) if (d.icon == null && d.placeable) problems.Add("decoration icon missing: " + d.id);
             if (lib.audio == null || lib.audio.whistle == null || lib.audio.music == null) problems.Add("audio missing");
             if (lib.pillarPrefab == null) problems.Add("pillar prefab missing");
+            if (lib.voice.Count == 0) problems.Add("narrator lines missing");
+            foreach (VoiceLine v in lib.voice)
+                if (v.enClip == null || v.thClip == null) problems.Add("voice clip missing: " + v.key);
+            if (lib.captionFont == null) problems.Add("caption font missing");
             foreach (string icon in new[] { "go", "stop", "whistle", "bell", "undo", "delete", "rotate", "confirm", "home", "play" })
                 if (lib.Icon(icon) == null) problems.Add("UI icon missing: " + icon);
             if ((PlayerSettings.Android.targetArchitectures & AndroidArchitecture.ARMv7) == 0) problems.Add("ARMv7 NOT enabled");
@@ -697,6 +710,21 @@ namespace TinyTracks.EditorTools
     }
 
     /// <summary>Reads the Blender manifests in Tools/blender/models/*.json.</summary>
+    /// <summary>Tools/voice/voice_lines.json: the narrator's captions (the clips are generated from it).</summary>
+    public static class VoiceLines
+    {
+        [Serializable] public class Line { public string key, en, th; }
+        [Serializable] private class File { public Line[] lines; }
+
+        public static IEnumerable<Line> Read()
+        {
+            const string path = "Tools/voice/voice_lines.json";
+            if (!System.IO.File.Exists(path)) { Debug.LogWarning("[TT Setup] voice lines missing: " + path); return Array.Empty<Line>(); }
+            File f = JsonUtility.FromJson<File>(System.IO.File.ReadAllText(path, System.Text.Encoding.UTF8));
+            return f?.lines ?? Array.Empty<Line>();
+        }
+    }
+
     public static class Manifest
     {
         [Serializable]

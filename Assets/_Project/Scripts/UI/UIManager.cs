@@ -15,8 +15,11 @@ namespace TinyTracks.UI
     /// the grown-up settings panel (reached by holding the gear). Big targets (>= 130 px), generous spacing, nothing
     /// covers the middle of the railway.
     /// </summary>
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoBehaviour, IGuideTargets
     {
+        /// <summary>Tests switch this off so the first-play tour does not run during automated flows.</summary>
+        public static bool AutoStartTutorial = true;
+
         public ContentLibrary content;
         public GameManager game;
 
@@ -37,10 +40,14 @@ namespace TinyTracks.UI
         private RectTransform carsRow;
         private TrackCategory? openTrackCat;
         private DecorationCategory? openDecoCat;
-        private RectTransform hint;
-        private RectTransform hintTarget;
+        private Narrator narrator;
+        private Guide guide;
+        private ToyButton helpBtn;
+        public Narrator Narrator => narrator;
+        public Guide Guide => guide;
         private readonly List<ToyButton> qualityButtons = new List<ToyButton>();
-        private Slider musicSlider, sfxSlider, ambientSlider;
+        private Slider musicSlider, sfxSlider, ambientSlider, voiceSlider;
+        private readonly List<(ToyButton button, string lang)> languageButtons = new List<(ToyButton, string)>();
 
         private Sprite Icon(string n) => content.Icon(n);
 
@@ -50,9 +57,32 @@ namespace TinyTracks.UI
             BuildMenu();
             BuildHud();
             BuildSettings();
-            BuildHint();
+            BuildGuide();
             game.ModeChanged += OnModeChanged;
             OnModeChanged(game.Mode);
+            if (AutoStartTutorial && !game.save.Settings.tutorialSeen) guide.StartTutorial();
+        }
+
+        // ------------------------------------------------------------------------------------------------ guide targets
+        public Component PlayButton => playBtn;
+        public Component GoButton => goBtn;
+        public Component FastButton => fastBtn;
+        public Component Tab(GameMode mode) => modeTabs.TryGetValue(mode, out ToyButton b) ? b : null;
+        public Component FirstTrackButton => trackButtons.Count > 0 ? trackButtons[0].button : (trackCats.Count > 0 ? trackCats[0].button : null);
+        public Component FirstDecoButton => decoButtons.Count > 0 ? decoButtons[0].button : (decoCats.Count > 0 ? decoCats[0].button : null);
+        public string FirstDecoId => decoButtons.Count > 0 ? decoButtons[0].id : (FirstDeco(DecorationCategory.Nature)?.id);
+
+        private void BuildGuide()
+        {
+            narrator = canvas.gameObject.AddComponent<Narrator>();
+            narrator.Build(content, (RectTransform)canvas.transform, canvas.transform.Find("Safe"));
+            guide = canvas.gameObject.AddComponent<Guide>();
+            guide.Init(game, narrator, this);
+
+            // The conductor: tap to hear what to do (in the menu and in every mode).
+            helpBtn = UIFactory.Button("Help", canvas.transform.Find("Safe"), Icon("narrator") ?? Icon("sound"), UIFactory.Cream, 120f, 0.92f);
+            helpBtn.Clicked += () => guide.Help();
+            settingsRoot.SetAsLastSibling(); // the grown-ups' panel covers the bubble and the conductor
         }
 
         private void BuildCanvas()
@@ -172,6 +202,7 @@ namespace TinyTracks.UI
                 trackCats.Add((b, cat));
             }
             trayRoot = UIFactory.Rect("Tray", hudRoot);
+            UIFactory.Stretch(trayRoot); // the tray grid is positioned from the screen's bottom-left
 
             RectTransform actions = UIFactory.Row("Actions", buildPanel, 20f, TextAnchor.MiddleRight);
             UIFactory.Anchor(actions, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-36f, 22f), new Vector2(900f, 160f));
@@ -236,6 +267,7 @@ namespace TinyTracks.UI
                 trackButtons.Add((b, t));
                 Juice.PopIn(b.transform, 0.25f);
             }
+            FitTray(row, trackButtons.Count);
         }
 
         private RectTransform TrayRow()
@@ -265,6 +297,10 @@ namespace TinyTracks.UI
         }
 
         private RectTransform trayBack, trayGrid;
+
+        /// <summary>The tray is only as wide as its buttons (at most 9 per row).</summary>
+        private static void FitTray(RectTransform row, int count) =>
+            row.GetComponent<GridLayoutGroup>().constraintCount = Mathf.Clamp(count, 1, 9);
 
         private void LateUpdate()
         {
@@ -384,6 +420,7 @@ namespace TinyTracks.UI
                 decoButtons.Add((b, id));
                 Juice.PopIn(b.transform, 0.25f);
             }
+            FitTray(row, decoButtons.Count);
         }
 
         // ------------------------------------------------------------------------------------------------ settings
@@ -392,7 +429,7 @@ namespace TinyTracks.UI
             Image dim = UIFactory.Image("Dim", settingsRoot, null, new Color(0.1f, 0.15f, 0.3f, 0.55f), true);
             UIFactory.Stretch(dim.rectTransform);
             Image panel = UIFactory.Image("Panel", settingsRoot, UIFactory.Rounded, UIFactory.Cream, true);
-            UIFactory.Anchor(panel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1100f, 860f));
+            UIFactory.Anchor(panel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1100f, 1010f));
             RectTransform p = panel.rectTransform;
             Text title = UIFactory.Label("Title", p, "Grown-ups", 64, new Color(0.25f, 0.3f, 0.5f));
             title.GetComponent<Outline>().enabled = false;
@@ -401,41 +438,50 @@ namespace TinyTracks.UI
             SettingsSaveRow(p, "Music", -170f, Icon("music"), out musicSlider);
             SettingsSaveRow(p, "Sounds", -280f, Icon("sound"), out sfxSlider);
             SettingsSaveRow(p, "Nature sounds", -390f, Icon("decorate"), out ambientSlider);
+            SettingsSaveRow(p, "Voice", -500f, Icon("narrator") ?? Icon("sound"), out voiceSlider);
             musicSlider.onValueChanged.AddListener(_ => ApplyVolumes());
             sfxSlider.onValueChanged.AddListener(_ => ApplyVolumes());
             ambientSlider.onValueChanged.AddListener(_ => ApplyVolumes());
+            voiceSlider.onValueChanged.AddListener(_ => ApplyVolumes());
 
-            Text gfx = UIFactory.Label("GfxLabel", p, "Graphics", 40, new Color(0.25f, 0.3f, 0.5f), TextAnchor.MiddleLeft);
-            gfx.GetComponent<Outline>().enabled = false;
-            UIFactory.Anchor(gfx.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(80f, -500f), new Vector2(300f, 60f));
+            SectionLabel(p, "Graphics", -610f);
             RectTransform qrow = UIFactory.Row("Quality", p, 20f, TextAnchor.MiddleLeft);
-            UIFactory.Anchor(qrow, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(380f, -500f), new Vector2(640f, 110f));
+            UIFactory.Anchor(qrow, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(380f, -610f), new Vector2(640f, 100f));
             string[] names = { "Low", "Medium", "High" };
             for (int i = 0; i < 3; i++)
             {
-                RectTransform box = UIFactory.Rect("Q" + i, qrow);
-                box.sizeDelta = new Vector2(190f, 90f);
-                Image bg = UIFactory.Image("Bg", box, UIFactory.Rounded, new Color32(214, 230, 255, 255), true);
-                UIFactory.Stretch(bg.rectTransform);
-                Text t = UIFactory.Label("Text", box, names[i], 36, new Color(0.2f, 0.25f, 0.45f));
-                t.GetComponent<Outline>().enabled = false;
-                UIFactory.Stretch(t.rectTransform);
-                Image ring = UIFactory.Image("Ring", box, UIFactory.Rounded, new Color(1f, 0.8f, 0.2f, 0.6f));
-                UIFactory.Stretch(ring.rectTransform);
-                ring.rectTransform.offsetMin = new Vector2(-8f, -8f);
-                ring.rectTransform.offsetMax = new Vector2(8f, 8f);
-                ring.transform.SetAsFirstSibling();
-                ToyButton b = box.gameObject.AddComponent<ToyButton>();
-                b.background = bg;
-                b.ring = ring;
                 int q = i;
-                b.Clicked += () => { game.performance.Apply((QualityPreset)q); game.save.Settings.quality = q; game.save.SaveSettings(); RefreshQuality(); };
-                qualityButtons.Add(b);
+                qualityButtons.Add(TextToggle(qrow, names[i], () => { game.performance.Apply((QualityPreset)q); game.save.Settings.quality = q; game.save.SaveSettings(); RefreshQuality(); }));
             }
 
-            Text fps = UIFactory.Label("Fps", p, "", 28, new Color(0.4f, 0.45f, 0.6f), TextAnchor.MiddleLeft);
+            SectionLabel(p, "Language", -715f);
+            RectTransform lrow = UIFactory.Row("Language", p, 20f, TextAnchor.MiddleLeft);
+            UIFactory.Anchor(lrow, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(380f, -715f), new Vector2(640f, 100f));
+            string[] langs = { "auto", "en", "th" };
+            string[] langNames = { "Auto", "English", "ไทย" };
+            for (int i = 0; i < langs.Length; i++)
+            {
+                string l = langs[i];
+                ToyButton b = TextToggle(lrow, langNames[i], () =>
+                {
+                    game.save.Settings.language = l;
+                    Localization.Set(l);
+                    game.save.SaveSettings();
+                    RefreshLanguage();
+                    narrator.Say("choo_choo");
+                });
+                languageButtons.Add((b, l));
+            }
+
+            // Replay the first-play tour.
+            RectTransform howBox = UIFactory.Rect("ShowMeHow", p);
+            UIFactory.Anchor(howBox, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(80f, 70f), new Vector2(330f, 100f));
+            ToyButton how = TextToggle(howBox, "Show me how", () => { ShowSettings(false); game.SetMode(GameMode.Menu); guide.StartTutorial(); });
+            ((RectTransform)how.transform).sizeDelta = new Vector2(330f, 100f);
+
+            Text fps = UIFactory.Label("Fps", p, "", 26, new Color(0.4f, 0.45f, 0.6f), TextAnchor.MiddleLeft);
             fps.GetComponent<Outline>().enabled = false;
-            UIFactory.Anchor(fps.rectTransform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(80f, 60f), new Vector2(700f, 50f));
+            UIFactory.Anchor(fps.rectTransform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(80f, 14f), new Vector2(700f, 44f));
             fps.gameObject.AddComponent<FpsLabel>();
 
             ToyButton newWorld = UIFactory.Button("NewWorld", p, Icon("new_world"), UIFactory.Yellow, 130f);
@@ -452,6 +498,41 @@ namespace TinyTracks.UI
             settingsRoot.gameObject.SetActive(false);
         }
 
+        private void SectionLabel(RectTransform p, string text, float y)
+        {
+            Text t = UIFactory.Label(text + "Label", p, text, 40, new Color(0.25f, 0.3f, 0.5f), TextAnchor.MiddleLeft);
+            t.GetComponent<Outline>().enabled = false;
+            UIFactory.Anchor(t.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(80f, y - 20f), new Vector2(300f, 60f));
+        }
+
+        /// <summary>A rounded text button for the grown-ups' panel (selectable).</summary>
+        private ToyButton TextToggle(RectTransform parent, string label, System.Action act)
+        {
+            RectTransform box = UIFactory.Rect("Opt_" + label, parent);
+            box.sizeDelta = new Vector2(190f, 90f);
+            Image bg = UIFactory.Image("Bg", box, UIFactory.Rounded, new Color32(214, 230, 255, 255), true);
+            UIFactory.Stretch(bg.rectTransform);
+            Text t = UIFactory.Label("Text", box, label, 36, new Color(0.2f, 0.25f, 0.45f));
+            t.GetComponent<Outline>().enabled = false;
+            if (content.captionFont != null) t.font = content.captionFont;
+            UIFactory.Stretch(t.rectTransform);
+            Image ring = UIFactory.Image("Ring", box, UIFactory.Rounded, new Color(1f, 0.8f, 0.2f, 0.6f));
+            UIFactory.Stretch(ring.rectTransform);
+            ring.rectTransform.offsetMin = new Vector2(-8f, -8f);
+            ring.rectTransform.offsetMax = new Vector2(8f, 8f);
+            ring.transform.SetAsFirstSibling();
+            ToyButton b = box.gameObject.AddComponent<ToyButton>();
+            b.background = bg;
+            b.ring = ring;
+            b.Clicked += act;
+            return b;
+        }
+
+        private void RefreshLanguage()
+        {
+            foreach (var (b, l) in languageButtons) b.Selected = l == (game.save.Settings.language ?? "auto");
+        }
+
         private void SettingsSaveRow(RectTransform p, string label, float y, Sprite icon, out Slider slider)
         {
             Image ic = UIFactory.Image(label + "Icon", p, icon, Color.white);
@@ -464,14 +545,18 @@ namespace TinyTracks.UI
             UIFactory.Anchor((RectTransform)slider.transform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(480f, y - 10f), new Vector2(520f, 70f));
         }
 
-        private void ShowSettings(bool on)
+        public void ShowSettings(bool on)
         {
             settingsRoot.gameObject.SetActive(on);
+            settingsRoot.SetAsLastSibling();
+            if (on) narrator?.Quiet();
             if (!on) { game.save.SaveSettings(); return; }
             musicSlider.SetValueWithoutNotify(game.audioManager.MusicVolume);
             sfxSlider.SetValueWithoutNotify(game.audioManager.SfxVolume);
             ambientSlider.SetValueWithoutNotify(game.audioManager.AmbientVolume);
+            voiceSlider.SetValueWithoutNotify(game.audioManager.VoiceVolume);
             RefreshQuality();
+            RefreshLanguage();
         }
 
         private void ApplyVolumes()
@@ -480,48 +565,13 @@ namespace TinyTracks.UI
             game.save.Settings.music = musicSlider.value;
             game.save.Settings.sfx = sfxSlider.value;
             game.save.Settings.ambient = ambientSlider.value;
+            game.audioManager.SetVoiceVolume(voiceSlider.value);
+            game.save.Settings.voice = voiceSlider.value;
         }
 
         private void RefreshQuality()
         {
             for (int i = 0; i < qualityButtons.Count; i++) qualityButtons[i].Selected = (int)game.performance.Current == i;
-        }
-
-        // ------------------------------------------------------------------------------------------------ hint hand
-        private void BuildHint()
-        {
-            Image hand = UIFactory.Image("HintHand", canvas.transform, Icon("hand"), Color.white);
-            hand.preserveAspect = true;
-            hint = hand.rectTransform;
-            hint.sizeDelta = new Vector2(150f, 150f);
-            hint.pivot = new Vector2(0.3f, 1f);
-            hint.gameObject.SetActive(false);
-        }
-
-        private void UpdateHint()
-        {
-            RectTransform target = null;
-            if (game.IdleTime > 6f)
-            {
-                switch (game.Mode)
-                {
-                    case GameMode.Menu: target = (RectTransform)playBtn.transform; break;
-                    case GameMode.Build:
-                        if (game.placement.HasGhost) target = confirmBtn.gameObject.activeInHierarchy ? (RectTransform)confirmBtn.transform : null;
-                        else if (trackCats.Count > 0) target = (RectTransform)(openTrackCat != null && trackButtons.Count > 0 ? trackButtons[0].button.transform : trackCats[0].button.transform);
-                        break;
-                    case GameMode.Train:
-                        if (game.trains.Current == null || !game.trains.Current.Running) target = (RectTransform)goBtn.transform;
-                        break;
-                }
-            }
-            hintTarget = target;
-            hint.gameObject.SetActive(target != null);
-            if (target == null) return;
-            Vector3 p = target.position;
-            float bob = Mathf.Sin(Time.unscaledTime * 5f) * 18f * canvas.scaleFactor;
-            hint.position = p + new Vector3(30f, -10f + bob, 0f) * canvas.scaleFactor;
-            hint.SetAsLastSibling();
         }
 
         // ------------------------------------------------------------------------------------------------ state
@@ -538,6 +588,17 @@ namespace TinyTracks.UI
             openTrackCat = null;
             openDecoCat = null;
             ClearTray();
+            // Conductor (help) button: bottom-left on the menu beside New World, top-left next to the camera buttons in play.
+            if (helpBtn != null)
+            {
+                var hr = (RectTransform)helpBtn.transform;
+                if (m == GameMode.Menu) UIFactory.Anchor(hr, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(230f, 70f), new Vector2(120f, 120f));
+                else UIFactory.Anchor(hr, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(m == GameMode.Build ? 460f : 330f, -45f), new Vector2(110f, 110f));
+                helpBtn.transform.SetSiblingIndex(settingsRoot.GetSiblingIndex());
+            }
+            // Menu: centred under the title. Play: between the top-left buttons and the mode tabs.
+            if (m == GameMode.Menu) narrator?.SetBubble(new Vector2(0f, -258f), new Vector2(1040f, 116f));
+            else narrator?.SetBubble(new Vector2(m == GameMode.Build ? 175f : 110f, -36f), new Vector2(m == GameMode.Build ? 1000f : 1100f, 128f));
             if (m == GameMode.Build) OpenTrackTray(TrackCategory.Straight);
             if (m == GameMode.Decorate) OpenDecoTray(DecorationCategory.Nature);
             RefreshLocoSelection();
@@ -585,7 +646,6 @@ namespace TinyTracks.UI
                 int lvl = t != null ? t.SpeedLevel : 1;
                 for (int i = 0; i < speedDots.Length; i++) speedDots[i].color = i <= lvl ? UIFactory.Green : new Color(1f, 1f, 1f, 0.6f);
             }
-            UpdateHint();
         }
     }
 

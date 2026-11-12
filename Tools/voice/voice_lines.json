@@ -1,0 +1,31 @@
+{
+  "note": "Single source for the narrator: on-screen caption and voice clip per key, English + Thai. Edit, then run Tools/voice/generate_voice.sh and Tools/setup.sh.",
+  "languages": ["en", "th"],
+  "voices": { "en": "kokoro:af_heart", "th": "vachana:th_f_2" },
+  "speed": { "en": 0.88, "th": 0.9 },
+  "lines": [
+    { "key": "welcome",       "en": "Welcome to Tiny Tracks World! Tap the big green button to play.", "th": "ยินดีต้อนรับสู่เมืองรถไฟจิ๋ว! แตะปุ่มสีเขียวใหญ่เพื่อเริ่มเล่นเลย" },
+    { "key": "press_go",      "en": "Press the green button to make the train go!",  "th": "กดปุ่มสีเขียวให้รถไฟวิ่งเลย!" },
+    { "key": "tap_train",     "en": "Toot toot! Tap the train to blow the whistle.", "th": "ปู๊น ปู๊น! แตะที่รถไฟเพื่อเป่านกหวีด" },
+    { "key": "go_faster",     "en": "Tap this button to go faster!",                 "th": "แตะปุ่มนี้ให้รถไฟวิ่งเร็วขึ้น!" },
+    { "key": "open_build",    "en": "Let's build more track! Tap the orange button.", "th": "มาสร้างรางรถไฟกันเถอะ! แตะปุ่มสีส้ม" },
+    { "key": "pick_track",    "en": "Pick a track piece.",                           "th": "เลือกรางมาหนึ่งชิ้น" },
+    { "key": "place_track",   "en": "Tap the green track to put it down!",           "th": "แตะรางสีเขียวเพื่อวางลงไปเลย!" },
+    { "key": "more_track",    "en": "Great! Keep tapping to make the track longer.", "th": "เก่งมาก! แตะต่อไปเรื่อยๆ ให้รางยาวขึ้นนะ" },
+    { "key": "open_decorate", "en": "Now let's make it pretty! Tap the green flower button.", "th": "มาตกแต่งให้สวยกันเถอะ! แตะปุ่มดอกไม้สีเขียว" },
+    { "key": "pick_decor",    "en": "Pick a tree, a flower or an animal.",           "th": "เลือกต้นไม้ ดอกไม้ หรือสัตว์มาหนึ่งอย่าง" },
+    { "key": "place_decor",   "en": "Tap it to put it down!",                        "th": "แตะเพื่อวางลงไปเลย!" },
+    { "key": "open_train",    "en": "Tap the blue button to drive the train again!", "th": "แตะปุ่มสีฟ้าเพื่อขับรถไฟอีกครั้ง!" },
+    { "key": "well_done",     "en": "Hooray! You did it! Now you can build anything you like.", "th": "ไชโย! หนูทำได้แล้ว! ทีนี้สร้างอะไรก็ได้ตามใจชอบเลย" },
+    { "key": "hint_build",    "en": "Pick a track piece, then tap the green track to put it down.", "th": "เลือกราง แล้วแตะรางสีเขียวเพื่อวางลงไปนะ" },
+    { "key": "hint_decorate", "en": "Pick something you like, then tap it to put it down.", "th": "เลือกของที่ชอบ แล้วแตะเพื่อวางลงไปนะ" },
+    { "key": "hint_explore",  "en": "Tap the animals and houses to say hello!",      "th": "แตะสัตว์และบ้านเพื่อทักทายกันเลย!" },
+    { "key": "hint_delete",   "en": "Tap a track to take it away.",                  "th": "แตะที่รางเพื่อเอาออกนะ" },
+    { "key": "no_train",      "en": "Tap the track to put a train on it.",           "th": "แตะที่รางเพื่อวางรถไฟนะ" },
+    { "key": "end_of_track",  "en": "Oh no! The end of the track! Press go to turn around.", "th": "อุ๊ย สุดทางแล้ว! กดปุ่มสีเขียวเพื่อกลับรถนะ" },
+    { "key": "loop_done",     "en": "Hooray! The track goes all the way round!",     "th": "ไชโย! รางต่อกันครบวงแล้ว!" },
+    { "key": "all_aboard",    "en": "All aboard!",                                   "th": "ขึ้นรถไฟได้แล้วจ้า!" },
+    { "key": "doesnt_fit",    "en": "Oops, that doesn't fit. Try another way!",      "th": "อุ๊ย วางตรงนี้ไม่ได้ ลองแบบอื่นดูนะ!" },
+    { "key": "choo_choo",     "en": "Choo choo! Here comes the train!",              "th": "ปู๊น ปู๊น! รถไฟมาแล้ว!" }
+  ]
+}

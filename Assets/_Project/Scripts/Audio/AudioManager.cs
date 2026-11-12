@@ -18,7 +18,8 @@ namespace TinyTracks.Audio
         public int poolSize = 10;
         public float sameClipCooldown = 0.12f;
 
-        private AudioSource music, ambient;
+        private AudioSource music, ambient, voice;
+        private float duck = 1f;
         private readonly List<AudioSource> pool = new List<AudioSource>();
         private readonly Dictionary<AudioClip, float> lastPlayed = new Dictionary<AudioClip, float>();
         private int next;
@@ -26,6 +27,9 @@ namespace TinyTracks.Audio
         public float MusicVolume { get; private set; } = 0.45f;
         public float SfxVolume { get; private set; } = 0.8f;
         public float AmbientVolume { get; private set; } = 0.5f;
+        public float VoiceVolume { get; private set; } = 1f;
+        /// <summary>True while the narrator is talking.</summary>
+        public bool VoicePlaying => voice != null && voice.isPlaying;
 
         private void Awake()
         {
@@ -38,6 +42,9 @@ namespace TinyTracks.Audio
             ambient.loop = true;
             ambient.playOnAwake = false;
             ambient.priority = 10;
+            voice = gameObject.AddComponent<AudioSource>();
+            voice.playOnAwake = false;
+            voice.priority = 1;
             for (int i = 0; i < poolSize; i++)
             {
                 AudioSource s = gameObject.AddComponent<AudioSource>();
@@ -57,8 +64,41 @@ namespace TinyTracks.Audio
             MusicVolume = Mathf.Clamp01(musicV);
             SfxVolume = Mathf.Clamp01(sfxV);
             AmbientVolume = Mathf.Clamp01(ambientV);
-            music.volume = MusicVolume * 0.6f;
-            ambient.volume = AmbientVolume * 0.7f;
+            ApplyBackgroundVolumes();
+        }
+
+        public void SetVoiceVolume(float v)
+        {
+            VoiceVolume = Mathf.Clamp01(v);
+            voice.volume = VoiceVolume;
+        }
+
+        private void ApplyBackgroundVolumes()
+        {
+            music.volume = MusicVolume * 0.6f * duck;
+            ambient.volume = AmbientVolume * 0.7f * Mathf.Lerp(1f, duck, 0.6f);
+        }
+
+        /// <summary>Speaks a narrator clip (replacing any line in progress); music dips while it plays.</summary>
+        public bool PlayVoice(AudioClip clip)
+        {
+            if (clip == null || VoiceVolume <= 0.001f) return false;
+            voice.Stop();
+            voice.clip = clip;
+            voice.volume = VoiceVolume;
+            voice.Play();
+            return true;
+        }
+
+        public void StopVoice() => voice.Stop();
+
+        private void Update()
+        {
+            float target = voice.isPlaying ? 0.4f : 1f;
+            float d = Mathf.MoveTowards(duck, target, Time.unscaledDeltaTime * (target < duck ? 4f : 1.5f));
+            if (Mathf.Abs(d - duck) < 0.0001f) return;
+            duck = d;
+            ApplyBackgroundVolumes();
         }
 
         public void StartBackground()
@@ -113,7 +153,7 @@ namespace TinyTracks.Audio
 
         private void OnApplicationPause(bool paused)
         {
-            if (paused) { music.Pause(); ambient.Pause(); }
+            if (paused) { music.Pause(); ambient.Pause(); voice.Stop(); }
             else { music.UnPause(); ambient.UnPause(); }
         }
     }

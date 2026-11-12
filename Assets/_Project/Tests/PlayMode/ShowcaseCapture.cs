@@ -50,10 +50,18 @@ namespace TinyTracks.Tests
         [UnityTest]
         public IEnumerator CaptureAll()
         {
+            TinyTracks.UI.UIManager.AutoStartTutorial = false;
             SceneManager.LoadScene("Assets/_Project/Scenes/Main.unity");
             yield return new WaitForSeconds(1.5f);
             GameManager gm = GameManager.Instance;
+            var ui = Object.FindAnyObjectByType<TinyTracks.UI.UIManager>();
             yield return Shot("01_menu");
+
+            // The narrator: tour start on the menu (bubble + hand on Play).
+            ui.Guide.StartTutorial();
+            yield return new WaitForSecondsRealtime(1.85f);
+            yield return Shot("10_guide_menu");
+            ui.Guide.StopTutorial(false);
 
             gm.Play();
             gm.TrainGo();
@@ -76,6 +84,15 @@ namespace TinyTracks.Tests
             gm.placement.Select(TrackType.GentleRight);
             yield return new WaitForSeconds(1f);
             yield return Shot("05_build_ghost");
+            ui.Guide.Help();
+            yield return new WaitForSecondsRealtime(0.45f);
+            yield return Shot("11_guide_build");
+            Localization.Set("th");
+            ui.Guide.Help();
+            yield return new WaitForSecondsRealtime(0.45f);
+            yield return Shot("12_guide_thai");
+            Localization.Set("en");
+            ui.Narrator.Quiet();
             gm.placement.Deselect();
             // A little showcase railway: bridge, tunnel, junction, ramp.
             TrackNode s = gm.network.Place(TrackType.Straight, new TrackPose(new Vector3(-24f, 0f, -16f), 90f));
@@ -105,6 +122,11 @@ namespace TinyTracks.Tests
             gm.cameraController.FocusOn(new Vector3(14f, 0f, 26f), 16f);
             yield return new WaitForSeconds(2f);
             yield return Shot("09_explore_village");
+            ui.ShowSettings(true);
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot("13_settings");
+            ui.ShowSettings(false);
+            TinyTracks.UI.UIManager.AutoStartTutorial = true;
             Assert.Pass();
         }
     }

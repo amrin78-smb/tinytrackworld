@@ -13,6 +13,7 @@ Tools/blender/models/build_{trains,creatures,env}.py ─────────
                                           Assets/_Project/Art/Models/<Group>/<Name>.fbx  (vertex colour "Col" = colour × baked AO)
 Tools/blender/render_thumbs.py ──▶ Art/UI/Thumbs/*.png      Tools/blender/icons/build_icons.py ──▶ Art/UI/Icons/*.png
 Tools/audio/synth_audio.py ──▶ Audio/{SFX,Music,Ambient}/*.wav
+Tools/voice/voice_lines.json ──(generate_voice.sh: Kokoro EN / VachanaTTS TH)──▶ Audio/Voice/{en,th}/<key>.wav
                                                                                                         ▼
 ProjectSetup.cs (Tools/setup.sh): player/Android settings, URP asset, detail texture, materials, prefabs (+colliders,
 Interactable, blob shadows), ScriptableObject definitions (from the *_manifest.json files), ContentLibrary
@@ -49,10 +50,13 @@ Interactable, blob shadows), ScriptableObject definitions (from the *_manifest.j
 | `TrainManager` / `TrainController` / `TrainVehicle` / `TrainEffects` | Consist of a locomotive plus up to 3 carriages. Speed levels 1.6, 2.8 and 4.2 m/s. Brakes before dead ends using v = √(2·a·d), pauses 3 s at stations, closes crossings and reverses on GO at a dead end. Wheels spin and steam engines puff smoke. Engine and rolling loops follow speed. If track under the train is deleted, the train hops off with a puff. |
 | `WorldManager` / `TerrainGenerator` / `AmbientAnimator` | Procedural Sunny Valley terrain and lake, static dressing from `WorldDefinition.props`, clouds, birds, and one update loop for every ambient animation. |
 | `Interactable` | Tap reactions: animal sound, nod and tail swish; tree sway; house squash; windmill spin; station chime; person wave. |
-| `AudioManager` | Music, ambience and pooled SFX with a per-clip cooldown. Separate music, SFX and ambient volumes. |
+| `AudioManager` | Music, ambience, narrator voice and pooled SFX with a per-clip cooldown. Separate music, SFX, ambient and voice volumes; music and ambience duck while the narrator speaks. |
 | `SaveManager` | Versioned JSON (`world.json` plus `world.bak.json`, `settings.json`), atomic writes, corruption fallback, debounced autosave and saves on pause or quit. Links are reconstructed from type and pose. |
 | `PerformanceManager` | Low, Medium and High presets, auto-detect (32-bit or low RAM selects Low), and an FPS governor. |
-| `UIManager` | The whole UI is built in code with picture-only buttons (`ToyButton`), hold-to-confirm for risky actions, and a hint hand. Text appears only on the grown-ups panel. |
+| `UIManager` | The whole UI is built in code with picture-only buttons (`ToyButton`) and hold-to-confirm for risky actions. Text appears only in the grown-ups' panel and the narrator caption. Implements `IGuideTargets` (what the guide can point at). |
+| `Narrator` (UI) | The conductor: speaks a line (`AudioManager.PlayVoice`, which dips the music), shows the caption in a speech bubble (Mitr font, Latin and Thai), and animates a tap or drag hand towards screen targets evaluated every frame (UI elements or world points such as the ghost or the train). |
+| `Guide` (UI) | The first-play tour (13 steps, each with a voice line, target, done-condition and assist) and free-play guidance: a tip on first entering each mode, idle tips, event reactions with cooldowns, and the help button. Anti-stuck rules: a step already done counts at once, wandering off to another mode is led back, hints repeat every 9 s while idle, and after 3 hints the guide performs the step (twice-failed assists skip it). |
+| `Localization` (Core) | The active narrator language (`auto` follows the device: Thai or English). Lines come from `Tools/voice/voice_lines.json` via `ContentLibrary.voice`. |
 
 ## Data (ScriptableObjects)
 

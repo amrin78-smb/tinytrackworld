@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.2.0: the conductor explains how to play (2026-11-12)
+
+### Added
+- Narrator ("the conductor"): 23 spoken lines in English and Thai (generated offline with Kokoro TTS and VachanaTTS,
+  checked by transcribing them back with Whisper), a caption bubble (Mitr font, SIL OFL) and an animated tap/drag hand.
+- First-play guided tour: drive, whistle, go faster, build, decorate, back to the train. Hints repeat when idle and
+  the conductor does the step after three hints, so the tour can never get stuck. It can be replayed from the
+  grown-ups' panel ("Show me how").
+- Free-play guidance: a spoken tip on first entering each mode and when the child seems stuck, the conductor button
+  for help at any time, and spoken reactions (end of track, loop finished, station stop, "doesn't fit", new train).
+- Grown-ups' panel: voice volume and language (Auto, English, ไทย). Music dips while the conductor speaks.
+- Narrator icon. Release APKs for ARMv7-only and ARM64-only alongside the universal APK.
+
+### Changed
+- Tunnel piece remodelled: a smooth rounded hill with stone-block portals, bushes, rocks and flowers.
+- Piece trays now sit just above the toolbar and are only as wide as their buttons (previously they could cover the
+  mode tabs).
+- Decorations can no longer be placed inside the station, depot or crossing buildings.
+
+### Fixed
+- The release APK requested the INTERNET permission (Unity adds it to its generated manifest); a build step now
+  removes it and the APK check verifies it.
+
 ## 0.1.0: first playable (2026-11-12)
 
 ### Added

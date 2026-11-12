@@ -1,8 +1,0 @@
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/CMakeFiles/edit_cache.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/CMakeFiles/rebuild_cache.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/GameActivity/CMakeFiles/game.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/GameActivity/CMakeFiles/edit_cache.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/GameActivity/CMakeFiles/rebuild_cache.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
-/home/amrin/development/Nocvault/tinytrackworld/.utmp/RelWithDebInfo/2x52725f/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir

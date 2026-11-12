@@ -550,6 +550,49 @@ def ic_hand():
     return [h]
 
 
+def ic_narrator():
+    """Friendly train conductor (head + shoulders, blue cap) with a little speech bubble: 'listen again'."""
+    skin = M("#F6C9A0", rough=0.4, coat=0.15)
+    navy = M("#1E5FAF")
+    blue = M(BLUE)
+    gold = M(GOLD, metal=0.6, rough=0.22)
+    white = M(WHITE, rough=0.3)
+    # shoulders / jacket
+    body = sp("body", 1.0, (0, 0.15, -1.22), navy, scale=(1.08, 0.7, 0.55))
+    collar = [sp("collar%d" % i, 0.26, (s * 0.2, -0.42, -0.74), white, scale=(1.0, 0.45, 0.65),
+                 rot=(0, R(s * 35), 0)) for i, s in enumerate((-1, 1))]
+    buttons = [sp("btn%d" % i, 0.075, (0, -0.52, z), gold, scale=(1, 0.6, 1)) for i, z in enumerate((-1.0, -1.25))]
+    # head
+    head = sp("head", 0.74, (0, 0, 0.0), skin, scale=(1.0, 0.9, 0.95))
+    ears = [sp("ear%d" % i, 0.17, (s * 0.73, 0.04, -0.02), skin, scale=(0.6, 0.8, 1.0)) for i, s in enumerate((-1, 1))]
+    hair = [sp("hair%d" % i, 0.22, (s * 0.6, 0.1, 0.34), M("#7A4E2D", rough=0.5), scale=(0.8, 1.0, 0.9))
+            for i, s in enumerate((-1, 1))]
+    eyes = eye((-0.25, -0.6, 0.08), 0.14) + eye((0.25, -0.6, 0.08), 0.14)
+    nose = sp("nose", 0.09, (0, -0.68, -0.06), M("#F2A97E", rough=0.4), scale=(1.1, 0.8, 0.9))
+    cheeks = [sp("ck%d" % i, 0.11, (s * 0.44, -0.53, -0.16), M("#FF9AA8"), scale=(1, 0.4, 0.7)) for i, s in
+              enumerate((-1, 1))]
+    smile_pts = L.band_poly(L.arc_pts(0, 0, 0.24, 200, 340, 16), 0.08)
+    smile = slab("smile", L.round_poly(smile_pts, 0.03, 3), 0.12, M("#C42F3A", rough=0.35), bevel=0.03,
+                 loc=(0, -0.6, -0.1))
+    # conductor cap: crown, band, visor, badge
+    tilt = (R(-8), 0, 0)
+    crown = cy("crown", 0.66, 0.42, (0, 0.04, 0.72), blue, bevel=0.08, r_top=0.74)
+    band = cy("band", 0.69, 0.14, (0, 0.03, 0.56), navy, bevel=0.04)
+    for o in (crown, band):
+        o.rotation_euler = tilt
+    visor = sp("visor", 0.52, (0, -0.52, 0.5), M(CHAR, rough=0.3), scale=(1.05, 0.62, 0.15), rot=(R(-12), 0, 0))
+    badge = sp("badge", 0.14, (0, -0.66, 0.74), gold, scale=(1, 0.4, 1))
+    # speech bubble (top right) with three dots
+    bub_prof = [(x * 1.25, z) for x, z in L.circle_pts(0.5, 32)]
+    bx, bz = 1.15, 1.05
+    bubble = slab("bubble", bub_prof, 0.26, white, bevel=0.09, loc=(bx, -0.15, bz))
+    tail = slab("tail", L.round_poly([(-0.3, 0.12), (0.05, 0.1), (-0.45, -0.34)], 0.05, 3), 0.2, white,
+                bevel=0.06, loc=(bx, -0.15, bz - 0.33))
+    dots = [sp("dot%d" % i, 0.1, (bx + dx, -0.3, bz), M(BLUE), scale=(1, 0.6, 1)) for i, dx in
+            enumerate((-0.27, 0.0, 0.27))]
+    return ([body, head, nose, smile, crown, band, visor, badge, bubble, tail] + collar + buttons + ears + hair
+            + eyes + cheeks + dots)
+
 ICONS = {
     "go": (ic_go, dict(yaw=-18, pitch=12)),
     "stop": (ic_stop, dict(yaw=-15, pitch=10)),
@@ -582,6 +625,7 @@ ICONS = {
     "hand": (ic_hand, dict(yaw=-15, pitch=10)),
     "plus": (ic_plus, dict(yaw=-15, pitch=12)),
     "minus": (ic_minus, dict(yaw=-15, pitch=12)),
+    "narrator": (ic_narrator, dict(yaw=-15, pitch=8)),
 }
 
 

@@ -3,14 +3,15 @@
 *Build it. Connect it. Ride it. Explore it.* A toddler-friendly (ages 2–5) 3D toy-railway sandbox for Android,
 built with Unity 6. Children snap wooden track pieces together, pick a friendly locomotive and carriages, press GO,
 and watch it travel through the Sunny Valley countryside. There are no fail states, timers, ads, accounts, network
-access or reading.
+access or reading. A friendly conductor explains everything out loud (English or Thai), and a hand shows where to
+tap.
 
 | | |
 |---|---|
 | Engine | Unity **6000.3.27f2**, URP 17.3, Input System, uGUI |
 | Platform | Android, landscape, offline; **ARMv7 (32-bit) + ARM64**, IL2CPP, OpenGL ES 3.0 (Vulkan not used) |
 | Target | Xiaomi Redmi A3 (32-bit Android, PowerVR GE8320); Low preset at 30 FPS |
-| Art | Original models scripted in **Blender 5.2** (`Tools/blender`), audio synthesised offline (`Tools/audio`) |
+| Art | Original models scripted in **Blender 5.2** (`Tools/blender`), audio synthesised offline (`Tools/audio`), narrator voice generated offline with Kokoro TTS (English) and VachanaTTS (Thai) (`Tools/voice`) |
 
 ## Quick start
 
@@ -33,12 +34,22 @@ blender -b --factory-startup --python Tools/blender/models/build_env.py         
 blender -b --factory-startup --python Tools/blender/icons/build_icons.py        # 31 UI icons
 blender -b --factory-startup --python Tools/blender/render_thumbs.py            # toolbar thumbnails
 ~/.local/opt/blender-5.2.3-linux-x64/5.2/python/bin/python3.13 Tools/audio/synth_audio.py   # all sounds + music
+Tools/voice/generate_voice.sh [key...]   # narrator clips from Tools/voice/voice_lines.json (EN + TH), then Tools/setup.sh
 ```
 
 ## How to play (grown-ups' guide)
 
+* **The conductor (narrator):** on the first play a short guided tour runs: drive the train, whistle, go faster, lay a
+  piece of track, place a decoration, and back to the train. Each step is spoken, captioned and shown by an animated
+  hand. If the child does nothing, the hint repeats every 9 s and after three hints the conductor does the step for
+  them, so the tour can never get stuck. Afterwards the conductor gives a short spoken tip when a mode is first
+  opened, again if the child seems stuck, and reacts to events (end of the track, a finished loop, a station stop, a
+  piece that doesn't fit). Tap the **conductor button** at any time to hear what to do, or tap the caption to repeat
+  it. In the grown-ups' panel you can set the voice volume and language (Auto, English or ไทย) and replay the tour
+  ("Show me how").
+
 * **Home screen:** the big green ▶ plays. Tap a locomotive below to choose it. Hold the sprout for 1.5 s to start a
-  new world. Hold the gear for 2 s to open the grown-ups' settings (volumes, graphics, frame rate).
+  new world. Hold the gear for 2 s to open the grown-ups' settings (volumes, voice, language, graphics, replay tour).
 * **Build (hammer):** pick a piece and a see-through ghost appears at the end of the railway (green means it fits,
   red means it doesn't). Tap the ghost, or the same piece button again, to lay it; keep tapping to grow the line.
   Drag the ghost anywhere and it snaps to nearby ends; let go to place it. Rotate swaps left/right. Long-press a

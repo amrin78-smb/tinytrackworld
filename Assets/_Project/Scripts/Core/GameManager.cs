@@ -40,6 +40,8 @@ namespace TinyTracks.Core
         public GameMode Mode { get; private set; } = GameMode.Menu;
         public CommandStack Commands { get; } = new CommandStack();
         public event Action<GameMode> ModeChanged;
+        /// <summary>The train whistled (button or a tap on the train).</summary>
+        public event Action Whistled;
 
         /// <summary>Seconds since the child last touched anything (drives the gentle hint hand).</summary>
         public float IdleTime => Time.unscaledTime - lastInput;
@@ -68,6 +70,8 @@ namespace TinyTracks.Core
 
             SettingsSave s = save.Settings;
             audioManager.SetVolumes(s.music, s.sfx, s.ambient);
+            audioManager.SetVoiceVolume(s.voice);
+            Localization.Set(s.language);
             performance.Apply(s.quality >= 0 ? (QualityPreset)s.quality : PerformanceManager.AutoDetect());
             audioManager.StartBackground();
             LoadOrCreateWorld();
@@ -182,7 +186,11 @@ namespace TinyTracks.Core
         }
 
         public void TrainStop() => trains.Current?.Stop();
-        public void Whistle() { if (trains.Current != null) trains.Current.Whistle(); else AudioManager.Sfx(AudioManager.Clips?.whistle); }
+        public void Whistle()
+        {
+            if (trains.Current != null) trains.Current.Whistle(); else AudioManager.Sfx(AudioManager.Clips?.whistle);
+            Whistled?.Invoke();
+        }
         public void Bell() { if (trains.Current != null) trains.Current.Bell(); else AudioManager.Sfx(AudioManager.Clips?.bell); }
 
         public void ChangeSpeed(int delta)
@@ -207,7 +215,7 @@ namespace TinyTracks.Core
             Ray ray = cam.ScreenPointToRay(screen);
 
             // The train always answers a tap with a whistle.
-            if (trains.HitsTrain(ray)) { trains.Current.Whistle(); return; }
+            if (trains.HitsTrain(ray)) { trains.Current.Whistle(); Whistled?.Invoke(); return; }
 
             if (Mode == GameMode.Build && placement.HandleTap(screen)) return;
             if (Mode == GameMode.Decorate && decoPlacement.HandleTap(screen)) return;

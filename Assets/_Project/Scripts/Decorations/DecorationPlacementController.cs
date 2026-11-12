@@ -29,6 +29,10 @@ namespace TinyTracks.Decorations
         public bool DeleteMode { get; private set; }
         public string Selected { get; private set; }
         public event Action StateChanged;
+        public event Action Rejected;
+        /// <summary>Where the ghost item stands (for the hint hand).</summary>
+        public Vector3 GhostPosition => ghostPos;
+        public bool HasGhost => ghost != null;
 
         private GhostView ghost;
         private Vector3 ghostPos;
@@ -100,6 +104,7 @@ namespace TinyTracks.Decorations
             {
                 AudioManager.Sfx(AudioManager.Clips?.invalid);
                 Juice.Wobble(ghost.Root.transform, 8f, 0.35f);
+                Rejected?.Invoke();
                 return false;
             }
             Commands.Execute(new AddDecorationCommand(decorations, Selected, ghostPos, yaw));
@@ -125,6 +130,8 @@ namespace TinyTracks.Decorations
             return near;
         }
 
+        private static readonly Collider[] overlapBuffer = new Collider[16];
+
         public bool IsValid(Vector3 p, DecorationDefinition def)
         {
             float r = def != null ? def.footprintRadius : 0.6f;
@@ -134,6 +141,13 @@ namespace TinyTracks.Decorations
             {
                 Vector3 w = n.WorldPoint(path, s);
                 if (w.y < 1.2f) return false;
+            }
+            // Not inside a track building (station, depot, crossing barriers): they have colliders under the piece view.
+            int hits = Physics.OverlapSphereNonAlloc(new Vector3(p.x, 0.6f, p.z), Mathf.Max(0.3f, r * 0.7f), overlapBuffer);
+            for (int i = 0; i < hits; i++)
+            {
+                Collider c = overlapBuffer[i];
+                if (c != null && c.bounds.min.y < 1.2f && c.GetComponentInParent<TrackPieceView>() != null) return false;
             }
             PlacedDecoration other = decorations.At(p, -0.1f);
             if (other != null && (moveItem == null || other.id != moveItem.id))

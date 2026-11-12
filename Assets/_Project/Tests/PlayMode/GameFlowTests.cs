@@ -22,6 +22,7 @@ namespace TinyTracks.Tests
             savedWorld = System.IO.File.Exists(SaveManager.WorldPath) ? System.IO.File.ReadAllText(SaveManager.WorldPath) : null;
             if (savedWorld != null) System.IO.File.Delete(SaveManager.WorldPath);
             if (System.IO.File.Exists(SaveManager.BackupPath)) System.IO.File.Delete(SaveManager.BackupPath);
+            TinyTracks.UI.UIManager.AutoStartTutorial = false;
             SceneManager.LoadScene("Assets/_Project/Scenes/Main.unity");
             yield return null;
             yield return null;
@@ -30,7 +31,11 @@ namespace TinyTracks.Tests
         [UnityTearDown]
         public IEnumerator Restore()
         {
+            // Put the tester's own world back (or remove the one the test made).
+            if (SaveManager.Instance != null) SaveManager.Instance.enabled = false;
             if (savedWorld != null) System.IO.File.WriteAllText(SaveManager.WorldPath, savedWorld);
+            else if (System.IO.File.Exists(SaveManager.WorldPath)) System.IO.File.Delete(SaveManager.WorldPath);
+            if (System.IO.File.Exists(SaveManager.BackupPath)) System.IO.File.Delete(SaveManager.BackupPath);
             yield return null;
         }
 

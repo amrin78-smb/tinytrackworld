@@ -40,6 +40,12 @@ namespace TinyTracks.Building
         /// <summary>Raised after a piece is placed: (node, connectedCount, closedLoop).</summary>
         public event Action<TrackNode, int, bool> Placed;
         public event Action StateChanged;
+        /// <summary>Raised when the child tries to place a piece that does not fit.</summary>
+        public event Action Rejected;
+
+        /// <summary>World centre of the ghost piece (for the hint hand).</summary>
+        public Vector3 GhostCenter => ghost != null && Selected.HasValue
+            ? current.pose.TransformPoint(TrackShapeLibrary.Get(Selected.Value).localCenter) : Vector3.zero;
 
         private GhostView ghost;
         private SnapResult current;
@@ -142,6 +148,7 @@ namespace TinyTracks.Building
             {
                 AudioManager.Sfx(AudioManager.Clips?.invalid);
                 Juice.Wobble(ghost.Root.transform, 8f, 0.35f);
+                Rejected?.Invoke();
                 return false;
             }
             TrackType type = Selected.Value;

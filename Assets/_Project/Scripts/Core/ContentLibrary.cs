@@ -27,6 +27,11 @@ namespace TinyTracks.Core
 
         public List<NamedSprite> icons = new List<NamedSprite>();
 
+        /// <summary>Narrator lines (caption + voice, English and Thai).</summary>
+        public List<VoiceLine> voice = new List<VoiceLine>();
+        /// <summary>Caption font with Latin and Thai glyphs (Mitr, SIL OFL).</summary>
+        public Font captionFont;
+
         [NonSerialized] private Dictionary<TrackType, TrackPieceDefinition> trackLookup;
         [NonSerialized] private Dictionary<string, TrainDefinition> trainLookup;
         [NonSerialized] private Dictionary<string, DecorationDefinition> decoLookup;

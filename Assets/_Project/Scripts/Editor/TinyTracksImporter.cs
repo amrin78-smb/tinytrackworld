@@ -54,7 +54,9 @@ namespace TinyTracks.EditorTools
             ai.forceToMono = !music;
             ai.loadInBackground = music;
             var s = ai.defaultSampleSettings;
-            s.loadType = music ? AudioClipLoadType.Streaming : AudioClipLoadType.DecompressOnLoad;
+            bool voice = assetPath.Contains("/Voice/");
+            // Voice lines are many and long-ish: keep them compressed in memory (a 3 GB phone has little to spare).
+            s.loadType = music ? AudioClipLoadType.Streaming : voice ? AudioClipLoadType.CompressedInMemory : AudioClipLoadType.DecompressOnLoad;
             s.compressionFormat = AudioCompressionFormat.Vorbis;
             s.quality = music ? 0.5f : 0.6f;
             s.sampleRateSetting = AudioSampleRateSetting.OptimizeSampleRate;

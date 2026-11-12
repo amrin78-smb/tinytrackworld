@@ -55,6 +55,8 @@ namespace TinyTracks.SaveSystem
         public float music = 0.45f, sfx = 0.8f, ambient = 0.5f;
         public int quality = -1; // -1 = auto
         public bool tutorialSeen;
+        public float voice = 1f;
+        public string language = "auto"; // "auto" | "en" | "th"
     }
 
     /// <summary>

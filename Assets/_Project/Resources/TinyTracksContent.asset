@@ -129,6 +129,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: c2e61baef50d3cd18af621007c635c00, type: 3}
   - name: music
     sprite: {fileID: 21300000, guid: df8f46166ad962265a5ded1f716b488d, type: 3}
+  - name: narrator
+    sprite: {fileID: 21300000, guid: eb4394cdee8a9db7ea135446da52f8cc, type: 3}
   - name: new_world
     sprite: {fileID: 21300000, guid: aee116e9d2b6cf8caaefa8fc2cdd3423, type: 3}
   - name: play
@@ -157,3 +159,129 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 57362f2c5dfc9ded3a3d9fb44f971300, type: 3}
   - name: whistle
     sprite: {fileID: 21300000, guid: c4b59815fc19e3140823bd4c6bd0eaf4, type: 3}
+  voice:
+  - key: welcome
+    en: Welcome to Tiny Tracks World! Tap the big green button to play.
+    th: "\u0E22\u0E34\u0E19\u0E14\u0E35\u0E15\u0E49\u0E2D\u0E19\u0E23\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E40\u0E21\u0E37\u0E2D\u0E07\u0E23\u0E16\u0E44\u0E1F\u0E08\u0E34\u0E4B\u0E27!
+      \u0E41\u0E15\u0E30\u0E1B\u0E38\u0E48\u0E21\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\u0E43\u0E2B\u0E0D\u0E48\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E40\u0E25\u0E48\u0E19\u0E40\u0E25\u0E22"
+    enClip: {fileID: 8300000, guid: 9b4094ec5c205ce2ca95fe86b127e785, type: 3}
+    thClip: {fileID: 8300000, guid: 40afe4e0d9cb6a9c79fca80b640ada23, type: 3}
+  - key: press_go
+    en: Press the green button to make the train go!
+    th: "\u0E01\u0E14\u0E1B\u0E38\u0E48\u0E21\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\u0E43\u0E2B\u0E49\u0E23\u0E16\u0E44\u0E1F\u0E27\u0E34\u0E48\u0E07\u0E40\u0E25\u0E22!"
+    enClip: {fileID: 8300000, guid: 362b1573f9d269945a6c8b30a0318003, type: 3}
+    thClip: {fileID: 8300000, guid: a654366189b8f166aaec664ac1cf3f42, type: 3}
+  - key: tap_train
+    en: Toot toot! Tap the train to blow the whistle.
+    th: "\u0E1B\u0E39\u0E4A\u0E19 \u0E1B\u0E39\u0E4A\u0E19! \u0E41\u0E15\u0E30\u0E17\u0E35\u0E48\u0E23\u0E16\u0E44\u0E1F\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E48\u0E32\u0E19\u0E01\u0E2B\u0E27\u0E35\u0E14"
+    enClip: {fileID: 8300000, guid: 2cd707a86c34272738a2e37bdefeed7c, type: 3}
+    thClip: {fileID: 8300000, guid: df5a7b82838ae62b1873be02cdc334b9, type: 3}
+  - key: go_faster
+    en: Tap this button to go faster!
+    th: "\u0E41\u0E15\u0E30\u0E1B\u0E38\u0E48\u0E21\u0E19\u0E35\u0E49\u0E43\u0E2B\u0E49\u0E23\u0E16\u0E44\u0E1F\u0E27\u0E34\u0E48\u0E07\u0E40\u0E23\u0E47\u0E27\u0E02\u0E36\u0E49\u0E19!"
+    enClip: {fileID: 8300000, guid: 37f77105ec1f32dbb9f127ecde59b6c8, type: 3}
+    thClip: {fileID: 8300000, guid: b468bc185b89d400d9b8b741633d834a, type: 3}
+  - key: open_build
+    en: Let's build more track! Tap the orange button.
+    th: "\u0E21\u0E32\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E23\u0E32\u0E07\u0E23\u0E16\u0E44\u0E1F\u0E01\u0E31\u0E19\u0E40\u0E16\u0E2D\u0E30!
+      \u0E41\u0E15\u0E30\u0E1B\u0E38\u0E48\u0E21\u0E2A\u0E35\u0E2A\u0E49\u0E21"
+    enClip: {fileID: 8300000, guid: 32eedfe3734bb4d5ba17dd54a4c9aa96, type: 3}
+    thClip: {fileID: 8300000, guid: 088cd98d5426b50718a1be45b0ecee2a, type: 3}
+  - key: pick_track
+    en: Pick a track piece.
+    th: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E23\u0E32\u0E07\u0E21\u0E32\u0E2B\u0E19\u0E36\u0E48\u0E07\u0E0A\u0E34\u0E49\u0E19"
+    enClip: {fileID: 8300000, guid: 183747844113d8231b54122915ea76c0, type: 3}
+    thClip: {fileID: 8300000, guid: e0f4f73109c2c654b8ac773361d052d8, type: 3}
+  - key: place_track
+    en: Tap the green track to put it down!
+    th: "\u0E41\u0E15\u0E30\u0E23\u0E32\u0E07\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E27\u0E32\u0E07\u0E25\u0E07\u0E44\u0E1B\u0E40\u0E25\u0E22!"
+    enClip: {fileID: 8300000, guid: 5c6d9c3d630983abe86f4ddee0623baa, type: 3}
+    thClip: {fileID: 8300000, guid: ac001755ef03b89238aefedb98b79cbc, type: 3}
+  - key: more_track
+    en: Great! Keep tapping to make the track longer.
+    th: "\u0E40\u0E01\u0E48\u0E07\u0E21\u0E32\u0E01! \u0E41\u0E15\u0E30\u0E15\u0E48\u0E2D\u0E44\u0E1B\u0E40\u0E23\u0E37\u0E48\u0E2D\u0E22\u0E46
+      \u0E43\u0E2B\u0E49\u0E23\u0E32\u0E07\u0E22\u0E32\u0E27\u0E02\u0E36\u0E49\u0E19\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: 750db1876713b3d7f9bbefd4c444c7dd, type: 3}
+    thClip: {fileID: 8300000, guid: bbcb30948850c9695b3aa015d8ae2ae3, type: 3}
+  - key: open_decorate
+    en: Now let's make it pretty! Tap the green flower button.
+    th: "\u0E21\u0E32\u0E15\u0E01\u0E41\u0E15\u0E48\u0E07\u0E43\u0E2B\u0E49\u0E2A\u0E27\u0E22\u0E01\u0E31\u0E19\u0E40\u0E16\u0E2D\u0E30!
+      \u0E41\u0E15\u0E30\u0E1B\u0E38\u0E48\u0E21\u0E14\u0E2D\u0E01\u0E44\u0E21\u0E49\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27"
+    enClip: {fileID: 8300000, guid: aabe7f8bf8a1d18be8671e61410f49b2, type: 3}
+    thClip: {fileID: 8300000, guid: e1bc104919ad3ef3eb2f2d3395cf897e, type: 3}
+  - key: pick_decor
+    en: Pick a tree, a flower or an animal.
+    th: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E15\u0E49\u0E19\u0E44\u0E21\u0E49 \u0E14\u0E2D\u0E01\u0E44\u0E21\u0E49
+      \u0E2B\u0E23\u0E37\u0E2D\u0E2A\u0E31\u0E15\u0E27\u0E4C\u0E21\u0E32\u0E2B\u0E19\u0E36\u0E48\u0E07\u0E2D\u0E22\u0E48\u0E32\u0E07"
+    enClip: {fileID: 8300000, guid: d330f8e035051007a8e28716589049e3, type: 3}
+    thClip: {fileID: 8300000, guid: 1c95a1975dc832a45bb2637ce9dd008b, type: 3}
+  - key: place_decor
+    en: Tap it to put it down!
+    th: "\u0E41\u0E15\u0E30\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E27\u0E32\u0E07\u0E25\u0E07\u0E44\u0E1B\u0E40\u0E25\u0E22!"
+    enClip: {fileID: 8300000, guid: 72c3467ee44ba3cb5b26ea427555a851, type: 3}
+    thClip: {fileID: 8300000, guid: 3842bc4662c87e043a73b4dc16ed3a86, type: 3}
+  - key: open_train
+    en: Tap the blue button to drive the train again!
+    th: "\u0E41\u0E15\u0E30\u0E1B\u0E38\u0E48\u0E21\u0E2A\u0E35\u0E1F\u0E49\u0E32\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E02\u0E31\u0E1A\u0E23\u0E16\u0E44\u0E1F\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07!"
+    enClip: {fileID: 8300000, guid: 774e93c2d1a40ac71801ee168b8567de, type: 3}
+    thClip: {fileID: 8300000, guid: f828b5d77e8ed4c5296aea8faa7f4f8d, type: 3}
+  - key: well_done
+    en: Hooray! You did it! Now you can build anything you like.
+    th: "\u0E44\u0E0A\u0E42\u0E22! \u0E2B\u0E19\u0E39\u0E17\u0E33\u0E44\u0E14\u0E49\u0E41\u0E25\u0E49\u0E27!
+      \u0E17\u0E35\u0E19\u0E35\u0E49\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E2D\u0E30\u0E44\u0E23\u0E01\u0E47\u0E44\u0E14\u0E49\u0E15\u0E32\u0E21\u0E43\u0E08\u0E0A\u0E2D\u0E1A\u0E40\u0E25\u0E22"
+    enClip: {fileID: 8300000, guid: 169d49edc5b3148d18d377acef062316, type: 3}
+    thClip: {fileID: 8300000, guid: dc2ea4b4d6df4f7b3bc62e15959521e0, type: 3}
+  - key: hint_build
+    en: Pick a track piece, then tap the green track to put it down.
+    th: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E23\u0E32\u0E07 \u0E41\u0E25\u0E49\u0E27\u0E41\u0E15\u0E30\u0E23\u0E32\u0E07\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E27\u0E32\u0E07\u0E25\u0E07\u0E44\u0E1B\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: 4ff8c67665fa365c6aef3bb90c4d7ab4, type: 3}
+    thClip: {fileID: 8300000, guid: 420ec19728758f51387111dd4fec2dfb, type: 3}
+  - key: hint_decorate
+    en: Pick something you like, then tap it to put it down.
+    th: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E02\u0E2D\u0E07\u0E17\u0E35\u0E48\u0E0A\u0E2D\u0E1A
+      \u0E41\u0E25\u0E49\u0E27\u0E41\u0E15\u0E30\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E27\u0E32\u0E07\u0E25\u0E07\u0E44\u0E1B\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: f61e7b8403ee6709694743494c3b041e, type: 3}
+    thClip: {fileID: 8300000, guid: ae40151250302c6f19bbe33ac2462ba8, type: 3}
+  - key: hint_explore
+    en: Tap the animals and houses to say hello!
+    th: "\u0E41\u0E15\u0E30\u0E2A\u0E31\u0E15\u0E27\u0E4C\u0E41\u0E25\u0E30\u0E1A\u0E49\u0E32\u0E19\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E17\u0E31\u0E01\u0E17\u0E32\u0E22\u0E01\u0E31\u0E19\u0E40\u0E25\u0E22!"
+    enClip: {fileID: 8300000, guid: 2a5e1a8aafe18e6c0b008959f6f3880f, type: 3}
+    thClip: {fileID: 8300000, guid: 56957f3c60e9afb87a73bf3277e0716c, type: 3}
+  - key: hint_delete
+    en: Tap a track to take it away.
+    th: "\u0E41\u0E15\u0E30\u0E17\u0E35\u0E48\u0E23\u0E32\u0E07\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E2D\u0E32\u0E2D\u0E2D\u0E01\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: a1a8b061581eb2132b5ba8604b8f0b2e, type: 3}
+    thClip: {fileID: 8300000, guid: 4c75d632782a155cf8967e39b9ced6a8, type: 3}
+  - key: no_train
+    en: Tap the track to put a train on it.
+    th: "\u0E41\u0E15\u0E30\u0E17\u0E35\u0E48\u0E23\u0E32\u0E07\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E27\u0E32\u0E07\u0E23\u0E16\u0E44\u0E1F\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: cdea34b7340975fd5b8efc764ae9ea85, type: 3}
+    thClip: {fileID: 8300000, guid: 68f601a690796dc1daa87c81a7df8113, type: 3}
+  - key: end_of_track
+    en: Oh no! The end of the track! Press go to turn around.
+    th: "\u0E2D\u0E38\u0E4A\u0E22 \u0E2A\u0E38\u0E14\u0E17\u0E32\u0E07\u0E41\u0E25\u0E49\u0E27!
+      \u0E01\u0E14\u0E1B\u0E38\u0E48\u0E21\u0E2A\u0E35\u0E40\u0E02\u0E35\u0E22\u0E27\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E01\u0E25\u0E31\u0E1A\u0E23\u0E16\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: 8f8381112ed46bf5aab8b7fa07848108, type: 3}
+    thClip: {fileID: 8300000, guid: c5567e4cec979cac091bca17d41c9fe7, type: 3}
+  - key: loop_done
+    en: Hooray! The track goes all the way round!
+    th: "\u0E44\u0E0A\u0E42\u0E22! \u0E23\u0E32\u0E07\u0E15\u0E48\u0E2D\u0E01\u0E31\u0E19\u0E04\u0E23\u0E1A\u0E27\u0E07\u0E41\u0E25\u0E49\u0E27!"
+    enClip: {fileID: 8300000, guid: 92853a759e38a31deb086f488c4a4353, type: 3}
+    thClip: {fileID: 8300000, guid: 1ab525fb3e8e700eb8dbbba1ddc61a46, type: 3}
+  - key: all_aboard
+    en: All aboard!
+    th: "\u0E02\u0E36\u0E49\u0E19\u0E23\u0E16\u0E44\u0E1F\u0E44\u0E14\u0E49\u0E41\u0E25\u0E49\u0E27\u0E08\u0E49\u0E32!"
+    enClip: {fileID: 8300000, guid: de1ba49863c4a7d8082e4244b9627652, type: 3}
+    thClip: {fileID: 8300000, guid: e0d04cff2fa80aac69537a9e8fba8350, type: 3}
+  - key: doesnt_fit
+    en: Oops, that doesn't fit. Try another way!
+    th: "\u0E2D\u0E38\u0E4A\u0E22 \u0E27\u0E32\u0E07\u0E15\u0E23\u0E07\u0E19\u0E35\u0E49\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49
+      \u0E25\u0E2D\u0E07\u0E41\u0E1A\u0E1A\u0E2D\u0E37\u0E48\u0E19\u0E14\u0E39\u0E19\u0E30!"
+    enClip: {fileID: 8300000, guid: a8600a1dea7edd1ae808b3c2f22ed50c, type: 3}
+    thClip: {fileID: 8300000, guid: 1e697158a247185088f44a99c844e7df, type: 3}
+  - key: choo_choo
+    en: Choo choo! Here comes the train!
+    th: "\u0E1B\u0E39\u0E4A\u0E19 \u0E1B\u0E39\u0E4A\u0E19! \u0E23\u0E16\u0E44\u0E1F\u0E21\u0E32\u0E41\u0E25\u0E49\u0E27!"
+    enClip: {fileID: 8300000, guid: 30e3e79f6e6ca36a3800965cb85b629d, type: 3}
+    thClip: {fileID: 8300000, guid: c2a7b4add8c827410920ba4c6561c040, type: 3}
+  captionFont: {fileID: 12800000, guid: eb7f7e064e0708380bdeafe2a7c8d362, type: 3}
