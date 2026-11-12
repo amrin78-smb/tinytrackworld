@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Cow
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Cow
+  displayName: Cow
+  category: 2
+  icon: {fileID: 21300000, guid: f1e2a9dfb9a1383679badc6650e3b1b2, type: 3}
+  prefab: {fileID: 4875715423390947742, guid: e76901a28fd21eb96bc3ea8c873b0c58, type: 3}
+  footprintRadius: 0.6745097
+  height: 1.161772
+  reaction: 1
+  sound: {fileID: 8300000, guid: f723d1355a00b1b05b0538f46f782012, type: 3}
+  placeable: 1
+  lowDetailOptional: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Grass_Tuft
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Grass_Tuft
+  displayName: Grass Tuft
+  category: 0
+  icon: {fileID: 21300000, guid: 00c315e21bc767854846f1d638fa83d3, type: 3}
+  prefab: {fileID: 9188567934093919421, guid: a449b510159ecda1cb82241d1da370f0, type: 3}
+  footprintRadius: 0.25
+  height: 0.3611515
+  reaction: 8
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 1

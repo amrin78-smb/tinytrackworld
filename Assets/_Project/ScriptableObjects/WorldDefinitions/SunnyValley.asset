@@ -1,0 +1,980 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bc56192d34fa5a6862db9e139f1f22, type: 3}
+  m_Name: SunnyValley
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.WorldDefinition
+  id: sunny_valley
+  displayName: Sunny Valley
+  icon: {fileID: 0}
+  buildableHalfSize: {x: 30, y: 22}
+  cameraHalfSize: {x: 34, y: 26}
+  terrainPrefab: {fileID: 0}
+  waterPrefab: {fileID: 0}
+  props:
+  - decorationId: Barn
+    position: {x: -22, y: 0, z: 31}
+    yaw: 165
+    scale: 1
+  - decorationId: Farmhouse
+    position: {x: -9, y: 0, z: 32}
+    yaw: 190
+    scale: 1
+  - decorationId: Well
+    position: {x: -15, y: 0, z: 27}
+    yaw: 200
+    scale: 1
+  - decorationId: HayBale
+    position: {x: -27, y: 0, z: 26}
+    yaw: 30
+    scale: 1
+  - decorationId: HayBale
+    position: {x: -25.5, y: 0, z: 25.3}
+    yaw: 70
+    scale: 1
+  - decorationId: HayBale
+    position: {x: -29, y: 0, z: 28}
+    yaw: 10
+    scale: 1
+  - decorationId: Fence
+    position: {x: -44, y: 0, z: 23.5}
+    yaw: 0
+    scale: 1
+  - decorationId: Fence
+    position: {x: -42, y: 0, z: 23.5}
+    yaw: 0
+    scale: 1
+  - decorationId: Fence
+    position: {x: -40, y: 0, z: 23.5}
+    yaw: 0
+    scale: 1
+  - decorationId: Fence
+    position: {x: -38, y: 0, z: 23.5}
+    yaw: 0
+    scale: 1
+  - decorationId: Fence
+    position: {x: -36, y: 0, z: 23.5}
+    yaw: 0
+    scale: 1
+  - decorationId: Fence
+    position: {x: -34, y: 0, z: 23.5}
+    yaw: 0
+    scale: 1
+  - decorationId: Fence
+    position: {x: -33, y: 0, z: 24.5}
+    yaw: 90
+    scale: 1
+  - decorationId: Fence
+    position: {x: -33, y: 0, z: 26.5}
+    yaw: 90
+    scale: 1
+  - decorationId: Fence
+    position: {x: -33, y: 0, z: 28.5}
+    yaw: 90
+    scale: 1
+  - decorationId: Fence
+    position: {x: -33, y: 0, z: 30.5}
+    yaw: 90
+    scale: 1
+  - decorationId: Fence
+    position: {x: -33, y: 0, z: 32.5}
+    yaw: 90
+    scale: 1
+  - decorationId: Fence
+    position: {x: -33, y: 0, z: 34.5}
+    yaw: 90
+    scale: 1
+  - decorationId: Cow
+    position: {x: -40, y: 0, z: 27}
+    yaw: 150
+    scale: 1
+  - decorationId: Cow
+    position: {x: -36, y: 0, z: 30}
+    yaw: 210
+    scale: 1
+  - decorationId: Sheep
+    position: {x: -42, y: 0, z: 31}
+    yaw: 120
+    scale: 1
+  - decorationId: Sheep
+    position: {x: -39, y: 0, z: 33}
+    yaw: 200
+    scale: 1
+  - decorationId: Sheep
+    position: {x: -36.5, y: 0, z: 26}
+    yaw: 240
+    scale: 1
+  - decorationId: Horse
+    position: {x: -46, y: 0, z: 29}
+    yaw: 100
+    scale: 1
+  - decorationId: Chicken
+    position: {x: -17, y: 0, z: 25}
+    yaw: 200
+    scale: 1
+  - decorationId: Chicken
+    position: {x: -18.5, y: 0, z: 24.3}
+    yaw: 150
+    scale: 1
+  - decorationId: Chicken
+    position: {x: -16, y: 0, z: 24}
+    yaw: 230
+    scale: 1
+  - decorationId: Person_Farmer
+    position: {x: -13, y: 0, z: 24.5}
+    yaw: 190
+    scale: 1
+  - decorationId: Tree_Apple
+    position: {x: -4, y: 0, z: 29}
+    yaw: 180
+    scale: 1
+  - decorationId: Tree_Apple
+    position: {x: -2, y: 0, z: 34}
+    yaw: 180
+    scale: 1
+  - decorationId: Dog
+    position: {x: -11, y: 0, z: 25.5}
+    yaw: 220
+    scale: 1
+  - decorationId: House_A
+    position: {x: 10, y: 0, z: 31}
+    yaw: 185
+    scale: 1
+  - decorationId: House_B
+    position: {x: 19, y: 0, z: 32}
+    yaw: 175
+    scale: 1
+  - decorationId: Shop
+    position: {x: 3, y: 0, z: 30}
+    yaw: 180
+    scale: 1
+  - decorationId: House_A
+    position: {x: 27, y: 0, z: 33}
+    yaw: 195
+    scale: 0.95
+  - decorationId: Lamp
+    position: {x: 6.5, y: 0, z: 25.5}
+    yaw: 180
+    scale: 1
+  - decorationId: Lamp
+    position: {x: 15, y: 0, z: 25.5}
+    yaw: 180
+    scale: 1
+  - decorationId: Lamp
+    position: {x: 23, y: 0, z: 26}
+    yaw: 180
+    scale: 1
+  - decorationId: Bench
+    position: {x: 11, y: 0, z: 25}
+    yaw: 180
+    scale: 1
+  - decorationId: Mailbox
+    position: {x: 14, y: 0, z: 26.5}
+    yaw: 180
+    scale: 1
+  - decorationId: Person_Child
+    position: {x: 12.5, y: 0, z: 24.5}
+    yaw: 200
+    scale: 1
+  - decorationId: Person_Conductor
+    position: {x: 1, y: 0, z: 24.5}
+    yaw: 170
+    scale: 1
+  - decorationId: Cat
+    position: {x: 21, y: 0, z: 26}
+    yaw: 160
+    scale: 1
+  - decorationId: Sign_Arrow
+    position: {x: 0, y: 0, z: 23.5}
+    yaw: 180
+    scale: 1
+  - decorationId: Tree_Round
+    position: {x: 33, y: 0, z: 30}
+    yaw: 180
+    scale: 1
+  - decorationId: Tree_Birch
+    position: {x: 35, y: 0, z: 25}
+    yaw: 180
+    scale: 1
+  - decorationId: Windmill
+    position: {x: 40, y: 0, z: 34}
+    yaw: 210
+    scale: 1.1
+  - decorationId: Rock_Large
+    position: {x: 36, y: 0, z: -14}
+    yaw: 30
+    scale: 1
+  - decorationId: Rock_Small
+    position: {x: 38, y: 0, z: -16}
+    yaw: 80
+    scale: 1
+  - decorationId: Rock_Small
+    position: {x: 55, y: 0, z: 9}
+    yaw: 10
+    scale: 1
+  - decorationId: Bush
+    position: {x: 34, y: 0, z: 9}
+    yaw: 180
+    scale: 1
+  - decorationId: Bush
+    position: {x: 57, y: 0, z: -12}
+    yaw: 180
+    scale: 1
+  - decorationId: Flowers_Yellow
+    position: {x: 35, y: 0, z: 4}
+    yaw: 180
+    scale: 1
+  - decorationId: Mushroom
+    position: {x: 33, y: 0, z: -9}
+    yaw: 180
+    scale: 1
+  - decorationId: Tree_Pine
+    position: {x: -50.42665, y: 0, z: 14.794973}
+    yaw: 114.913055
+    scale: 1.228695
+  - decorationId: Tree_Round
+    position: {x: -52.156357, y: 0, z: 17.438911}
+    yaw: 290.87708
+    scale: 1.0582924
+  - decorationId: Tree_Birch
+    position: {x: -43.325214, y: 0, z: -14.372052}
+    yaw: 150.256
+    scale: 1.197576
+  - decorationId: Tree_Pine
+    position: {x: -34.529297, y: 0, z: -6.774293}
+    yaw: 269.07608
+    scale: 1.1256613
+  - decorationId: Tree_Pine
+    position: {x: -45.021584, y: 0, z: -26.274166}
+    yaw: 29.533646
+    scale: 0.9001667
+  - decorationId: Tree_Round
+    position: {x: -39.40459, y: 0, z: -0.3231722}
+    yaw: 195.87059
+    scale: 0.9001761
+  - decorationId: Tree_Birch
+    position: {x: -43.46922, y: 0, z: -19.294046}
+    yaw: 318.23422
+    scale: 0.96353704
+  - decorationId: Tree_Pine
+    position: {x: -50.584076, y: 0, z: 14.742245}
+    yaw: 270.8848
+    scale: 1.0489383
+  - decorationId: Tree_Pine
+    position: {x: -46.97375, y: 0, z: 16.28466}
+    yaw: 190.48282
+    scale: 0.94683045
+  - decorationId: Tree_Round
+    position: {x: -55.810295, y: 0, z: -12.472708}
+    yaw: 240.4791
+    scale: 1.1005816
+  - decorationId: Tree_Birch
+    position: {x: -37.584145, y: 0, z: -2.4705935}
+    yaw: 53.274185
+    scale: 1.2171314
+  - decorationId: Tree_Pine
+    position: {x: -47.027466, y: 0, z: -4.7776537}
+    yaw: 61.303318
+    scale: 1.1655692
+  - decorationId: Tree_Pine
+    position: {x: -41.674995, y: 0, z: -14.084068}
+    yaw: 279.14822
+    scale: 1.2032349
+  - decorationId: Tree_Round
+    position: {x: -49.280003, y: 0, z: 14.348875}
+    yaw: 100.194336
+    scale: 1.1722177
+  - decorationId: Tree_Birch
+    position: {x: -51.79738, y: 0, z: -20.311869}
+    yaw: 110.788246
+    scale: 0.9001268
+  - decorationId: Tree_Pine
+    position: {x: -60.120968, y: 0, z: -3.792532}
+    yaw: 45.74824
+    scale: 1.1496453
+  - decorationId: Tree_Pine
+    position: {x: -45.757065, y: 0, z: 16.001604}
+    yaw: 126.2857
+    scale: 0.85862905
+  - decorationId: Tree_Round
+    position: {x: -34.87354, y: 0, z: -4.7321277}
+    yaw: 171.25737
+    scale: 0.94396675
+  - decorationId: Tree_Birch
+    position: {x: -50.210945, y: 0, z: -7.2208123}
+    yaw: 102.056625
+    scale: 0.9414256
+  - decorationId: Tree_Pine
+    position: {x: -49.07897, y: 0, z: 1.3128293}
+    yaw: 219.29256
+    scale: 0.9038182
+  - decorationId: Tree_Pine
+    position: {x: -60.72887, y: 0, z: -25.246952}
+    yaw: 209.87292
+    scale: 0.88013357
+  - decorationId: Tree_Round
+    position: {x: -58.536438, y: 0, z: 13.468523}
+    yaw: 21.141035
+    scale: 1.1024675
+  - decorationId: Tree_Birch
+    position: {x: -43.22611, y: 0, z: 6.178726}
+    yaw: 320.49417
+    scale: 0.8578702
+  - decorationId: Tree_Pine
+    position: {x: -60.758778, y: 0, z: -2.865975}
+    yaw: 202.19756
+    scale: 0.9771107
+  - decorationId: Tree_Pine
+    position: {x: -49.71822, y: 0, z: -10.056466}
+    yaw: 128.7818
+    scale: 1.0885049
+  - decorationId: Tree_Round
+    position: {x: -57.544052, y: 0, z: -22.564276}
+    yaw: 307.27002
+    scale: 0.9282019
+  - decorationId: Tree_Birch
+    position: {x: -37.56449, y: 0, z: -2.975257}
+    yaw: 171.56451
+    scale: 1.2432147
+  - decorationId: Tree_Pine
+    position: {x: -44.498882, y: 0, z: -27.512318}
+    yaw: 129.59702
+    scale: 1.1402231
+  - decorationId: Tree_Pine
+    position: {x: -45.046116, y: 0, z: -21.340017}
+    yaw: 29.334568
+    scale: 1.2378933
+  - decorationId: Tree_Round
+    position: {x: -34.706097, y: 0, z: -27.412771}
+    yaw: 226.68481
+    scale: 1.1262922
+  - decorationId: Tree_Birch
+    position: {x: -37.0221, y: 0, z: 5.9812317}
+    yaw: 134.7109
+    scale: 0.93472826
+  - decorationId: Tree_Pine
+    position: {x: -44.16222, y: 0, z: -7.198027}
+    yaw: 69.1618
+    scale: 1.1955354
+  - decorationId: Tree_Pine
+    position: {x: -36.076206, y: 0, z: 18.285696}
+    yaw: 289.81955
+    scale: 0.86867285
+  - decorationId: Tree_Round
+    position: {x: -54.212646, y: 0, z: -29.355812}
+    yaw: 353.12115
+    scale: 1.208047
+  - decorationId: Tree_Birch
+    position: {x: -54.99554, y: 0, z: -10.626224}
+    yaw: 83.78285
+    scale: 1.0815753
+  - decorationId: Tree_Pine
+    position: {x: -50.60873, y: 0, z: -26.215586}
+    yaw: 9.965565
+    scale: 1.0890487
+  - decorationId: Tree_Pine
+    position: {x: -51.456097, y: 0, z: -21.764818}
+    yaw: 156.62115
+    scale: 1.1978405
+  - decorationId: Tree_Round
+    position: {x: -48.625328, y: 0, z: -0.40367126}
+    yaw: 135.57877
+    scale: 0.99870604
+  - decorationId: Tree_Birch
+    position: {x: -39.693474, y: 0, z: 3.349824}
+    yaw: 264.5839
+    scale: 1.0236115
+  - decorationId: Tree_Pine
+    position: {x: -39.53899, y: 0, z: 2.085359}
+    yaw: 208.94722
+    scale: 1.0046257
+  - decorationId: Tree_Pine
+    position: {x: -51.897015, y: 0, z: 0.6364715}
+    yaw: 32.080666
+    scale: 1.1051092
+  - decorationId: Tree_Round
+    position: {x: -54.903717, y: 0, z: -14.334518}
+    yaw: 164.53029
+    scale: 1.0786932
+  - decorationId: Tree_Birch
+    position: {x: -56.423084, y: 0, z: -20.681633}
+    yaw: 262.15207
+    scale: 1.0714774
+  - decorationId: Tree_Pine
+    position: {x: -38.24858, y: 0, z: -27.462914}
+    yaw: 107.25419
+    scale: 1.1642475
+  - decorationId: Tree_Pine
+    position: {x: -41.933666, y: 0, z: 8.828752}
+    yaw: 305.3656
+    scale: 1.0301569
+  - decorationId: Tree_Round
+    position: {x: -61.39156, y: 0, z: -13.874249}
+    yaw: 144.95149
+    scale: 0.9707989
+  - decorationId: Bush
+    position: {x: -35.28715, y: 0, z: -3.5350103}
+    yaw: 99.89691
+    scale: 1.0406132
+  - decorationId: Bush
+    position: {x: -37.776573, y: 0, z: 0.7808106}
+    yaw: 43.41601
+    scale: 1.0399303
+  - decorationId: Bush
+    position: {x: -33.54347, y: 0, z: 12.1543045}
+    yaw: 83.00143
+    scale: 1.1120292
+  - decorationId: Bush
+    position: {x: -32.1074, y: 0, z: -5.183451}
+    yaw: 127.052124
+    scale: 0.8201093
+  - decorationId: Bush
+    position: {x: -34.3386, y: 0, z: 12.806384}
+    yaw: 243.8257
+    scale: 0.90993136
+  - decorationId: Bush
+    position: {x: -33.09019, y: 0, z: 11.270739}
+    yaw: 198.99023
+    scale: 1.0873796
+  - decorationId: Bush
+    position: {x: -37.047455, y: 0, z: 16.074787}
+    yaw: 267.15103
+    scale: 1.199177
+  - decorationId: Bush
+    position: {x: -33.652245, y: 0, z: -15.059364}
+    yaw: 131.61009
+    scale: 0.81034553
+  - decorationId: Bush
+    position: {x: -38.31931, y: 0, z: 9.910394}
+    yaw: 17.520023
+    scale: 1.124564
+  - decorationId: Bush
+    position: {x: -39.713455, y: 0, z: 12.508837}
+    yaw: 105.76958
+    scale: 1.0581776
+  - decorationId: Mushroom
+    position: {x: -44.210793, y: 0, z: -11.14877}
+    yaw: 268.78568
+    scale: 1
+  - decorationId: Mushroom
+    position: {x: -33.325817, y: 0, z: 9.605466}
+    yaw: 186.42792
+    scale: 1
+  - decorationId: Mushroom
+    position: {x: -35.41148, y: 0, z: -5.939001}
+    yaw: 152.5149
+    scale: 1
+  - decorationId: Mushroom
+    position: {x: -35.424423, y: 0, z: 7.281514}
+    yaw: 56.755726
+    scale: 1
+  - decorationId: Mushroom
+    position: {x: -37.257343, y: 0, z: -11.165557}
+    yaw: 157.77754
+    scale: 1
+  - decorationId: Mushroom
+    position: {x: -35.805695, y: 0, z: 11.416158}
+    yaw: 201.25531
+    scale: 1
+  - decorationId: Tree_Pine
+    position: {x: 8.810429, y: 0, z: 65.16167}
+    yaw: 289.7198
+    scale: 1.0735945
+  - decorationId: Tree_Birch
+    position: {x: -75.06827, y: 0, z: 7.530882}
+    yaw: 205.19514
+    scale: 1.1196758
+  - decorationId: Tree_Pine
+    position: {x: -47.653725, y: 0, z: 60.390232}
+    yaw: 5.20379
+    scale: 1.5113077
+  - decorationId: Tree_Pine
+    position: {x: -62.8438, y: 0, z: -24.006779}
+    yaw: 75.26195
+    scale: 1.4412112
+  - decorationId: Tree_Round
+    position: {x: 79.192406, y: 0, z: 33.67694}
+    yaw: 323.376
+    scale: 1.5107276
+  - decorationId: Tree_Birch
+    position: {x: 49.35069, y: 0, z: 55.791107}
+    yaw: 206.74442
+    scale: 1.5973029
+  - decorationId: Tree_Pine
+    position: {x: -57.537117, y: 0, z: 40.309147}
+    yaw: 137.03123
+    scale: 1.049363
+  - decorationId: Tree_Pine
+    position: {x: -45.652065, y: 0, z: 52.2029}
+    yaw: 335.11377
+    scale: 1.2860655
+  - decorationId: Tree_Pine
+    position: {x: -30.922428, y: 0, z: 52.04254}
+    yaw: 177.21585
+    scale: 1.3692919
+  - decorationId: Tree_Pine
+    position: {x: 85.18177, y: 0, z: -23.681345}
+    yaw: 345.8847
+    scale: 1.529284
+  - decorationId: Tree_Birch
+    position: {x: -76.94575, y: 0, z: -38.924664}
+    yaw: 330.75137
+    scale: 1.4217514
+  - decorationId: Tree_Round
+    position: {x: 35.460854, y: 0, z: 59.984047}
+    yaw: 197.41228
+    scale: 1.486511
+  - decorationId: Tree_Birch
+    position: {x: -19.303288, y: 0, z: 61.9152}
+    yaw: 296.65924
+    scale: 1.2926289
+  - decorationId: Tree_Pine
+    position: {x: 41.56042, y: 0, z: -46.424156}
+    yaw: 219.8307
+    scale: 1.3226075
+  - decorationId: Tree_Pine
+    position: {x: 11.775396, y: 0, z: 73.11596}
+    yaw: 68.82577
+    scale: 1.1595707
+  - decorationId: Tree_Round
+    position: {x: -58.544395, y: 0, z: 29.008871}
+    yaw: 31.548883
+    scale: 1.1696682
+  - decorationId: Tree_Birch
+    position: {x: 72.421135, y: 0, z: -41.176487}
+    yaw: 172.53433
+    scale: 1.41529
+  - decorationId: Tree_Pine
+    position: {x: 20.396435, y: 0, z: 68.55183}
+    yaw: 223.12637
+    scale: 1.4603623
+  - decorationId: Tree_Pine
+    position: {x: 47.384747, y: 0, z: 64.183624}
+    yaw: 213.32516
+    scale: 1.378141
+  - decorationId: Tree_Pine
+    position: {x: -68.464, y: 0, z: 43.59588}
+    yaw: 280.73764
+    scale: 1.1317676
+  - decorationId: Tree_Birch
+    position: {x: -10.386502, y: 0, z: 62.52631}
+    yaw: 238.10013
+    scale: 1.5902945
+  - decorationId: Tree_Pine
+    position: {x: -81.13104, y: 0, z: 35.312527}
+    yaw: 104.2505
+    scale: 1.4099168
+  - decorationId: Tree_Pine
+    position: {x: 18.873426, y: 0, z: 65.22343}
+    yaw: 172.04686
+    scale: 1.3765538
+  - decorationId: Tree_Birch
+    position: {x: -78.87043, y: 0, z: -46.179375}
+    yaw: 235.02887
+    scale: 1.0340698
+  - decorationId: Tree_Pine
+    position: {x: -33.994965, y: 0, z: 55.275875}
+    yaw: 167.83124
+    scale: 1.5882435
+  - decorationId: Tree_Pine
+    position: {x: 14.431511, y: 0, z: 80.72127}
+    yaw: 176.88503
+    scale: 1.265914
+  - decorationId: Tree_Round
+    position: {x: -90.700424, y: 0, z: 40.402733}
+    yaw: 300.73413
+    scale: 1.3815829
+  - decorationId: Tree_Birch
+    position: {x: -48.791153, y: 0, z: 58.67607}
+    yaw: 128.28278
+    scale: 1.5456252
+  - decorationId: Tree_Pine
+    position: {x: -72.98187, y: 0, z: 34.19159}
+    yaw: 274.99362
+    scale: 1.0955943
+  - decorationId: Tree_Pine
+    position: {x: -73.94625, y: 0, z: -38.652004}
+    yaw: 328.43143
+    scale: 1.5921031
+  - decorationId: Tree_Round
+    position: {x: -86.64465, y: 0, z: -31.609806}
+    yaw: 48.944527
+    scale: 1.3265678
+  - decorationId: Tree_Birch
+    position: {x: -72.44973, y: 0, z: 25.28737}
+    yaw: 188.69435
+    scale: 1.4044119
+  - decorationId: Tree_Pine
+    position: {x: 47.052784, y: 0, z: 66.45004}
+    yaw: 281.37378
+    scale: 1.23245
+  - decorationId: Tree_Pine
+    position: {x: -77.70041, y: 0, z: 17.903034}
+    yaw: 319.1934
+    scale: 1.0208308
+  - decorationId: Tree_Birch
+    position: {x: -83.79708, y: 0, z: 29.379663}
+    yaw: 344.74164
+    scale: 1.010132
+  - decorationId: Tree_Round
+    position: {x: -72.394775, y: 0, z: -24.827995}
+    yaw: 80.45938
+    scale: 1.3948431
+  - decorationId: Tree_Birch
+    position: {x: 56.849583, y: 0, z: 46.373154}
+    yaw: 356.3491
+    scale: 1.1440269
+  - decorationId: Tree_Pine
+    position: {x: -30.287144, y: 0, z: 74.2478}
+    yaw: 110.60386
+    scale: 1.1544766
+  - decorationId: Tree_Pine
+    position: {x: 45.969296, y: 0, z: 46.29536}
+    yaw: 159.12497
+    scale: 1.0968117
+  - decorationId: Tree_Round
+    position: {x: -89.69637, y: 0, z: 14.217966}
+    yaw: 262.4837
+    scale: 1.5813547
+  - decorationId: Tree_Birch
+    position: {x: -67.76543, y: 0, z: 16.842075}
+    yaw: 198.48816
+    scale: 1.4374919
+  - decorationId: Tree_Pine
+    position: {x: -39.2834, y: 0, z: 55.555553}
+    yaw: 37.064926
+    scale: 1.1677706
+  - decorationId: Tree_Pine
+    position: {x: 86.6783, y: 0, z: 13.169861}
+    yaw: 8.261352
+    scale: 1.1934851
+  - decorationId: Tree_Pine
+    position: {x: -82.499535, y: 0, z: 21.687662}
+    yaw: 209.58809
+    scale: 1.269346
+  - decorationId: Tree_Pine
+    position: {x: -60.833035, y: 0, z: 37.341866}
+    yaw: 15.735423
+    scale: 1.0779706
+  - decorationId: Tree_Birch
+    position: {x: 39.592342, y: 0, z: 56.2242}
+    yaw: 68.644066
+    scale: 1.4777577
+  - decorationId: Tree_Pine
+    position: {x: -67.75806, y: 0, z: -16.99543}
+    yaw: 30.369717
+    scale: 1.5276542
+  - decorationId: Tree_Pine
+    position: {x: 68.37847, y: 0, z: 42.701416}
+    yaw: 263.6349
+    scale: 1.2966071
+  - decorationId: Tree_Round
+    position: {x: -44.623447, y: 0, z: 72.10591}
+    yaw: 82.701294
+    scale: 1.4261445
+  - decorationId: Flowers_Red
+    position: {x: -17.350676, y: 0, z: -26.486}
+    yaw: 264.1497
+    scale: 1.1939031
+  - decorationId: Flowers_Yellow
+    position: {x: 33.807648, y: 0, z: -9.503557}
+    yaw: 144.58865
+    scale: 0.8806152
+  - decorationId: Flowers_Purple
+    position: {x: 12.649874, y: 0, z: 25.88356}
+    yaw: 20.139502
+    scale: 0.91208464
+  - decorationId: Grass_Tuft
+    position: {x: -31.571585, y: 0, z: -10.528093}
+    yaw: 10.276965
+    scale: 0.968562
+  - decorationId: Flowers_Red
+    position: {x: -29.89991, y: 0, z: -26.34913}
+    yaw: 41.561012
+    scale: 1.1187795
+  - decorationId: Flowers_Yellow
+    position: {x: 31.444698, y: 0, z: -10.681603}
+    yaw: 0.90889454
+    scale: 1.1797515
+  - decorationId: Flowers_Purple
+    position: {x: -15.713102, y: 0, z: 25.449524}
+    yaw: 279.08786
+    scale: 0.8948029
+  - decorationId: Grass_Tuft
+    position: {x: -31.729609, y: 0, z: 18.247055}
+    yaw: 66.153435
+    scale: 1.0958745
+  - decorationId: Flowers_Red
+    position: {x: -16.848953, y: 0, z: -27.126827}
+    yaw: 1.959949
+    scale: 0.9169238
+  - decorationId: Flowers_Yellow
+    position: {x: 32.98101, y: 0, z: 9.709093}
+    yaw: 2.4690623
+    scale: 1.1617595
+  - decorationId: Flowers_Purple
+    position: {x: 24.262463, y: 0, z: 25.96742}
+    yaw: 30.755394
+    scale: 1.0344628
+  - decorationId: Grass_Tuft
+    position: {x: -32.955933, y: 0, z: 12.165955}
+    yaw: 110.90061
+    scale: 1.1467844
+  - decorationId: Flowers_Red
+    position: {x: -2.2579408, y: 0, z: -30.89086}
+    yaw: 177.36371
+    scale: 1.0238041
+  - decorationId: Flowers_Purple
+    position: {x: 7.278056, y: 0, z: 25.933586}
+    yaw: 269.5951
+    scale: 1.1137482
+  - decorationId: Grass_Tuft
+    position: {x: -31.133392, y: 0, z: 9.800865}
+    yaw: 175.38011
+    scale: 0.86585116
+  - decorationId: Flowers_Red
+    position: {x: 11.602871, y: 0, z: -26.453451}
+    yaw: 279.87372
+    scale: 0.92650276
+  - decorationId: Flowers_Yellow
+    position: {x: 31.305138, y: 0, z: 15.361967}
+    yaw: 83.28721
+    scale: 1.094495
+  - decorationId: Flowers_Purple
+    position: {x: -28.48781, y: 0, z: 23.776823}
+    yaw: 272.96222
+    scale: 0.8844195
+  - decorationId: Grass_Tuft
+    position: {x: -30.768564, y: 0, z: -16.008007}
+    yaw: 53.110172
+    scale: 0.96654713
+  - decorationId: Flowers_Red
+    position: {x: 25.905128, y: 0, z: -29.66034}
+    yaw: 183.0422
+    scale: 1.1633133
+  - decorationId: Flowers_Purple
+    position: {x: -2.1900325, y: 0, z: 24.87275}
+    yaw: 4.5469704
+    scale: 1.1145629
+  - decorationId: Grass_Tuft
+    position: {x: -32.83496, y: 0, z: -18.896713}
+    yaw: 195.6363
+    scale: 1.0447326
+  - decorationId: Flowers_Red
+    position: {x: 29.765078, y: 0, z: -31.381632}
+    yaw: 150.20338
+    scale: 1.0958986
+  - decorationId: Flowers_Yellow
+    position: {x: 32.478794, y: 0, z: -6.7689266}
+    yaw: 291.14276
+    scale: 1.0805479
+  - decorationId: Flowers_Purple
+    position: {x: 14.587287, y: 0, z: 24.272024}
+    yaw: 228.81871
+    scale: 1.0904521
+  - decorationId: Grass_Tuft
+    position: {x: -32.28572, y: 0, z: -10.650554}
+    yaw: 288.46133
+    scale: 1.0064029
+  - decorationId: Flowers_Red
+    position: {x: 2.4121714, y: 0, z: -28.784988}
+    yaw: 298.9202
+    scale: 0.933003
+  - decorationId: Flowers_Purple
+    position: {x: -15.805734, y: 0, z: 24.736652}
+    yaw: 140.39575
+    scale: 0.9984554
+  - decorationId: Grass_Tuft
+    position: {x: -32.27211, y: 0, z: -13.872901}
+    yaw: 109.3055
+    scale: 0.9098482
+  - decorationId: Flowers_Red
+    position: {x: 19.081972, y: 0, z: -31.962288}
+    yaw: 69.40922
+    scale: 0.9653487
+  - decorationId: Flowers_Yellow
+    position: {x: 32.31428, y: 0, z: -0.14433622}
+    yaw: 285.7741
+    scale: 0.86113113
+  - decorationId: Flowers_Purple
+    position: {x: 18.242458, y: 0, z: 25.450254}
+    yaw: 218.74963
+    scale: 0.892153
+  - decorationId: Grass_Tuft
+    position: {x: -31.272888, y: 0, z: -16.622301}
+    yaw: 98.16323
+    scale: 0.8194039
+  - decorationId: Flowers_Red
+    position: {x: 24.691904, y: 0, z: -31.702368}
+    yaw: 296.2685
+    scale: 0.99864936
+  - decorationId: Flowers_Yellow
+    position: {x: 32.23102, y: 0, z: 1.7806053}
+    yaw: 71.00937
+    scale: 0.8843707
+  - decorationId: Flowers_Purple
+    position: {x: 15.552786, y: 0, z: 25.050224}
+    yaw: 9.095667
+    scale: 1.1353391
+  - decorationId: Grass_Tuft
+    position: {x: -32.125603, y: 0, z: 11.984814}
+    yaw: 14.263738
+    scale: 1.0622209
+  - decorationId: Flowers_Red
+    position: {x: -6.1354065, y: 0, z: -29.314991}
+    yaw: 218.15108
+    scale: 0.9727346
+  - decorationId: Flowers_Yellow
+    position: {x: 33.666634, y: 0, z: 14.893565}
+    yaw: 349.51675
+    scale: 0.921956
+  - decorationId: Flowers_Purple
+    position: {x: 13.331405, y: 0, z: 24.162125}
+    yaw: 258.28564
+    scale: 0.805433
+  - decorationId: Grass_Tuft
+    position: {x: -31.187826, y: 0, z: 4.8894286}
+    yaw: 223.85948
+    scale: 0.86085147
+  - decorationId: Flowers_Red
+    position: {x: -11.627508, y: 0, z: -30.585215}
+    yaw: 210.45844
+    scale: 0.8245568
+  - decorationId: Flowers_Yellow
+    position: {x: 32.651047, y: 0, z: 12.280121}
+    yaw: 10.229911
+    scale: 0.90940714
+  - decorationId: Flowers_Purple
+    position: {x: -29.608624, y: 0, z: 25.94563}
+    yaw: 235.49713
+    scale: 1.0317793
+  - decorationId: Grass_Tuft
+    position: {x: -31.822186, y: 0, z: 18.218767}
+    yaw: 289.10504
+    scale: 0.80176824
+  - decorationId: Flowers_Red
+    position: {x: 16.627792, y: 0, z: -24.479145}
+    yaw: 299.75015
+    scale: 0.88893753
+  - decorationId: Flowers_Yellow
+    position: {x: 33.392338, y: 0, z: 13.633571}
+    yaw: 185.46587
+    scale: 0.81567705
+  - decorationId: Flowers_Purple
+    position: {x: -14.466999, y: 0, z: 24.554234}
+    yaw: 278.796
+    scale: 1.1435317
+  - decorationId: Grass_Tuft
+    position: {x: -30.932362, y: 0, z: -12.653369}
+    yaw: 174.98056
+    scale: 0.8547909
+  - decorationId: Flowers_Red
+    position: {x: -26.305431, y: 0, z: -25.26863}
+    yaw: 191.57028
+    scale: 0.8033119
+  - decorationId: Flowers_Yellow
+    position: {x: 32.07507, y: 0, z: 19.129177}
+    yaw: 117.12347
+    scale: 1.0362961
+  - decorationId: Flowers_Purple
+    position: {x: -3.5949273, y: 0, z: 23.997372}
+    yaw: 153.11282
+    scale: 1.02058
+  - decorationId: Grass_Tuft
+    position: {x: -32.454548, y: 0, z: -4.34273}
+    yaw: 300.15506
+    scale: 1.1066884
+  - decorationId: Flowers_Red
+    position: {x: 5.0583315, y: 0, z: -26.869604}
+    yaw: 85.122925
+    scale: 1.1091137
+  - decorationId: Flowers_Purple
+    position: {x: 10.419684, y: 0, z: 24.396107}
+    yaw: 297.46643
+    scale: 1.0181657
+  - decorationId: Grass_Tuft
+    position: {x: -30.993729, y: 0, z: 12.485254}
+    yaw: 11.725077
+    scale: 0.867835
+  - decorationId: Rock_Large
+    position: {x: -26, y: 0, z: -28}
+    yaw: 40
+    scale: 1
+  - decorationId: Rock_Small
+    position: {x: 24, y: 0, z: -27}
+    yaw: 120
+    scale: 1
+  - decorationId: Tree_Round
+    position: {x: -18, y: 0, z: -36}
+    yaw: 180
+    scale: 1
+  - decorationId: Tree_Round
+    position: {x: 20, y: 0, z: -38}
+    yaw: 180
+    scale: 1
+  - decorationId: Cloud_A
+    position: {x: -10.70745, y: 24.142977, z: 70.51429}
+    yaw: 178.49503
+    scale: 1.2103088
+  - decorationId: Cloud_B
+    position: {x: 19.597757, y: 26.391205, z: 26.566252}
+    yaw: 286.12436
+    scale: 1.3736442
+  - decorationId: Cloud_A
+    position: {x: 25.348509, y: 23.324207, z: 6.608903}
+    yaw: 281.6133
+    scale: 0.9876058
+  - decorationId: Cloud_B
+    position: {x: 92.74659, y: 20.061699, z: 70.31133}
+    yaw: 312.2826
+    scale: 1.3105884
+  - decorationId: Cloud_A
+    position: {x: -45.095314, y: 22.779047, z: -7.4583035}
+    yaw: 340.99677
+    scale: 1.3279638
+  - decorationId: Cloud_B
+    position: {x: 32.417606, y: 25.356796, z: 1.9423244}
+    yaw: 24.03747
+    scale: 1.0091904
+  - decorationId: Cloud_A
+    position: {x: -64.85586, y: 27.087957, z: 36.453278}
+    yaw: 200.9414
+    scale: 1.0622982
+  - decorationId: Cloud_B
+    position: {x: 20.491241, y: 21.886202, z: -13.880645}
+    yaw: 252.35966
+    scale: 1.4241358
+  - decorationId: Cloud_A
+    position: {x: -31.321733, y: 21.168333, z: 66.84673}
+    yaw: 332.5077
+    scale: 1.1625313
+  - decorationId: Bird
+    position: {x: 1.9078898, y: 8, z: 18.516869}
+    yaw: 0
+    scale: 1
+  - decorationId: Bird
+    position: {x: 1.1060667, y: 8, z: 1.49529}
+    yaw: 0
+    scale: 1
+  - decorationId: Bird
+    position: {x: 14.502508, y: 8, z: 21.73206}
+    yaw: 0
+    scale: 1
+  - decorationId: Bird
+    position: {x: 17.402285, y: 8, z: 3.8345203}
+    yaw: 0
+    scale: 1
+  fogColor: {r: 0.78, g: 0.9, b: 1, a: 1}
+  ambientSky: {r: 0.72, g: 0.8, b: 0.95, a: 1}
+  ambientEquator: {r: 0.7, g: 0.78, b: 0.68, a: 1}
+  ambientGround: {r: 0.45, g: 0.5, b: 0.38, a: 1}
+  sunColor: {r: 1, g: 0.96, b: 0.88, a: 1}
+  sunEuler: {x: 48, y: -35, z: 0}

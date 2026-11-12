@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Loco_RedExpress",
+    "fbx": "Assets/_Project/Art/Models/Trains/Loco_RedExpress.fbx",
+    "kind": "loco",
+    "displayName": "Classic Red Express",
+    "length": 2.281,
+    "bogieSpacing": 0.9,
+    "wheelNames": [
+      "Wheel_0",
+      "Wheel_1",
+      "Wheel_2",
+      "Wheel_3",
+      "Wheel_4",
+      "Wheel_5"
+    ],
+    "verts": 6973
+  },
+  {
+    "name": "Loco_BlueAdventure",
+    "fbx": "Assets/_Project/Art/Models/Trains/Loco_BlueAdventure.fbx",
+    "kind": "loco",
+    "displayName": "Blue Adventure",
+    "length": 2.262,
+    "bogieSpacing": 1.08,
+    "wheelNames": [
+      "Wheel_0.001",
+      "Wheel_1.001",
+      "Wheel_2.001",
+      "Wheel_3.001",
+      "Wheel_4.001",
+      "Wheel_5.001"
+    ],
+    "verts": 6190
+  },
+  {
+    "name": "Loco_GreenExplorer",
+    "fbx": "Assets/_Project/Art/Models/Trains/Loco_GreenExplorer.fbx",
+    "kind": "loco",
+    "displayName": "Green Explorer",
+    "length": 2.322,
+    "bogieSpacing": 0.9,
+    "wheelNames": [
+      "Wheel_0.002",
+      "Wheel_1.002",
+      "Wheel_2.002",
+      "Wheel_3.002",
+      "Wheel_4.002",
+      "Wheel_5.002"
+    ],
+    "verts": 6333
+  },
+  {
+    "name": "Loco_YellowSunshine",
+    "fbx": "Assets/_Project/Art/Models/Trains/Loco_YellowSunshine.fbx",
+    "kind": "loco",
+    "displayName": "Yellow Sunshine",
+    "length": 2.162,
+    "bogieSpacing": 0.76,
+    "wheelNames": [
+      "Wheel_0.003",
+      "Wheel_1.003",
+      "Wheel_2.003",
+      "Wheel_3.003"
+    ],
+    "verts": 6854
+  },
+  {
+    "name": "Car_Passenger",
+    "fbx": "Assets/_Project/Art/Models/Trains/Car_Passenger.fbx",
+    "kind": "car",
+    "displayName": "Passenger Carriage",
+    "length": 2.002,
+    "bogieSpacing": 1.1,
+    "wheelNames": [
+      "Wheel_0.004",
+      "Wheel_1.004",
+      "Wheel_2.004",
+      "Wheel_3.004"
+    ],
+    "verts": 4230
+  },
+  {
+    "name": "Car_Cargo",
+    "fbx": "Assets/_Project/Art/Models/Trains/Car_Cargo.fbx",
+    "kind": "car",
+    "displayName": "Cargo Wagon",
+    "length": 2.002,
+    "bogieSpacing": 1.1,
+    "wheelNames": [
+      "Wheel_0.005",
+      "Wheel_1.005",
+      "Wheel_2.005",
+      "Wheel_3.005"
+    ],
+    "verts": 3774
+  }
+]

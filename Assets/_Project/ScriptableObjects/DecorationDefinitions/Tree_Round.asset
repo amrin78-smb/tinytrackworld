@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Tree_Round
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Tree_Round
+  displayName: Tree Round
+  category: 0
+  icon: {fileID: 21300000, guid: 9b1303e168193f8f7b5184bc051769f3, type: 3}
+  prefab: {fileID: 218711650165359625, guid: 83b5cebff8b4cb2a09e86c237f0ebb6b, type: 3}
+  footprintRadius: 1.3490766
+  height: 3.9081411
+  reaction: 2
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

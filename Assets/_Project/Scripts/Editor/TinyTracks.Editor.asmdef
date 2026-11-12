@@ -1,0 +1,14 @@
+{
+    "name": "TinyTracks.Editor",
+    "rootNamespace": "TinyTracks.EditorTools",
+    "references": [
+        "TinyTracks.Runtime",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "autoReferenced": false
+}

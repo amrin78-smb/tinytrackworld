@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3f11e80e469dffe8f52ae558d6be09, type: 3}
+  m_Name: Loco_BlueAdventure
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.TrainDefinition
+  id: Loco_BlueAdventure
+  displayName: Blue Adventure
+  kind: 0
+  engine: 0
+  icon: {fileID: 21300000, guid: d866bc844f5ea5d08ba26bc17bc19844, type: 3}
+  prefab: {fileID: 5332095515492504161, guid: 3e9c391b75838876583560f4af617b32, type: 3}
+  bogieSpacing: 1.3572001
+  frontOverhang: 0.45240003
+  length: 2.262
+  uiColor: {r: 0.18039216, g: 0.54509807, b: 0.9019608, a: 1}

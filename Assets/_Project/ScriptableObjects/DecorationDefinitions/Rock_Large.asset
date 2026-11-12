@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Rock_Large
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Rock_Large
+  displayName: Rock Large
+  category: 0
+  icon: {fileID: 21300000, guid: 340cb0236c06e65abbdfc795cdfdc2f2, type: 3}
+  prefab: {fileID: 3597008515138146628, guid: 27951b8d8e7c0d661bc5f458c2e21a17, type: 3}
+  footprintRadius: 1.0081791
+  height: 1.0728487
+  reaction: 8
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

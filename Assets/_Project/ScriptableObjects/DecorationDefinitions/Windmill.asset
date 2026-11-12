@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Windmill
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Windmill
+  displayName: Windmill
+  category: 1
+  icon: {fileID: 21300000, guid: fe75172c21643a970b0926b2f32da127, type: 3}
+  prefab: {fileID: 8642025640828837669, guid: 75cd23d6d308c35d78b333fa8b5f24f7, type: 3}
+  footprintRadius: 1.9473724
+  height: 6.4410257
+  reaction: 4
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76f530771f54ff849b861fa6d8af6f9, type: 3}
+  m_Name: TinyTracksContent
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.ContentLibrary
+  tracks:
+  - {fileID: 11400000, guid: 9a61868ddaf413b699a4bf3409217447, type: 2}
+  - {fileID: 11400000, guid: 7bc7754c1d59a4ba69f8cc809e18ea22, type: 2}
+  - {fileID: 11400000, guid: 97d8b5b73cd0ce314810aefd7e380e4b, type: 2}
+  - {fileID: 11400000, guid: b9ab91fdf9899258488ffaa104e1bf88, type: 2}
+  - {fileID: 11400000, guid: 07c432fb421952d80bb80e59093e20a4, type: 2}
+  - {fileID: 11400000, guid: 65563e4cc93a1dd929e7742908b50c48, type: 2}
+  - {fileID: 11400000, guid: 8e0967aac8f9701c8b8887eb7cfe0e0c, type: 2}
+  - {fileID: 11400000, guid: 140f075a5d8bb3e258e53cf9721c6625, type: 2}
+  - {fileID: 11400000, guid: 800bbd42921eec66f89831c10c7a7a1e, type: 2}
+  - {fileID: 11400000, guid: e8f17246a3dd87ad79f03806f3c7a185, type: 2}
+  - {fileID: 11400000, guid: e9cb8a54674947af787480692f26c11c, type: 2}
+  - {fileID: 11400000, guid: 12d78871d6b215ae180941919e6c6756, type: 2}
+  - {fileID: 11400000, guid: f4aae204034ea6a45ac23b1a16687651, type: 2}
+  - {fileID: 11400000, guid: 2ec2b28f840803e35b788d344a6d3759, type: 2}
+  - {fileID: 11400000, guid: ea297de435527b95b9c1926ad15666fe, type: 2}
+  - {fileID: 11400000, guid: fd6d10cdd03be74f787774498d8646b8, type: 2}
+  - {fileID: 11400000, guid: ddb21dadde2604e748b792599344fa6c, type: 2}
+  - {fileID: 11400000, guid: 0279a965457118d0fba1e05ccddcdc82, type: 2}
+  - {fileID: 11400000, guid: 68f894b6d7f5026ed8cacc1ddeb9ced7, type: 2}
+  - {fileID: 11400000, guid: 36466e60261aceda384a9581e18f1d38, type: 2}
+  - {fileID: 11400000, guid: bcdfb4e3be2df173b9843f93749725c2, type: 2}
+  trains:
+  - {fileID: 11400000, guid: 9bb4dce01ab54ef88a392656498e2001, type: 2}
+  - {fileID: 11400000, guid: b005fba3552288c29ae7dc25dc1c56ee, type: 2}
+  - {fileID: 11400000, guid: dc475d7fd4a687081bdb74a1f2ce2189, type: 2}
+  - {fileID: 11400000, guid: df8cb5a0b3fdbc46bb922f6e8f0c44d8, type: 2}
+  - {fileID: 11400000, guid: 272a8d3bb9c919418b9c6ab08031bd4f, type: 2}
+  - {fileID: 11400000, guid: c531330fc01f82d6e9197d8d3ffbdde3, type: 2}
+  decorations:
+  - {fileID: 11400000, guid: 324fa71bbea0b6b5baecd9e383181d3b, type: 2}
+  - {fileID: 11400000, guid: 79a131e7549a015c0b05a36aa1d6420e, type: 2}
+  - {fileID: 11400000, guid: 5df2eef8bb563ac128c9e2b948717fa2, type: 2}
+  - {fileID: 11400000, guid: c6152468409402220a496cb2912b8ee2, type: 2}
+  - {fileID: 11400000, guid: 2b359767b8fb641f69c35e907c6301dd, type: 2}
+  - {fileID: 11400000, guid: 955e2b41464b848c1beb89d2377fd639, type: 2}
+  - {fileID: 11400000, guid: 91cb1d8e458fc4361b7242b0180756b9, type: 2}
+  - {fileID: 11400000, guid: ded7f4ab99af5bfcd9d3161f2bfb2b3a, type: 2}
+  - {fileID: 11400000, guid: 73062b0ed40bfdda7913c83f69d58964, type: 2}
+  - {fileID: 11400000, guid: 1f3ec2fafa775419eb107b7dd51c6d06, type: 2}
+  - {fileID: 11400000, guid: ddead8ebe0b0a1f82a73486d98d66479, type: 2}
+  - {fileID: 11400000, guid: 00748393bdba4d92ea252514d8c492eb, type: 2}
+  - {fileID: 11400000, guid: 76f2ddf79abbbd4639ba3178093493d0, type: 2}
+  - {fileID: 11400000, guid: 80a263e69f98b02068ca172851697292, type: 2}
+  - {fileID: 11400000, guid: e17eea711cce8a1c593abc236fc5bd9f, type: 2}
+  - {fileID: 11400000, guid: c6d959f80e926bd8fb4d6e051864fa62, type: 2}
+  - {fileID: 11400000, guid: 24800424ecaa37b5fa76ba5b1c5372ba, type: 2}
+  - {fileID: 11400000, guid: b713ce25cc6457abfbf5f91d7543fc81, type: 2}
+  - {fileID: 11400000, guid: 1b0892fd2ffa77ee6a5bfa6b9ca473ad, type: 2}
+  - {fileID: 11400000, guid: 33e4b47c583221534b339be5b92e615d, type: 2}
+  - {fileID: 11400000, guid: 804eb927de9c157ec84d1b9e655e4954, type: 2}
+  - {fileID: 11400000, guid: f2aeebf0fb9da15e8b88747437ac1a3c, type: 2}
+  - {fileID: 11400000, guid: 6be2d628eae7798e49d20e5fed34391f, type: 2}
+  - {fileID: 11400000, guid: c6e84765f2ef646cd9a17d970b439230, type: 2}
+  - {fileID: 11400000, guid: 107a319353e3d0d0ba67090587c28e9d, type: 2}
+  - {fileID: 11400000, guid: db57f7bd14e4dd2e78d68c703d9f4e58, type: 2}
+  - {fileID: 11400000, guid: e22a9e46dfdf5dcd69a6f0b118c701cd, type: 2}
+  - {fileID: 11400000, guid: 824cc153c0be86b40baf588adcba5814, type: 2}
+  - {fileID: 11400000, guid: 859cd5937f030833ab8fb667effd8049, type: 2}
+  - {fileID: 11400000, guid: 484e690a4f1e666a6ad8954c64c07146, type: 2}
+  - {fileID: 11400000, guid: d0dc2fa1acfb74974a1e3032f12e8170, type: 2}
+  - {fileID: 11400000, guid: 02433b00036955481a3a4b3b87bc8f25, type: 2}
+  - {fileID: 11400000, guid: 6a33215c8eff44926bb60d725d52a59e, type: 2}
+  - {fileID: 11400000, guid: 5684bb25778ba50f786e238910f4a4d8, type: 2}
+  - {fileID: 11400000, guid: b890b1091c4cf84fa86d251cb79f92fb, type: 2}
+  - {fileID: 11400000, guid: ae8feb4dad7f90d64a40eb521c3ed7c4, type: 2}
+  - {fileID: 11400000, guid: 5c1e4ed7cbfc61cfaa1de50eaf8c2b62, type: 2}
+  - {fileID: 11400000, guid: 69ee84b6761cff64ab26756df80dde1d, type: 2}
+  - {fileID: 11400000, guid: 0ece432acb55d7592bb45257d1249e61, type: 2}
+  - {fileID: 11400000, guid: ea976213b004fd554ac162728e938200, type: 2}
+  worlds:
+  - {fileID: 11400000, guid: a3ead5a2b9c9ecb25a6ae16b3409095e, type: 2}
+  audio: {fileID: 11400000, guid: 9dbbf20066167c132afcadc3359f3a13, type: 2}
+  toyMaterial: {fileID: 2100000, guid: b57f35f7097db69ed80a333c06044dbc, type: 2}
+  ghostMaterial: {fileID: 2100000, guid: 20c35137b8de73d47b11db015f335238, type: 2}
+  blobMaterial: {fileID: 2100000, guid: 23326b65d0eb33cbeafbfc9769d551ff, type: 2}
+  markerMaterial: {fileID: 2100000, guid: 33407740c27d180bf9ed45beaed1295e, type: 2}
+  waterMaterial: {fileID: 2100000, guid: 35ed07b8d97e58cf49c5a0233c4cc07e, type: 2}
+  pillarPrefab: {fileID: 1799722876767697054, guid: 8bdfe52b1d19c8f96a1c2cb88021bde8, type: 3}
+  switchArrowPrefab: {fileID: 0}
+  smokePuffPrefab: {fileID: 0}
+  quadMesh: {fileID: 4300000, guid: f92262b88bbfdd641879684469d771d9, type: 2}
+  icons:
+  - name: bell
+    sprite: {fileID: 21300000, guid: a422b353532351ecd9a5787e3f8c817c, type: 3}
+  - name: build
+    sprite: {fileID: 21300000, guid: 82b8ddb2cf09e3c449c74b191416ae09, type: 3}
+  - name: camera_follow
+    sprite: {fileID: 21300000, guid: fbc39a756cff8afebbc68cddaaefbee1, type: 3}
+  - name: camera_reset
+    sprite: {fileID: 21300000, guid: c0579b0021ce748a594e0763f525f277, type: 3}
+  - name: cancel
+    sprite: {fileID: 21300000, guid: 3a855fcb354154b22a900aa934d00179, type: 3}
+  - name: carriage_cargo
+    sprite: {fileID: 21300000, guid: 24f66318bb412d28a92f7a8185e9acf0, type: 3}
+  - name: carriage_passenger
+    sprite: {fileID: 21300000, guid: c9ca4bd3d5011df2f9001c8018762a35, type: 3}
+  - name: clear_all
+    sprite: {fileID: 21300000, guid: 521faebcdf34e1c69937bdc6c6f850c2, type: 3}
+  - name: confirm
+    sprite: {fileID: 21300000, guid: 0103af0b95c856e27b171999683ffe99, type: 3}
+  - name: decorate
+    sprite: {fileID: 21300000, guid: b1a24f8f81671faf8b8bbf8e2e51e6e0, type: 3}
+  - name: delete
+    sprite: {fileID: 21300000, guid: 6c243975a9fb3a62e8df8a31c1b371d6, type: 3}
+  - name: explore
+    sprite: {fileID: 21300000, guid: a01cf50a4f5eb3b909f3b2fc2b2303b1, type: 3}
+  - name: go
+    sprite: {fileID: 21300000, guid: f47f935495ea9610b96c8279ea3d71d0, type: 3}
+  - name: hand
+    sprite: {fileID: 21300000, guid: ccede178013b94bccbea28a11648bb9a, type: 3}
+  - name: home
+    sprite: {fileID: 21300000, guid: 427c228d30e357e5fb88981536694642, type: 3}
+  - name: minus
+    sprite: {fileID: 21300000, guid: c2e61baef50d3cd18af621007c635c00, type: 3}
+  - name: music
+    sprite: {fileID: 21300000, guid: df8f46166ad962265a5ded1f716b488d, type: 3}
+  - name: new_world
+    sprite: {fileID: 21300000, guid: aee116e9d2b6cf8caaefa8fc2cdd3423, type: 3}
+  - name: play
+    sprite: {fileID: 21300000, guid: e230344a881bdcf85b57e271f171fab3, type: 3}
+  - name: plus
+    sprite: {fileID: 21300000, guid: 739394787a99ae562b9cf0103e13b524, type: 3}
+  - name: redo
+    sprite: {fileID: 21300000, guid: e18351c8a9fa30db197aa32ccd245795, type: 3}
+  - name: rotate
+    sprite: {fileID: 21300000, guid: 424558c715b5a5cd4af6d4bc3b7bdd83, type: 3}
+  - name: settings
+    sprite: {fileID: 21300000, guid: 8f0efae6faeb120608dc1b0caca94051, type: 3}
+  - name: sound
+    sprite: {fileID: 21300000, guid: 2b01db40c42040961a91197231502761, type: 3}
+  - name: speed_fast
+    sprite: {fileID: 21300000, guid: fefb6aaf594d9f3ba9d880c151944da9, type: 3}
+  - name: speed_slow
+    sprite: {fileID: 21300000, guid: 764c245562fe2682da7da507294aef84, type: 3}
+  - name: stop
+    sprite: {fileID: 21300000, guid: 6103cdb0495f8f4399dafb2982158df2, type: 3}
+  - name: switch
+    sprite: {fileID: 21300000, guid: 5488e65c92199c63c8327795b586bc4b, type: 3}
+  - name: train
+    sprite: {fileID: 21300000, guid: 722f6550d7b6c6f7f9a41ef988067807, type: 3}
+  - name: undo
+    sprite: {fileID: 21300000, guid: 57362f2c5dfc9ded3a3d9fb44f971300, type: 3}
+  - name: whistle
+    sprite: {fileID: 21300000, guid: c4b59815fc19e3140823bd4c6bd0eaf4, type: 3}

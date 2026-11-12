@@ -1,0 +1,412 @@
+[
+  {
+    "name": "Tree_Round",
+    "fbx": "_Project/Art/Models/Nature/Tree_Round.fbx",
+    "category": "tree",
+    "footprint": [
+      3.17,
+      3.04
+    ],
+    "height": 3.91,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 749
+  },
+  {
+    "name": "Tree_Pine",
+    "fbx": "_Project/Art/Models/Nature/Tree_Pine.fbx",
+    "category": "tree",
+    "footprint": [
+      2.84,
+      2.77
+    ],
+    "height": 4.45,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 940
+  },
+  {
+    "name": "Tree_Apple",
+    "fbx": "_Project/Art/Models/Nature/Tree_Apple.fbx",
+    "category": "tree",
+    "footprint": [
+      3.49,
+      3.14
+    ],
+    "height": 3.4,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 1659
+  },
+  {
+    "name": "Tree_Birch",
+    "fbx": "_Project/Art/Models/Nature/Tree_Birch.fbx",
+    "category": "tree",
+    "footprint": [
+      1.93,
+      1.83
+    ],
+    "height": 4.49,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 786
+  },
+  {
+    "name": "Bush",
+    "fbx": "_Project/Art/Models/Nature/Bush.fbx",
+    "category": "plant",
+    "footprint": [
+      1.78,
+      1.56
+    ],
+    "height": 0.92,
+    "parts": [],
+    "verts": 802
+  },
+  {
+    "name": "Flowers_Red",
+    "fbx": "_Project/Art/Models/Nature/Flowers_Red.fbx",
+    "category": "plant",
+    "footprint": [
+      0.68,
+      0.68
+    ],
+    "height": 0.63,
+    "parts": [],
+    "verts": 535
+  },
+  {
+    "name": "Flowers_Yellow",
+    "fbx": "_Project/Art/Models/Nature/Flowers_Yellow.fbx",
+    "category": "plant",
+    "footprint": [
+      0.67,
+      0.74
+    ],
+    "height": 0.55,
+    "parts": [],
+    "verts": 794
+  },
+  {
+    "name": "Flowers_Purple",
+    "fbx": "_Project/Art/Models/Nature/Flowers_Purple.fbx",
+    "category": "plant",
+    "footprint": [
+      0.63,
+      0.57
+    ],
+    "height": 0.52,
+    "parts": [],
+    "verts": 892
+  },
+  {
+    "name": "Rock_Large",
+    "fbx": "_Project/Art/Models/Nature/Rock_Large.fbx",
+    "category": "rock",
+    "footprint": [
+      2.37,
+      1.59
+    ],
+    "height": 1.06,
+    "parts": [],
+    "verts": 804
+  },
+  {
+    "name": "Rock_Small",
+    "fbx": "_Project/Art/Models/Nature/Rock_Small.fbx",
+    "category": "rock",
+    "footprint": [
+      0.83,
+      0.53
+    ],
+    "height": 0.36,
+    "parts": [],
+    "verts": 804
+  },
+  {
+    "name": "Grass_Tuft",
+    "fbx": "_Project/Art/Models/Nature/Grass_Tuft.fbx",
+    "category": "plant",
+    "footprint": [
+      0.48,
+      0.57
+    ],
+    "height": 0.35,
+    "parts": [],
+    "verts": 286
+  },
+  {
+    "name": "Cloud_A",
+    "fbx": "_Project/Art/Models/Nature/Cloud_A.fbx",
+    "category": "cloud",
+    "footprint": [
+      8.25,
+      3.15
+    ],
+    "height": 3.05,
+    "parts": [],
+    "verts": 1022
+  },
+  {
+    "name": "Cloud_B",
+    "fbx": "_Project/Art/Models/Nature/Cloud_B.fbx",
+    "category": "cloud",
+    "footprint": [
+      6.87,
+      2.7
+    ],
+    "height": 2.67,
+    "parts": [],
+    "verts": 876
+  },
+  {
+    "name": "Mushroom",
+    "fbx": "_Project/Art/Models/Nature/Mushroom.fbx",
+    "category": "plant",
+    "footprint": [
+      0.71,
+      0.54
+    ],
+    "height": 0.5,
+    "parts": [],
+    "verts": 774
+  },
+  {
+    "name": "Farmhouse",
+    "fbx": "_Project/Art/Models/Buildings/Farmhouse.fbx",
+    "category": "building",
+    "footprint": [
+      5.72,
+      5.0
+    ],
+    "height": 5.02,
+    "parts": [],
+    "verts": 4466
+  },
+  {
+    "name": "Barn",
+    "fbx": "_Project/Art/Models/Buildings/Barn.fbx",
+    "category": "building",
+    "footprint": [
+      5.36,
+      6.46
+    ],
+    "height": 6.07,
+    "parts": [],
+    "verts": 2644
+  },
+  {
+    "name": "House_A",
+    "fbx": "_Project/Art/Models/Buildings/House_A.fbx",
+    "category": "building",
+    "footprint": [
+      4.18,
+      4.73
+    ],
+    "height": 4.61,
+    "parts": [],
+    "verts": 3424
+  },
+  {
+    "name": "House_B",
+    "fbx": "_Project/Art/Models/Buildings/House_B.fbx",
+    "category": "building",
+    "footprint": [
+      5.2,
+      4.37
+    ],
+    "height": 4.9,
+    "parts": [],
+    "verts": 3060
+  },
+  {
+    "name": "Station",
+    "fbx": "_Project/Art/Models/Buildings/Station.fbx",
+    "category": "building",
+    "footprint": [
+      4.29,
+      5.52
+    ],
+    "height": 4.8,
+    "parts": [],
+    "verts": 4274
+  },
+  {
+    "name": "Depot",
+    "fbx": "_Project/Art/Models/Buildings/Depot.fbx",
+    "category": "building",
+    "footprint": [
+      3.52,
+      4.42
+    ],
+    "height": 4.1,
+    "parts": [],
+    "verts": 2096
+  },
+  {
+    "name": "Windmill",
+    "fbx": "_Project/Art/Models/Buildings/Windmill.fbx",
+    "category": "building",
+    "footprint": [
+      4.58,
+      3.5
+    ],
+    "height": 6.44,
+    "parts": [
+      "Sails"
+    ],
+    "verts": 3510
+  },
+  {
+    "name": "Well",
+    "fbx": "_Project/Art/Models/Buildings/Well.fbx",
+    "category": "building",
+    "footprint": [
+      1.95,
+      1.77
+    ],
+    "height": 3.12,
+    "parts": [],
+    "verts": 1326
+  },
+  {
+    "name": "Shop",
+    "fbx": "_Project/Art/Models/Buildings/Shop.fbx",
+    "category": "building",
+    "footprint": [
+      4.88,
+      4.68
+    ],
+    "height": 5.14,
+    "parts": [],
+    "verts": 3926
+  },
+  {
+    "name": "Fence",
+    "fbx": "_Project/Art/Models/Props/Fence.fbx",
+    "category": "prop",
+    "footprint": [
+      2.1,
+      0.26
+    ],
+    "height": 0.88,
+    "parts": [],
+    "verts": 288
+  },
+  {
+    "name": "Sign_Railway",
+    "fbx": "_Project/Art/Models/Props/Sign_Railway.fbx",
+    "category": "prop",
+    "footprint": [
+      0.89,
+      0.34
+    ],
+    "height": 2.18,
+    "parts": [],
+    "verts": 720
+  },
+  {
+    "name": "Sign_Arrow",
+    "fbx": "_Project/Art/Models/Props/Sign_Arrow.fbx",
+    "category": "prop",
+    "footprint": [
+      1.61,
+      0.95
+    ],
+    "height": 2.05,
+    "parts": [],
+    "verts": 370
+  },
+  {
+    "name": "Bench",
+    "fbx": "_Project/Art/Models/Props/Bench.fbx",
+    "category": "prop",
+    "footprint": [
+      1.4,
+      0.51
+    ],
+    "height": 0.85,
+    "parts": [],
+    "verts": 328
+  },
+  {
+    "name": "Lamp",
+    "fbx": "_Project/Art/Models/Props/Lamp.fbx",
+    "category": "prop",
+    "footprint": [
+      0.67,
+      0.36
+    ],
+    "height": 2.88,
+    "parts": [
+      "LampHead"
+    ],
+    "verts": 484
+  },
+  {
+    "name": "HayBale",
+    "fbx": "_Project/Art/Models/Props/HayBale.fbx",
+    "category": "prop",
+    "footprint": [
+      1.04,
+      1.17
+    ],
+    "height": 1.14,
+    "parts": [],
+    "verts": 554
+  },
+  {
+    "name": "Crate_Stack",
+    "fbx": "_Project/Art/Models/Props/Crate_Stack.fbx",
+    "category": "prop",
+    "footprint": [
+      1.35,
+      0.74
+    ],
+    "height": 1.29,
+    "parts": [],
+    "verts": 870
+  },
+  {
+    "name": "Mailbox",
+    "fbx": "_Project/Art/Models/Props/Mailbox.fbx",
+    "category": "prop",
+    "footprint": [
+      0.47,
+      0.6
+    ],
+    "height": 1.36,
+    "parts": [],
+    "verts": 378
+  },
+  {
+    "name": "Barrier_Crossing",
+    "fbx": "_Project/Art/Models/Props/Barrier_Crossing.fbx",
+    "category": "prop",
+    "footprint": [
+      3.1,
+      0.5
+    ],
+    "height": 1.51,
+    "parts": [
+      "Arm"
+    ],
+    "verts": 762
+  },
+  {
+    "name": "Pillar",
+    "fbx": "_Project/Art/Models/Props/Pillar.fbx",
+    "category": "prop",
+    "footprint": [
+      0.92,
+      0.92
+    ],
+    "height": 1.84,
+    "parts": [],
+    "verts": 432
+  }
+]

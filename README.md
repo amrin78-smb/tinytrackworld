@@ -1,0 +1,60 @@
+# Tiny Tracks World
+
+*Build it. Connect it. Ride it. Explore it.* A toddler-friendly (ages 2–5) 3D toy-railway sandbox for Android,
+built with Unity 6. Children snap wooden track pieces together, pick a friendly locomotive and carriages, press GO,
+and watch it travel through the Sunny Valley countryside. There are no fail states, timers, ads, accounts, network
+access or reading.
+
+| | |
+|---|---|
+| Engine | Unity **6000.3.27f2**, URP 17.3, Input System, uGUI |
+| Platform | Android, landscape, offline; **ARMv7 (32-bit) + ARM64**, IL2CPP, OpenGL ES 3.0 (Vulkan not used) |
+| Target | Xiaomi Redmi A3 (32-bit Android, PowerVR GE8320); Low preset at 30 FPS |
+| Art | Original models scripted in **Blender 5.2** (`Tools/blender`), audio synthesised offline (`Tools/audio`) |
+
+## Quick start
+
+```bash
+Tools/setup.sh                 # regenerate settings, materials, prefabs, definitions, scene (after art/code changes)
+Tools/run_tests.sh all         # EditMode + PlayMode tests
+Tools/showcase.sh              # in-game screenshots -> Logs/Showcase/*.png
+Tools/build_android.sh dev     # development APK (ARMv7+ARM64) + verification
+Tools/build_android.sh all     # release: universal + armv7-only + arm64-only APKs, each verified
+adb install -r Builds/Android/TinyTracksWorld-universal.apk
+```
+
+Regenerate art (optional, needs Blender on PATH; outputs are committed):
+
+```bash
+blender -b --factory-startup --python Tools/blender/models/build_tracks.py      # 21 track pieces (from track_shapes.json)
+blender -b --factory-startup --python Tools/blender/models/build_trains.py      # 4 locos + 2 carriages
+blender -b --factory-startup --python Tools/blender/models/build_creatures.py   # 7 animals + 3 people
+blender -b --factory-startup --python Tools/blender/models/build_env.py         # 33 trees/buildings/props
+blender -b --factory-startup --python Tools/blender/icons/build_icons.py        # 31 UI icons
+blender -b --factory-startup --python Tools/blender/render_thumbs.py            # toolbar thumbnails
+~/.local/opt/blender-5.2.3-linux-x64/5.2/python/bin/python3.13 Tools/audio/synth_audio.py   # all sounds + music
+```
+
+## How to play (grown-ups' guide)
+
+* **Home screen:** the big green ▶ plays. Tap a locomotive below to choose it. Hold the sprout for 1.5 s to start a
+  new world. Hold the gear for 2 s to open the grown-ups' settings (volumes, graphics, frame rate).
+* **Build (hammer):** pick a piece and a see-through ghost appears at the end of the railway (green means it fits,
+  red means it doesn't). Tap the ghost, or the same piece button again, to lay it; keep tapping to grow the line.
+  Drag the ghost anywhere and it snaps to nearby ends; let go to place it. Rotate swaps left/right. Long-press a
+  piece to pick it up and move it. The bin toggles delete mode. Undo and redo are available. Tap a junction to
+  flip it. Hold the broom to clear everything (this can be undone).
+* **Train:** GO / STOP / whistle / bell, turtle and rabbit for speed, and the camera button to follow the train. Pick
+  a locomotive and add or remove passenger and cargo carriages. Trains stop safely at the end of the track (a yellow
+  "!" marks the gap); press GO and the train turns round. Trains pause at stations and lower crossing barriers.
+* **Decorate (tree):** trees, flowers, buildings, animals, people and props are placed the same way as track.
+* **Explore (magnifier):** tap animals, trees, houses and the windmill for sounds and animations; tap the train to
+  make it whistle.
+
+The world saves automatically (`world.json` in the app's private storage).
+
+## Documents
+
+[GDD.md](GDD.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) ·
+[BUILD_NOTES.md](BUILD_NOTES.md) · [TEST_REPORT.md](TEST_REPORT.md) · [CHANGELOG.md](CHANGELOG.md) ·
+[Docs/MASTER_DEVELOPMENT_PROMPT.md](Docs/MASTER_DEVELOPMENT_PROMPT.md)

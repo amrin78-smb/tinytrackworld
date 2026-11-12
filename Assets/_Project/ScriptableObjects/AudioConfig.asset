@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe5946b7f121367ab7d97eefd7877c8, type: 3}
+  m_Name: AudioConfig
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.AudioConfig
+  music: {fileID: 8300000, guid: eadf02adbde2a58199c06e1430c30f0e, type: 3}
+  ambience: {fileID: 8300000, guid: 28aa06f6a5365624992ba308bd732321, type: 3}
+  whistle: {fileID: 8300000, guid: 10602e60b5c7d1741a80097716eabdb9, type: 3}
+  bell: {fileID: 8300000, guid: 9972e1dbff7444239ba352f3807def96, type: 3}
+  chugLoop: {fileID: 8300000, guid: 306dbe3faf72bb02ba37a2d723f25f5c, type: 3}
+  rollingLoop: {fileID: 8300000, guid: c57512532a34de33dac859b41b41c480, type: 3}
+  motorLoop: {fileID: 8300000, guid: 367c63b9882ebf84a931ead1e6a16a82, type: 3}
+  trackPlace: {fileID: 8300000, guid: 281478f4668c4f8938f7e122caa5c145, type: 3}
+  trackSnap: {fileID: 8300000, guid: 85b71ad4382218c0db88fe0315a05e54, type: 3}
+  trackRemove: {fileID: 8300000, guid: cfa82e12e51cb6f17914e5ecacba1287, type: 3}
+  invalid: {fileID: 8300000, guid: 2c96154322106d21abe599933a125710, type: 3}
+  button: {fileID: 8300000, guid: 147109523b7dbf53781df132bf406ccb, type: 3}
+  buttonToggle: {fileID: 8300000, guid: d36294918ec24e2fa9c4eaf288473c3a, type: 3}
+  undo: {fileID: 8300000, guid: cc3ef72e244dc17a89103b8ad37ee9b1, type: 3}
+  placeDecor: {fileID: 8300000, guid: 8ee6314d658e982baa2d6c66fa81392c, type: 3}
+  stationChime: {fileID: 8300000, guid: 35938e73f5c914e6e9380598917e1d1e, type: 3}
+  crossingBell: {fileID: 8300000, guid: 993d766a5a7ec91cbb1e96466cc923ca, type: 3}
+  puff: {fileID: 8300000, guid: b3a48bd8288ce807bb11b8025a3278a7, type: 3}
+  tada: {fileID: 8300000, guid: 810f97a2034a58aff8c863e09fd9b9aa, type: 3}
+  switchFlip: {fileID: 8300000, guid: 1d875879a1da445ff988108f9e156869, type: 3}
+  moo: {fileID: 8300000, guid: f723d1355a00b1b05b0538f46f782012, type: 3}
+  baa: {fileID: 8300000, guid: 59eaa5ad4b89b630c9224812c9526dbe, type: 3}
+  cluck: {fileID: 8300000, guid: 142a3086c4cde7193a653efb2127303d, type: 3}
+  bark: {fileID: 8300000, guid: 57017f4e76a960bb99fd69bb277f631e, type: 3}
+  meow: {fileID: 8300000, guid: 63745debfde98ac1ebd753fe24125e74, type: 3}
+  neigh: {fileID: 8300000, guid: 6cdc6850c508ef29a9765affa2768c7e, type: 3}
+  tweet: {fileID: 8300000, guid: e02c8d30ccd68460891a8aa4e9d92772, type: 3}
+  defaultMusic: 0.45
+  defaultSfx: 0.8
+  defaultAmbient: 0.5

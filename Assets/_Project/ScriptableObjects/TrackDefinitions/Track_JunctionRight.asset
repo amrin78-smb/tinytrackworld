@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6583204f4cf17494ba6a9ece166b43b6, type: 3}
+  m_Name: Track_JunctionRight
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.TrackPieceDefinition
+  type: 9
+  displayName: Junction Right
+  category: 2
+  icon: {fileID: 21300000, guid: 601a50cc6cf5d582091b90f6c7148c76, type: 3}
+  prefab: {fileID: 770847676880666707, guid: 5ac0b4b521130ddca803d98257a890bf, type: 3}
+  accessory: {fileID: 0}
+  accessoryOffset: {x: 0, y: 0, z: 0}
+  accessoryYaw: 0
+  mirrorAccessory: 0

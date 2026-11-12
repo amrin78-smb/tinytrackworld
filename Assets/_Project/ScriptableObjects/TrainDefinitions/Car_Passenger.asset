@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3f11e80e469dffe8f52ae558d6be09, type: 3}
+  m_Name: Car_Passenger
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.TrainDefinition
+  id: Car_Passenger
+  displayName: Passenger Carriage
+  kind: 1
+  engine: 0
+  icon: {fileID: 21300000, guid: caa420c3fae76281b9d17181f21fda93, type: 3}
+  prefab: {fileID: 289477566493441017, guid: 91056d8ca3828bbef800f51100abb4b3, type: 3}
+  bogieSpacing: 1.2012001
+  frontOverhang: 0.4004
+  length: 2.002
+  uiColor: {r: 0.78431374, g: 0.8627451, b: 1, a: 1}

@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Cow",
+    "fbx": "_Project/Art/Models/Animals/Cow.fbx",
+    "kind": "animal",
+    "sound": "moo",
+    "footprintRadius": 0.917,
+    "height": 1.162,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 3399
+  },
+  {
+    "name": "Sheep",
+    "fbx": "_Project/Art/Models/Animals/Sheep.fbx",
+    "kind": "animal",
+    "sound": "baa",
+    "footprintRadius": 0.525,
+    "height": 0.79,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 1956
+  },
+  {
+    "name": "Chicken",
+    "fbx": "_Project/Art/Models/Animals/Chicken.fbx",
+    "kind": "animal",
+    "sound": "cluck",
+    "footprintRadius": 0.22,
+    "height": 0.474,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 1951
+  },
+  {
+    "name": "Dog",
+    "fbx": "_Project/Art/Models/Animals/Dog.fbx",
+    "kind": "animal",
+    "sound": "bark",
+    "footprintRadius": 0.466,
+    "height": 0.653,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 1979
+  },
+  {
+    "name": "Cat",
+    "fbx": "_Project/Art/Models/Animals/Cat.fbx",
+    "kind": "animal",
+    "sound": "meow",
+    "footprintRadius": 0.31,
+    "height": 0.537,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 1823
+  },
+  {
+    "name": "Horse",
+    "fbx": "_Project/Art/Models/Animals/Horse.fbx",
+    "kind": "animal",
+    "sound": "neigh",
+    "footprintRadius": 0.88,
+    "height": 1.64,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 2714
+  },
+  {
+    "name": "Bird",
+    "fbx": "_Project/Art/Models/Animals/Bird.fbx",
+    "kind": "bird",
+    "sound": "tweet",
+    "footprintRadius": 0.265,
+    "height": 0.246,
+    "parts": [
+      "Head",
+      "Tail",
+      "WingL",
+      "WingR"
+    ],
+    "verts": 1307
+  },
+  {
+    "name": "Person_Conductor",
+    "fbx": "_Project/Art/Models/People/Person_Conductor.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.287,
+    "height": 1.234,
+    "parts": [
+      "Head",
+      "ArmL",
+      "ArmR"
+    ],
+    "verts": 2496
+  },
+  {
+    "name": "Person_Farmer",
+    "fbx": "_Project/Art/Models/People/Person_Farmer.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.31,
+    "height": 1.273,
+    "parts": [
+      "Head",
+      "ArmL",
+      "ArmR"
+    ],
+    "verts": 2446
+  },
+  {
+    "name": "Person_Child",
+    "fbx": "_Project/Art/Models/People/Person_Child.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.221,
+    "height": 0.942,
+    "parts": [
+      "Head",
+      "ArmL",
+      "ArmR"
+    ],
+    "verts": 2136
+  }
+]

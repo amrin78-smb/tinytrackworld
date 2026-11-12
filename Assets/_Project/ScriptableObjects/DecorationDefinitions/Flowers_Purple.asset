@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Flowers_Purple
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Flowers_Purple
+  displayName: Flowers Purple
+  category: 0
+  icon: {fileID: 21300000, guid: dd8640d5d90cca170a5267ade8491684, type: 3}
+  prefab: {fileID: 916658906787646046, guid: 13a7a958a053e1befa3f1fe9e1af5b65, type: 3}
+  footprintRadius: 0.26683134
+  height: 0.5919626
+  reaction: 8
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 1

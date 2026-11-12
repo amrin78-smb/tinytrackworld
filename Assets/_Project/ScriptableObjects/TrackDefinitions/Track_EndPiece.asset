@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6583204f4cf17494ba6a9ece166b43b6, type: 3}
+  m_Name: Track_EndPiece
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.TrackPieceDefinition
+  type: 12
+  displayName: End Piece
+  category: 0
+  icon: {fileID: 21300000, guid: 0990494d4d8870b42a43c33095f6db7e, type: 3}
+  prefab: {fileID: 5021686707128630426, guid: ec99973615895c66f970c99d7b153b4d, type: 3}
+  accessory: {fileID: 0}
+  accessoryOffset: {x: 0, y: 0, z: 0}
+  accessoryYaw: 0
+  mirrorAccessory: 0

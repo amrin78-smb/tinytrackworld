@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6583204f4cf17494ba6a9ece166b43b6, type: 3}
+  m_Name: Track_ShortStraight
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.TrackPieceDefinition
+  type: 1
+  displayName: Short Straight
+  category: 0
+  icon: {fileID: 21300000, guid: b17b5cc1b105e1b2d97e7a710870fc12, type: 3}
+  prefab: {fileID: 399226221867124945, guid: 4c003ec11bb63bbe58d32811019c45a4, type: 3}
+  accessory: {fileID: 0}
+  accessoryOffset: {x: 0, y: 0, z: 0}
+  accessoryYaw: 0
+  mirrorAccessory: 0

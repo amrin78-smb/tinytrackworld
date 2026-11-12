@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Tree_Pine
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Tree_Pine
+  displayName: Tree Pine
+  category: 0
+  icon: {fileID: 21300000, guid: 42e39471f7e76d55cb3f31ca99f96d04, type: 3}
+  prefab: {fileID: 243545964647732628, guid: b5b5e251eef05fbf2a47da38add00b5a, type: 3}
+  footprintRadius: 1.2073053
+  height: 4.45
+  reaction: 2
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

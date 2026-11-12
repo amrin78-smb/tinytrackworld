@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Sheep
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Sheep
+  displayName: Sheep
+  category: 2
+  icon: {fileID: 21300000, guid: 492785961318955469be58a8a7f6013d, type: 3}
+  prefab: {fileID: 4370503894923354702, guid: 68a5540b2a03a8ef2902fe3471612d0f, type: 3}
+  footprintRadius: 0.4151316
+  height: 0.7900001
+  reaction: 1
+  sound: {fileID: 8300000, guid: 59eaa5ad4b89b630c9224812c9526dbe, type: 3}
+  placeable: 1
+  lowDetailOptional: 0
