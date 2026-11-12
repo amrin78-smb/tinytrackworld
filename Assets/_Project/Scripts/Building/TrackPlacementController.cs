@@ -225,13 +225,67 @@ namespace TinyTracks.Building
                         if (alt.valid) { current = alt; rotation += k; }
                     }
                 }
+                // Still red? Try the other open ends nearby, then a free spot: a toddler should always be offered a
+                // piece that fits (they can still drag it wherever they like).
+                if (!current.valid || !InBounds(current.pose)) TryOtherEnds(shape, target);
             }
             else
             {
                 Vector3 centre = CameraController.Instance != null ? CameraController.Instance.Target : Vector3.zero;
                 current = TrackSnapping.FindPlacement(network.Graph, shape, centre, rotation, 0f, openScratch);
+                // No open end (e.g. the closed starter loop): never offer a red ghost lying across existing track;
+                // look outwards from the view centre for the nearest free spot so "tap the green track" just works.
+                if (!current.valid || !InBounds(current.pose)) FindFreeSpot(shape, centre);
             }
             ApplyGhost();
+        }
+
+        private void FindFreeSpot(TrackShape shape, Vector3 centre)
+        {
+            for (int ring = 1; ring <= 10; ring++)
+            {
+                float r = ring * 2f;
+                int steps = 8 + ring * 2;
+                for (int k = 0; k < steps; k++)
+                {
+                    float a = (k / (float)steps) * Mathf.PI * 2f + ring * 0.37f;
+                    Vector3 p = centre + new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a)) * r;
+                    for (int turn = 0; turn < 4; turn += 2)
+                    {
+                        SnapResult res = TrackSnapping.FindPlacement(network.Graph, shape, p, rotation + turn, 0f, openScratch);
+                        if (!res.valid || !InBounds(res.pose)) continue;
+                        current = res;
+                        rotation += turn;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void TryOtherEnds(TrackShape shape, TrackNode tried)
+        {
+            Vector3 centre = CameraController.Instance != null ? CameraController.Instance.Target : Vector3.zero;
+            network.Graph.OpenEnds(openScratch);
+            var ends = new List<(TrackNode n, int c, float d)>();
+            foreach ((TrackNode n, int c) in openScratch)
+                if (!(n == tried && c == activeConnector)) ends.Add((n, c, Vector3.Distance(n.worldConnectorPos[c], centre)));
+            ends.Sort((x, y) => x.d.CompareTo(y.d));
+            int count = TrackSnapping.AttachableConnectorCount(shape);
+            foreach (var e in ends)
+            {
+                if (e.d > 22f) break;
+                for (int k = 0; k < count; k++)
+                {
+                    SnapResult alt = TrackSnapping.AttachTo(network.Graph, shape, e.n, e.c, rotation + k);
+                    if (!alt.valid || !InBounds(alt.pose)) continue;
+                    current = alt;
+                    rotation += k;
+                    activeNode = e.n.id;
+                    activeConnector = e.c;
+                    return;
+                }
+            }
+            FindFreeSpot(shape, centre);
         }
 
         private void PickEndNearView(out TrackNode target)

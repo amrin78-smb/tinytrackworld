@@ -49,8 +49,35 @@ namespace TinyTracks.Tests
             Assert.AreEqual(0, r.openEnds, r.ToString());
             Assert.IsTrue(r.IsConsistent, r.ToString());
             Assert.IsNotNull(gm.trains.Current, "starter train missing");
+            // The starter train must be a real, visible locomotive (regression: a fresh world once got a model-less train).
+            TrainVehicle loco = gm.trains.Current.Locomotive;
+            Assert.IsNotNull(loco.definition, "starter locomotive has no definition");
+            Assert.IsNotNull(loco.body, "starter locomotive has no model");
+            Assert.Greater(loco.GetComponentsInChildren<Renderer>().Length, 3, "starter locomotive has no renderers");
             Assert.AreEqual(4, System.Linq.Enumerable.Count(gm.content.Locomotives()));
             yield return null;
+        }
+
+        /// <summary>The starter loop has no open end: picking a piece must still offer a ghost that fits (green).</summary>
+        [UnityTest]
+        public IEnumerator ClosedLoop_PickingAPiece_OffersAPlaceableGhost()
+        {
+            GameManager gm = GameManager.Instance;
+            gm.Play();
+            gm.SetMode(GameMode.Build);
+            yield return null;
+            Assert.AreEqual(0, gm.network.Graph.Validate().openEnds, "starter loop should be closed");
+            foreach (TrackType t in new[] { TrackType.Straight, TrackType.TightLeft, TrackType.Station, TrackType.JunctionRight })
+            {
+                gm.placement.Select(t);
+                yield return null;
+                Assert.IsTrue(gm.placement.HasGhost, t + " ghost");
+                Assert.IsTrue(gm.placement.GhostValid, t + " ghost should fit somewhere near the view");
+                int before = gm.network.Graph.Count;
+                Assert.IsTrue(gm.placement.Confirm(), t + " confirm");
+                Assert.AreEqual(before + 1, gm.network.Graph.Count);
+                gm.placement.Deselect();
+            }
         }
 
         [UnityTest]

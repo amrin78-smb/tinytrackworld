@@ -12,11 +12,15 @@
 
 ## Player settings (applied by `ProjectSetup.ConfigurePlayer`, re-applied before every build)
 
-* Package `com.nocvault.tinytracksworld`, version **0.2.0** (code 2), landscape only.
+* Package `com.nocvault.tinytracksworld`, version **0.2.1** (code 3), landscape only.
 * **IL2CPP**, target architectures **ARMv7 + ARM64** (per-APK overrides for the single-ABI builds).
 * **OpenGL ES 3.0 only**. Vulkan is deliberately not used: on the sibling project the Redmi A3's PowerVR GE8320
   crashed on second launch with Vulkan.
-* Min SDK 25 (Android 7.1), target SDK 36. Linear colour space, URP (`Settings/TT_URP.asset`), Input System only.
+* Min SDK 25 (Android 7.1), **target SDK 35** (Google Play's current minimum). Linear colour space, URP
+  (`Settings/TT_URP.asset`), Input System only.
+* **Edge-to-edge opt-out:** `Scripts/Editor/EdgeToEdgeOptOut.cs` adds `android:windowOptOutEdgeToEdgeEnforcement` to
+  Unity's generated activity themes, so the game is laid out below the status bar instead of under it. This is
+  honoured only while targeting SDK 35, so moving to 36 would bring the overlap back.
 * **No INTERNET permission.** Unity writes it into the generated `unityLibrary` manifest even with
   `forceInternetPermission = false`, so `Scripts/Editor/StripInternetPermission.cs` (an
   `IPostGenerateGradleAndroidProject` hook) removes it before packaging. `verify_apk.sh` fails the build if it is there.
@@ -27,7 +31,8 @@
 
 ```bash
 Tools/setup.sh                    # regenerate project content (after art, voice or code changes)
-Tools/build_android.sh release    # universal APK only (fastest)
+Tools/build_android.sh release    # the universal APK (ARMv7 + ARM64): what we ship
+Tools/build_android.sh armv7      # or arm64: single-ABI test builds (quicker)
 Tools/build_android.sh all        # universal + ARMv7-only + ARM64-only, each verified
 ```
 
@@ -37,6 +42,13 @@ Tools/build_android.sh all        # universal + ARMv7-only + ARM64-only, each ve
   EABI5");
 * `aapt` badging: native-code, `glEsVersion 0x30000`, landscape;
 * there is no INTERNET permission.
+
+## Release build: 0.2.1 (2026-11-12)
+
+Only the universal APK is published (`TinyTracksWorld-universal.apk`, 55 MB, armeabi-v7a + arm64-v8a, all checks
+OK, versionCode 3, targetSdk 35). One APK covers every phone: Android installs the 64-bit code on 64-bit devices and
+the ARMv7 code on 32-bit ones. A 32-bit-only APK triggers a "not compatible with the latest Android" warning on
+Android 16 64-bit phones (seen on the S23 Ultra), so it is not distributed.
 
 ## Release build: 0.2.0 (2026-11-12)
 

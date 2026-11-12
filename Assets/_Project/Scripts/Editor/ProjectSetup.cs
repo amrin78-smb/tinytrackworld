@@ -39,8 +39,8 @@ namespace TinyTracks.EditorTools
         public const string SettingsDir = Root + "/Settings";
         public const string ScenePath = Root + "/Scenes/Main.unity";
         public const string AppId = "com.nocvault.tinytracksworld";
-        public const string Version = "0.2.0";
-        public const int VersionCode = 2;
+        public const string Version = "0.2.1";
+        public const int VersionCode = 3;
 
         [MenuItem("Tiny Tracks/Setup Project")]
         public static void Run()
@@ -84,7 +84,9 @@ namespace TinyTracks.EditorTools
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64;
             PlayerSettings.Android.minSdkVersion = (AndroidSdkVersions)25;
-            PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
+            // Target 35 (meets Google Play's current requirement). At 36 Android ignores the edge-to-edge opt-out that
+            // Unity's legacy full-screen needs, and the status bar stays visible (seen on a TCL tablet, Android 15).
+            PlayerSettings.Android.targetSdkVersion = (AndroidSdkVersions)35;
             PlayerSettings.Android.forceInternetPermission = false;
             PlayerSettings.Android.forceSDCardPermission = false;
             PlayerSettings.Android.renderOutsideSafeArea = false;
@@ -100,7 +102,7 @@ namespace TinyTracks.EditorTools
             PlayerSettings.SplashScreen.backgroundColor = new Color32(143, 211, 255, 255);
             PlayerSettings.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
             EditorUserBuildSettings.buildAppBundle = false;
-            PlayerSettings.fullScreenMode = FullScreenMode.Windowed;
+            PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow; // hide the status bar (immersive)
             PlayerSettings.defaultScreenWidth = 1280;
             PlayerSettings.defaultScreenHeight = 720;
             PlayerSettings.resizableWindow = true;

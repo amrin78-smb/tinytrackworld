@@ -134,17 +134,42 @@ namespace TinyTracks.Trains
             mf.sharedMesh = m;
         }
 
-        /// <summary>Low-poly smooth sphere with white vertex colour (the ToyLit shader reads vertex colour).</summary>
+        /// <summary>
+        /// Low-poly smooth UV sphere (radius 0.5) with white vertex colour (the ToyLit shader reads vertex colour).
+        /// Built in code: GameObject.CreatePrimitive needs SphereCollider, which the player build strips.
+        /// </summary>
         private static Mesh BuildSphere()
         {
-            GameObject tmp = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Mesh src = tmp.GetComponent<MeshFilter>().sharedMesh;
-            Mesh m = Instantiate(src);
-            m.name = "PuffSphere";
-            Destroy(tmp);
-            var cols = new Color32[m.vertexCount];
+            const int rings = 10, segs = 16;
+            var verts = new List<Vector3>();
+            var normals = new List<Vector3>();
+            var tris = new List<int>();
+            for (int r = 0; r <= rings; r++)
+            {
+                float v = r / (float)rings * Mathf.PI;
+                for (int k = 0; k <= segs; k++)
+                {
+                    float u = k / (float)segs * Mathf.PI * 2f;
+                    Vector3 n = new Vector3(Mathf.Sin(v) * Mathf.Cos(u), Mathf.Cos(v), Mathf.Sin(v) * Mathf.Sin(u));
+                    verts.Add(n * 0.5f);
+                    normals.Add(n);
+                }
+            }
+            for (int r = 0; r < rings; r++)
+                for (int k = 0; k < segs; k++)
+                {
+                    int a = r * (segs + 1) + k, b = a + segs + 1;
+                    tris.Add(a); tris.Add(a + 1); tris.Add(b);
+                    tris.Add(a + 1); tris.Add(b + 1); tris.Add(b);
+                }
+            var m = new Mesh { name = "PuffSphere" };
+            m.SetVertices(verts);
+            m.SetNormals(normals);
+            m.SetTriangles(tris, 0);
+            var cols = new Color32[verts.Count];
             for (int i = 0; i < cols.Length; i++) cols[i] = new Color32(250, 250, 250, 0);
             m.colors32 = cols;
+            m.RecalculateBounds();
             return m;
         }
     }

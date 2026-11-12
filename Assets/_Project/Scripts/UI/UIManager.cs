@@ -100,7 +100,8 @@ namespace TinyTracks.UI
             var scaler = go.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.matchWidthOrHeight = 1f;
+            // Expand: the whole 1920x1080 layout always fits (16:10 tablets get extra height, 20:9 phones extra width).
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
             // Keep everything inside the safe area (notches, rounded corners).
             RectTransform safe = UIFactory.Rect("Safe", go.transform);
             UIFactory.Stretch(safe);
@@ -478,6 +479,7 @@ namespace TinyTracks.UI
             UIFactory.Anchor(howBox, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(80f, 70f), new Vector2(330f, 100f));
             ToyButton how = TextToggle(howBox, "Show me how", () => { ShowSettings(false); game.SetMode(GameMode.Menu); guide.StartTutorial(); });
             ((RectTransform)how.transform).sizeDelta = new Vector2(330f, 100f);
+            how.Selected = false; // an action, not a toggle: no selection ring
 
             Text fps = UIFactory.Label("Fps", p, "", 26, new Color(0.4f, 0.45f, 0.6f), TextAnchor.MiddleLeft);
             fps.GetComponent<Outline>().enabled = false;

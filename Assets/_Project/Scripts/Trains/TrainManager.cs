@@ -25,13 +25,23 @@ namespace TinyTracks.Trains
         public readonly List<string> SelectedCars = new List<string>();
         public event Action TrainChanged;
 
-        private void Awake() => Instance = this;
+        private void Awake()
+        {
+            Instance = this;
+            // Choose the default locomotive here, not in Start: GameManager.Start may build the starter world (and
+            // place its train) before this component's Start runs, which used to create an invisible, model-less train.
+            EnsureLoco();
+        }
 
         private void Start()
         {
             if (network != null) network.NetworkChanged += OnNetworkChanged;
-            if (string.IsNullOrEmpty(SelectedLocoId))
-                foreach (TrainDefinition d in content.Locomotives()) { SelectedLocoId = d.id; break; }
+        }
+
+        private void EnsureLoco()
+        {
+            if (content == null || content.Train(SelectedLocoId) != null) return;
+            foreach (TrainDefinition d in content.Locomotives()) { SelectedLocoId = d.id; break; }
         }
 
         private List<TrainDefinition> CarDefs()
@@ -117,6 +127,7 @@ namespace TinyTracks.Trains
 
         private TrainController CreateTrain()
         {
+            EnsureLoco();
             var go = new GameObject("Train");
             go.transform.SetParent(transform, false);
             TrainController t = go.AddComponent<TrainController>();

@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.2.1: first real-device fixes (2026-11-12)
+
+Tested on a TCL 8183A tablet (Android 15) and a Galaxy S23 Ultra (Android 16, 64-bit and forced 32-bit).
+
+### Fixed
+- **Invisible train on a fresh install:** the default locomotive was chosen after the starter world placed its
+  train, so the train had no model. It is now chosen in `Awake` (plus a PlayMode regression test).
+- **Red ghost on the closed starter loop:** with no open end, the first piece appeared across existing track and
+  could not be placed (the tour said "tap the green track"). The ghost now goes to the nearest free spot, or to
+  another open end, so it is always placeable (plus a PlayMode test).
+- **UI cut off on 16:10 tablets:** the canvas now uses Expand scaling, so the full layout fits any aspect ratio
+  (16:10 tablets to 21:9 phones).
+- **Smoke-puff mesh error:** `CreatePrimitive` needed a class removed by code stripping; the sphere is now built in
+  code.
+- **Status bar covering the game:** the game now sits below the status bar (targets SDK 35 with Android's
+  edge-to-edge opt-out). The bar itself is still shown on Android 15/16; see Known issues.
+- "Show me how" no longer shows a selection ring.
+
+### Changed
+- Releases ship one **universal APK** (ARMv7 + ARM64). Android picks the right code, so 64-bit phones run 64-bit
+  (no 32-bit warning) and 32-bit phones such as the Redmi A3 run ARMv7. `Tools/build_android.sh armv7|arm64|all`
+  can still make split APKs.
+
 ## 0.2.0: the conductor explains how to play (2026-11-12)
 
 ### Added

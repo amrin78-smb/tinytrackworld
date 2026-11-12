@@ -22,6 +22,8 @@ namespace TinyTracks.EditorTools
 
         public static void AndroidDevBatch() => Exit(Build(AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64, true, "TinyTracksWorld-dev.apk"));
         public static void AndroidReleaseBatch() => Exit(Build(AndroidArchitecture.ARMv7 | AndroidArchitecture.ARM64, false, "TinyTracksWorld-universal.apk"));
+        public static void AndroidArmv7Batch() => Exit(Build(AndroidArchitecture.ARMv7, false, "TinyTracksWorld-armv7.apk"));
+        public static void AndroidArm64Batch() => Exit(Build(AndroidArchitecture.ARM64, false, "TinyTracksWorld-arm64.apk"));
 
         /// <summary>Release set: universal (both ABIs), ARMv7-only and ARM64-only APKs.</summary>
         public static void AndroidAllBatch()

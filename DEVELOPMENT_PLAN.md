@@ -16,8 +16,8 @@ Redmi A3.
 | 7 | Audio and animations | **Implemented** | 27 synthesised sounds + music + ambience + 46 narrator clips (EN and TH, checked by Whisper transcription; Thai still needs a native listener), music ducks under the voice, pop/wobble/bounce feedback. Loudness checked numerically but **not by ear**. |
 | 8 | Save system | **Tested** | Versioned JSON, atomic write + backup, corruption fallback, autosave. EditMode parse/corruption tests and a PlayMode round-trip. A restart on a real device is not yet tested. |
 | 9 | Visual polish | **Tested** | Blender models (trains, creatures, buildings, nature, tracks) and 3D icons; tunnel remodelled in 0.2.0 (rounded hill, stone portals). Screenshot QA. Remaining: grain and noise detail on joined extras (minor). |
-| 10 | Performance optimisation | **Implemented** | Low/Medium/High presets, auto Low on 32-bit or <4.5 GB RAM, FPS governor, one shared material (SRP batcher), pooling. **Not profiled on a Redmi A3.** |
-| 11 | QA and Android release | **Tested** (automated) | 0.2.0: universal, ARMv7-only and ARM64-only APKs built and verified by inspecting each APK (ABIs, GLES3, landscape, no INTERNET); GitHub release v0.2.0. Regression list in TEST_REPORT.md. **Redmi A3 hardware pass still pending** (wireless debugging enabled, pairing needed). |
+| 10 | Performance optimisation | **Tested** (2 devices) | Low/Medium/High presets, auto Low on 32-bit or <4.5 GB RAM, FPS governor, one shared material (SRP batcher), pooling. Measured: TCL tablet Low 30 FPS with flat memory (~255 MB) over 4 minutes; S23 Ultra High 60 FPS. **Not yet profiled on the Redmi A3.** |
+| 11 | QA and Android release | **Tested** (2 real devices) | 0.2.1: universal APK (ARMv7 + ARM64) verified by inspection and run on a TCL tablet (Android 15, Low, 30 FPS, memory flat, relaunch and save OK) and a Galaxy S23 Ultra (Android 16, High, 60 FPS; 32-bit path forced and working). Five device-only bugs found and fixed. **Redmi A3 / PowerVR still pending.** See TEST_REPORT.md. |
 
 ## Next steps
 
