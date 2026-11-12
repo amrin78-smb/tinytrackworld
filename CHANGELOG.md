@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.3.0: passengers, cargo, more trains, Snowy Valley, paint and surprises (2026-11-12)
+
+### Added
+- **Passengers (Milestone 12):** little passengers (four new characters) gather on station platforms. When a
+  train with a passenger carriage stops, riders get off and wave goodbye, and the waiting passengers walk over and
+  hop in. Without a carriage they wave, and the conductor suggests adding one.
+- **Cargo (Milestone 12):** a new **Cargo Station** track piece with a cargo yard and a swivelling crane. The crane
+  loads a crate, logs, milk churns or a hay bale into an empty cargo wagon, and unloads it at the next visit.
+- **Several trains (Milestone 13):** up to three trains at once, each a different locomotive. Tap a train, or its
+  chip, to drive it; hold a chip to send that train away. Trains keep a safe gap; if two block each other, one
+  turns round, so the railway never jams. All trains are saved.
+- **Snowy Valley (Milestone 14):** a second world with snowy terrain, a frozen lake, falling snow, a soft wind and
+  chimes ambience, a log-cabin village, an igloo, snowmen, a sled, and penguins, reindeer and huskies. Pick a world
+  on the home screen; each world keeps its own railway (Sunny Valley keeps `world.json`).
+- **Paint (Milestone 15):** a paint pot opens ten colours (plus "original") to repaint the selected train's body,
+  keeping its baked shading. The colour is saved.
+- **Surprises (Milestone 15):** gentle discoveries (GDD §10). After playing a while, a gift box appears; tapping it
+  brings a duck, the new **Purple Starlight** locomotive, then a rabbit. Nothing is ever required. Grown-ups can
+  "Unlock surprises".
+- 15 new narrator lines (EN + TH), new animal sounds (squeak, snort, quack), and 7 icons.
+
+### Fixed
+- Five of the seven train models had marker names with Blender suffixes (`BogieFront.001`...), so the Blue and
+  Yellow locos had no smoke and five vehicles used fallback measurements. Lookups now ignore the suffix.
+- New trains popped in from the middle of the world (the root was scaled from the origin); each vehicle now pops in
+  where it stands.
+- The Station, Depot and Crossing toolbar thumbnails showed the building lying on its side.
+
 ## 0.2.1: first real-device fixes (2026-11-12)
 
 Tested on a TCL 8183A tablet (Android 15) and a Galaxy S23 Ultra (Android 16, 64-bit and forced 32-bit).

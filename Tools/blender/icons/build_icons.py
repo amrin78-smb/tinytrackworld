@@ -593,6 +593,206 @@ def ic_narrator():
     return ([body, head, nose, smile, crown, band, visor, badge, bubble, tail] + collar + buttons + ears + hair
             + eyes + cheeks + dots)
 
+
+# ------------------------------------------------------------------------------------------------ icons (0.3)
+def _drop(name, r, loc, mat, h=1.6):
+    """Teardrop (round bottom, pointed top) of radius r around Z at loc."""
+    prof = []
+    for k in range(9):
+        a = -math.pi / 2 + (math.pi / 2) * k / 8          # bottom hemisphere
+        prof.append((max(r * math.cos(a), 0.0), r * math.sin(a)))
+    for k in range(1, 9):
+        t = k / 8
+        prof.append((r * (1 - t) ** 1.6, r * h * t))
+    prof[0] = (0.0, -r)
+    return lat(name, prof, loc, mat, segs=32)
+
+
+def ic_paint():
+    paint = M("#9B6BE0", rough=0.18, coat=0.5)
+    handle = cap("handle", 0.24, 1.5, (0, 0, 1.0), M(RED))
+    hole = tor("hole", 0.08, 0.04, (0, -0.22, 1.5), M("#C42F3A"), rot=(R(90), 0, 0))
+    ferrule = cy("ferrule", 0.32, 0.5, (0, 0, 0.12), M("#B8BEC8", metal=0.6, rough=0.22), bevel=0.06)
+    crimp = tor("crimp", 0.325, 0.045, (0, 0, 0.22), M("#8E96A3", metal=0.6, rough=0.25))
+    bristle = lat("bristles", [(0.31, 0.0), (0.36, -0.22), (0.34, -0.42), (0.25, -0.62), (0.1, -0.78),
+                               (0.0, -0.82)], (0, 0, -0.1), M("#E9C48C", rough=0.5, coat=0.1))
+    tip = lat("tip", [(0.3, -0.36), (0.345, -0.43), (0.255, -0.63), (0.105, -0.785), (0.0, -0.83)], (0, 0, -0.1),
+              paint)
+    brush = [handle, hole, ferrule, crimp, bristle, tip]
+    for o in brush:
+        T.apply(o)
+    b = T.join(brush, "brush")
+    b.rotation_euler = (0, R(-35), 0)
+    b.location = (0.35, 0, 0.55)
+    T.apply(b)
+    pts = L.mesh_points_world([b])
+    t = pts[pts[:, 2].argmin()]
+    tx, tz = float(t[0]), float(t[2])
+    # a fat drip hanging from the tip, a falling drop and a splash puddle
+    hang = _drop("hang", 0.13, (tx + 0.02, -0.02, tz - 0.06), paint, h=1.3)
+    drop = _drop("drop", 0.2, (tx + 0.02, -0.05, tz - 0.52), paint)
+    puddle = sp("puddle", 0.48, (tx + 0.02, 0.05, tz - 0.98), paint, scale=(1.0, 0.75, 0.17))
+    splat = [sp("splat%d" % i, r, (tx + 0.02 + dx, -0.1, tz - 0.96 + dz), paint, scale=(1, 0.7, 0.5))
+             for i, (dx, dz, r) in enumerate([(-0.58, 0.03, 0.11), (0.56, 0.05, 0.09)])]
+    hl = sp("hl", 0.055, (tx - 0.05, -0.22, tz - 0.44), M("#FFFFFF", emit=0.8))
+    return [b, hang, drop, puddle, hl] + splat
+
+
+def ic_gift():
+    box_m = M(RED)
+    rib = M(YELLOW, rough=0.22, coat=0.5)
+    body = rb("box", (1.5, 1.5, 1.05), (0, 0, 0.52), box_m, bevel=0.07)
+    lid = rb("lid", (1.66, 1.66, 0.34), (0, 0, 1.18), M("#E83A44"), bevel=0.08)
+    ribs = [rb("rx", (0.3, 1.54, 1.07), (0, 0, 0.52), rib, bevel=0.04),
+            rb("ry", (1.54, 0.3, 1.07), (0, 0, 0.52), rib, bevel=0.04),
+            rb("lx", (0.3, 1.7, 0.37), (0, 0, 1.18), rib, bevel=0.05),
+            rb("ly", (1.7, 0.3, 0.37), (0, 0, 1.18), rib, bevel=0.05)]
+    bow = []
+    for i, s in enumerate((-1, 1)):
+        loop = tor("loop%d" % i, 0.33, 0.12, (s * 0.38, 0, 1.68), rib, rot=(R(90), R(s * 28), 0))
+        loop.scale = (1.0, 1.0, 1.0)
+        bow.append(loop)
+        tail = cap("tail%d" % i, 0.1, 0.62, (s * 0.25, -0.12, 1.42), rib, rot=(0, R(s * 140), 0))
+        bow.append(tail)
+    knot = sp("knot", 0.19, (0, -0.02, 1.62), rib)
+    dots = [sp("dot%d" % i, 0.09, (x, -0.76, z), M(WHITE), scale=(1, 0.4, 1)) for i, (x, z) in
+            enumerate([(-0.45, 0.78), (0.45, 0.3), (-0.42, 0.25), (0.45, 0.8)])]
+    return [body, lid, knot] + ribs + bow + dots
+
+
+def ic_add_train():
+    objs = ic_train()
+    # green "+" badge floating at the camera's upper right (badge faces the camera of the view below)
+    yaw = R(-30)
+    right = Vector((math.cos(yaw), math.sin(yaw), 0))
+    tocam = Vector((math.sin(yaw), -math.cos(yaw), 0))
+    c = right * 1.15 + Vector((0, 0, 1.95)) + tocam * 1.4
+    disc = cy("badge", 0.62, 0.28, tuple(c), M(WHITE), rot=(R(90), 0, yaw), bevel=0.1)
+    inner = cy("badge2", 0.5, 0.3, tuple(c + tocam * 0.04), M(GREEN), rot=(R(90), 0, yaw), bevel=0.1)
+    plus = slab("plus", L.round_poly(plus_poly(0.34, 0.1), 0.05, 4), 0.2, M(WHITE), bevel=0.06,
+                loc=tuple(c + tocam * 0.18), rot=(0, 0, yaw))
+    return objs + [disc, inner, plus]
+
+
+def _diorama(top_mat, side_mat, rim_mat):
+    base = cy("base", 1.25, 0.42, (0, 0, -0.21), side_mat, bevel=0.1, verts=64)
+    top = cy("top", 1.27, 0.12, (0, 0, 0.02), rim_mat, bevel=0.05, verts=64)
+    hill = sp("hill", 1.0, (0.15, 0.15, 0.0), top_mat, scale=(1.15, 1.0, 0.62))
+    return [base, top, hill]
+
+
+def ic_world_sunny():
+    objs = _diorama(M("#6CC64F"), M("#B07A45", rough=0.45), M("#86CF5E"))
+    hill2 = sp("hill2", 0.6, (-0.75, -0.25, 0.0), M("#86CF5E"), scale=(1.0, 0.9, 0.55))
+    trunk = cy("trunk", 0.1, 0.55, (0.3, 0.1, 0.82), M("#8A5A3B", rough=0.5), r_top=0.07)
+    can = sp("canopy", 0.42, (0.3, 0.1, 1.28), M("#3FAE4A"))
+    can2 = sp("canopy2", 0.28, (0.05, 0.0, 1.12), M("#4FB548"))
+    can3 = sp("canopy3", 0.27, (0.56, 0.0, 1.14), M("#4FB548"))
+    flowers = [sp("fl%d" % i, 0.07, loc, M(c)) for i, (loc, c) in
+               enumerate([((-0.7, -0.6, 0.3), "#FF8FB8"), ((-0.4, -0.85, 0.12), YELLOW), ((0.65, -0.75, 0.25), WHITE)])]
+    sun_m = M("#FFC21F", rough=0.25, coat=0.4, emit=0.25)
+    sx, sz = -0.75, 1.45
+    sun = sp("sun", 0.36, (sx, -0.2, sz), sun_m, scale=(1, 0.6, 1))
+    rays = []
+    for k in range(8):
+        a = 2 * math.pi * k / 8 + 0.2
+        rays.append(cap("ray%d" % k, 0.07, 0.28, (sx + 0.55 * math.cos(a), -0.2, sz + 0.55 * math.sin(a)), sun_m,
+                        rot=(0, -a + R(90), 0)))
+    return objs + [hill2, trunk, can, can2, can3, sun] + flowers + rays
+
+
+def ic_world_snowy():
+    snow = M("#FFFFFF", rough=0.45, coat=0.1)
+    objs = _diorama(snow, M("#7F8BA3", rough=0.4), M("#EAF4FF", rough=0.45))
+    hill2 = sp("hill2", 0.6, (-0.75, -0.25, 0.0), M("#EAF4FF", rough=0.45), scale=(1.0, 0.9, 0.55))
+    pine_m = M("#2F8F55")
+    tx, ty = 0.35, 0.1
+    trunk = cy("trunk", 0.09, 0.35, (tx, ty, 0.72), M("#8A5A3B", rough=0.5))
+    tree = []
+    for i, (z, r, h) in enumerate([(0.82, 0.5, 0.5), (1.12, 0.4, 0.45), (1.4, 0.28, 0.4)]):
+        tree.append(cy("tier%d" % i, r, h, (tx, ty, z + h / 2), pine_m, r_top=0.03, bevel=0.03))
+        tree.append(tor("snowcap%d" % i, r * 0.72, 0.06, (tx, ty, z + h * 0.28), snow))
+    tree.append(sp("tipsnow", 0.09, (tx, ty, 1.82), snow))
+    # snowflake: six chunky arms with little side branches
+    flake_m = M("#8FD3FF", rough=0.2, coat=0.6)
+    fx, fz = -0.72, 1.4
+    flake = []
+    for k in range(6):
+        a = math.pi / 2 + 2 * math.pi * k / 6
+        d = Vector((math.cos(a), 0, math.sin(a)))
+        flake.append(cap("arm%d" % k, 0.065, 0.62, tuple(Vector((fx, -0.3, fz)) + d * 0.27), flake_m,
+                         rot=(0, -a + R(90), 0)))
+        for sgn in (-1, 1):
+            b = a + sgn * R(50)
+            db = Vector((math.cos(b), 0, math.sin(b)))
+            flake.append(cap("br%d%d" % (k, sgn), 0.045, 0.22, tuple(Vector((fx, -0.3, fz)) + d * 0.33 + db * 0.08),
+                             flake_m, rot=(0, -b + R(90), 0)))
+    flake.append(sp("fc", 0.12, (fx, -0.32, fz), flake_m, scale=(1, 0.6, 1)))
+    lumps = [sp("lump%d" % i, r, loc, snow) for i, (loc, r) in
+             enumerate([((-0.55, -0.8, 0.12), 0.16), ((0.8, -0.55, 0.2), 0.13)])]
+    return objs + [hill2, trunk] + tree + flake + lumps
+
+
+def ic_cargo():
+    wood = M("#E7B477", rough=0.45, coat=0.15)
+    plank = M("#B9814A", rough=0.45, coat=0.15)
+    s = 1.6
+    body = rb("crate", (s * 0.94, s * 0.94, s * 0.94), (0, 0, 0), wood, bevel=0.04)
+    e = 0.27
+    h = s / 2 - e / 2
+    parts = [body]
+    for a in (-1, 1):
+        for b in (-1, 1):
+            parts.append(rb("v%d%d" % (a, b), (e, e, s), (a * h, b * h, 0), plank, bevel=0.035, segs=2))
+            parts.append(rb("x%d%d" % (a, b), (s - 0.02, e, e), (0, a * h, b * h), plank, bevel=0.035, segs=2))
+            parts.append(rb("y%d%d" % (a, b), (e, s - 0.02, e), (a * h, 0, b * h), plank, bevel=0.035, segs=2))
+    # diagonal braces on the two visible sides
+    parts.append(rb("dfront", (s * 1.05, 0.1, 0.22), (0, -s * 0.47 - 0.03, 0), plank, bevel=0.035, rot=(0, R(45), 0)))
+    parts.append(rb("dside", (0.1, s * 1.05, 0.22), (s * 0.47 + 0.03, 0, 0), plank, bevel=0.035, rot=(R(-45), 0, 0)))
+    # plank seams on the front face
+    for i, z in enumerate((-0.25, 0.25)):
+        parts.append(rb("seam%d" % i, (s * 0.72, 0.04, 0.035), (0, -s * 0.47 - 0.005, z), M("#A87A48", rough=0.5),
+                        bevel=0.012))
+    nails = [sp("nail%d" % i, 0.05, (x, -s / 2 - 0.01, z), M("#8E96A3", metal=0.6, rough=0.25), scale=(1, 0.5, 1))
+             for i, (x, z) in enumerate([(-h, h), (h, h), (-h, -h), (h, -h)])]
+    return parts + nails
+
+
+def _person(prefix, x, y, scale, shirt, hair, look=(0, -1, 0.1)):
+    s = scale
+    skin = M("#F6C9A0", rough=0.4, coat=0.15)
+    body = lat(prefix + "body", [(0.0, 0.0), (0.42, 0.0), (0.46, 0.06), (0.42, 0.55), (0.3, 0.86), (0.0, 0.9)],
+               (x, y, 0), shirt)
+    body.scale = (s, s, s)
+    head_z = 0.9 * s + 0.36 * s
+    head = sp(prefix + "head", 0.4 * s, (x, y, head_z), skin)
+    hair_o = sp(prefix + "hair", 0.42 * s, (x, y + 0.1 * s, head_z + 0.12 * s), hair, scale=(1.0, 0.92, 0.72))
+    eyes = eye((x - 0.14 * s, y - 0.33 * s, head_z + 0.03 * s), 0.085 * s, look) + \
+        eye((x + 0.14 * s, y - 0.33 * s, head_z + 0.03 * s), 0.085 * s, look)
+    smile_pts = L.band_poly(L.arc_pts(0, 0, 0.12 * s, 205, 335, 12), 0.045 * s)
+    smile = slab(prefix + "smile", L.round_poly(smile_pts, 0.015 * s, 3), 0.06 * s, M("#C42F3A", rough=0.35),
+                 bevel=0.012 * s, loc=(x, y - 0.38 * s, head_z - 0.1 * s))
+    cheeks = [sp(prefix + "ck%d" % i, 0.06 * s, (x + sd * 0.25 * s, y - 0.31 * s, head_z - 0.1 * s), M("#FF9AA8"),
+                 scale=(1, 0.5, 0.7)) for i, sd in enumerate((-1, 1))]
+    arms = [cap(prefix + "arm%d" % i, 0.11 * s, 0.6 * s, (x + sd * 0.42 * s, y, 0.52 * s), shirt,
+                rot=(0, R(sd * 18), 0)) for i, sd in enumerate((-1, 1))]
+    hands = [sp(prefix + "hand%d" % i, 0.11 * s, (x + sd * 0.5 * s, y, 0.25 * s), skin) for i, sd in
+             enumerate((-1, 1))]
+    return [body, head, hair_o, smile] + eyes + cheeks + arms + hands
+
+
+def ic_passengers():
+    a = _person("a", -0.48, 0.15, 1.15, M(BLUE), M("#7A4E2D", rough=0.5), look=(0.25, -1, 0.1))
+    b = _person("b", 0.52, -0.1, 0.88, M("#FF8FB8"), M("#F2C14E", rough=0.5), look=(-0.25, -1, 0.15))
+    # little pigtails on the smaller one
+    hz = 0.9 * 0.88 + 0.36 * 0.88
+    tails = [sp("pt%d" % i, 0.12, (0.52 + sd * 0.38, -0.05, hz + 0.05), M("#F2C14E", rough=0.5)) for i, sd in
+             enumerate((-1, 1))]
+    cap_ = cy("cap", 0.4, 0.16, (-0.48, 0.17, 0.9 * 1.15 + 0.36 * 1.15 + 0.36), M(RED), bevel=0.06)
+    visor = sp("visor", 0.3, (-0.48, -0.2, 0.9 * 1.15 + 0.36 * 1.15 + 0.3), M(RED), scale=(1.1, 0.8, 0.15))
+    return a + b + tails + [cap_, visor]
+
+
 ICONS = {
     "go": (ic_go, dict(yaw=-18, pitch=12)),
     "stop": (ic_stop, dict(yaw=-15, pitch=10)),
@@ -626,6 +826,13 @@ ICONS = {
     "plus": (ic_plus, dict(yaw=-15, pitch=12)),
     "minus": (ic_minus, dict(yaw=-15, pitch=12)),
     "narrator": (ic_narrator, dict(yaw=-15, pitch=8)),
+    "paint": (ic_paint, dict(yaw=-15, pitch=10)),
+    "gift": (ic_gift, dict(yaw=-28, pitch=22)),
+    "add_train": (ic_add_train, dict(yaw=-30, pitch=12)),
+    "world_sunny": (ic_world_sunny, dict(yaw=-15, pitch=22)),
+    "world_snowy": (ic_world_snowy, dict(yaw=-15, pitch=22)),
+    "cargo": (ic_cargo, dict(yaw=-32, pitch=20)),
+    "passengers": (ic_passengers, dict(yaw=-12, pitch=8)),
 }
 
 

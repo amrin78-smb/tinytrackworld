@@ -642,6 +642,46 @@ def s_tweet(rng):
 # ----------------------------------------------------------------------------
 # Ambience
 # ----------------------------------------------------------------------------
+def s_squeak(rng):
+    # Penguin / rabbit: two quick, bright, rising squeaks.
+    dur = 0.55
+    n = int(dur * SR)
+    out = np.zeros(n)
+    for start, f_a, f_b in ((0.0, 900, 1500), (0.22, 1000, 1700)):
+        m = int(0.18 * SR)
+        f0 = curve([(0, f_a), (0.06, f_b), (0.18, f_b * 0.92)], m, 8)
+        fm = morph([(0, "i"), (0.18, "i")], m, 10, 1.6)
+        amp = curve([(0, 0), (0.015, 1.0), (0.12, 0.8), (0.18, 0)], m, 6)
+        place(out, voice(f0, fm, amp, tilt=0.6, breath=0.05, jitter=0.01, fmax=9000, rng=rng), start)
+    return out
+
+
+def s_snort(rng):
+    # Reindeer: a soft breathy snort (filtered noise with a little nasal tone).
+    dur = 0.6
+    n = int(dur * SR)
+    noise = rng.standard_normal(n)
+    noise = fft_filter(noise, chain(bp(700, 1.2), lp(2500)))
+    amp = curve([(0, 0), (0.03, 1.0), (0.18, 0.55), (0.3, 0.9), (0.5, 0.2), (dur, 0)], n, 12)
+    t = np.arange(n) / SR
+    hum = 0.25 * np.sin(2 * np.pi * 140 * t) * curve([(0, 0), (0.05, 1), (0.4, 0.4), (dur, 0)], n, 20)
+    return norm_rms(noise) * amp + hum
+
+
+def s_quack(rng):
+    # Duck: two nasal "wak" calls.
+    dur = 0.75
+    n = int(dur * SR)
+    out = np.zeros(n)
+    for start in (0.0, 0.33):
+        m = int(0.26 * SR)
+        f0 = curve([(0, 420), (0.05, 470), (0.26, 380)], m, 10)
+        fm = morph([(0, "a"), (0.12, "a"), (0.26, "u")], m, 15, 1.15)
+        amp = curve([(0, 0), (0.02, 1.0), (0.16, 0.85), (0.26, 0)], m, 8)
+        place(out, voice(f0, fm, amp, tilt=0.35, breath=0.12, jitter=0.02, shimmer=0.05, fmax=6000, rng=rng), start)
+    return out
+
+
 def s_countryside_loop(rng):
     dur = 24.0
     L = int(dur * SR)
@@ -718,6 +758,35 @@ def bass_note(freq, dur):
     y = np.sin(2 * np.pi * freq * t) + 0.3 * np.sin(4 * np.pi * freq * t) + 0.08 * np.sin(6 * np.pi * freq * t)
     rel = curve([(0, 1), (dur - 0.08, 1), (dur, 0)], n)
     return y * env_ad(n, 0.008, 1.8) * rel
+
+
+def s_snowy_loop(rng):
+    """Snowy Valley: soft, airy wind (no birds) with occasional gentle wind-chime notes. Seamless loop."""
+    dur = 24.0
+    L = int(dur * SR)
+    t = np.arange(L) / SR
+
+    def lfo():
+        y = np.zeros(L)
+        for k in range(1, 6):
+            y += rng.uniform(0.3, 1.0) / k * np.sin(2 * np.pi * k / dur * t + rng.uniform(0, 2 * np.pi))
+        return y / np.max(np.abs(y))
+
+    out = np.zeros((L, 2))
+    common = periodic_noise(L, chain(lp(900, 1), hp(120)), rng)
+    for ch in range(2):
+        own = periodic_noise(L, chain(lp(900, 1), hp(120)), rng)
+        wind = norm_rms(0.6 * norm_rms(common) + 0.8 * norm_rms(own)) * (0.55 + 0.45 * lfo())
+        whistle = norm_rms(periodic_noise(L, bp(1400, 6.0), rng)) * np.clip(lfo(), 0, None) ** 3
+        out[:, ch] = wind + 0.12 * whistle
+    # a few soft chime notes (pentatonic), wrapped around the loop
+    chimes = np.zeros((L, 2))
+    notes = (1046.5, 1174.7, 1318.5, 1568.0, 1760.0)
+    for st in np.sort(rng.uniform(0, dur, 7)):
+        f = notes[rng.integers(0, len(notes))]
+        c = tone(f, 2.2, harm=(1.0, 0.25, 0.08), attack=0.004, t60=1.6, rng=rng)
+        place(chimes, pan(c, rng.uniform(-0.6, 0.6)), st, rng.uniform(0.12, 0.22), wrap=True)
+    return out + chimes
 
 
 def s_music_loop(rng):
@@ -850,7 +919,11 @@ SOUNDS = {
     "meow": (s_meow, "SFX", -6.0, False),
     "neigh": (s_neigh, "SFX", -6.0, False),
     "tweet": (s_tweet, "SFX", -8.0, False),
+    "squeak": (s_squeak, "SFX", -9.0, False),
+    "snort": (s_snort, "SFX", -9.0, False),
+    "quack": (s_quack, "SFX", -7.0, False),
     "countryside_loop": (s_countryside_loop, "Ambient", -14.0, True),
+    "snowy_loop": (s_snowy_loop, "Ambient", -15.0, True),
     "music_loop": (s_music_loop, "Music", -6.0, True),
 }
 

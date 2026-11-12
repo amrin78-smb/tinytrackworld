@@ -1,4 +1,4 @@
-# Test Report: 0.2.1 (2026-11-12)
+# Test Report: 0.3.0 (2026-11-12)
 
 This report separates **automated verification** (run in this repo) from **hardware testing** (on a phone). Nothing
 here is claimed for hardware unless it was actually run on one.
@@ -10,6 +10,43 @@ here is claimed for hardware unless it was actually run on one.
 | EditMode | **36 / 36 passed**: track shapes, graph links, snapping, duplicates and overlaps, open ends, validation, loops, junction switching, train spine traversal, dead ends, reversal, carriage following, save round-trip, corrupted and future-version saves, missing lists |
 | PlayMode | **7 / 7 passed** (+1 explicit screenshot capture). New in 0.2.1: the starter train is a real, visible locomotive, and in the closed starter loop every piece type gets a placeable ghost. Also: starter world (closed loop and train), full train lap and stop, building a loop through the placement controller then save and reload, undo and redo, every narrator line has captions and clips in both languages, **the guided tour completes with no input at all** (proves it cannot soft-lock: 13 steps, each hinted up to 3 times and then performed by the guide), the help button speaks the right tip per mode |
 | Content validation (`Tools/setup.sh`) | OK: 21 track pieces, 6 trains, 40 decorations, 32 icons, 238 world props, 23 narrator lines × 2 languages, caption font |
+
+## 0.3.0 additions (Milestones 12–15)
+
+Automated: EditMode **36/36**, PlayMode **13/13** (+2 explicit screenshot captures). The 6 new ExpansionTests are:
+
+* passengers gather and board a passenger carriage at the station;
+* cargo is loaded at the cargo yard and delivered (unloaded onto the platform) on the next lap;
+* three trains run for 25 s at top speed: the closest approach was 4.08 m (the safe gap is 1.6 m), the trains keep
+  moving, a fourth train is refused, and all three survive save and reload;
+* Snowy Valley gets its own starter railway and save file, snow falls, and switching back restores Sunny Valley
+  with the piece added before switching;
+* paint recolours only the masked body vertices on a mesh copy, and "original" restores the shared mesh;
+* surprises arrive in order (Duck, then Purple Starlight as a second train) only when due.
+
+Screenshot QA (`Logs/Showcase/14–25`): passengers waiting and boarding, the crane loading a hay bale, the loaded
+wagon, three trains with chips, the paint palette on a pink-painted diesel, the gift and the arrived duck, and the
+Snowy Valley menu, world, lake and village. Issues found and fixed:
+
+* the snow was too white (no shading);
+* train chips overlapped the picker row;
+* "add a carriage" was said about a train the child wasn't driving;
+* the bottom bar was invisible on snow;
+* trains popped in from the world origin;
+* the Station/Depot/Crossing thumbnails were lying on their side.
+
+Voice: the 15 new English lines transcribe back exactly (Whisper small). The Thai lines have the usual tone and
+vowel slips and still need a native listener.
+
+**Devices (0.3.0):** installed as an update on the TCL tablet and the Galaxy S23 Ultra. Both loaded their existing
+0.2.x saves. On the tablet:
+
+* switched to Snowy Valley (snow, passengers on the platform);
+* added a second train (Blue Adventure; chips row and selection worked);
+* memory 259 MB PSS;
+* no errors in logcat.
+
+The S23 launched and played without errors. Cargo, paint and surprises were checked in the editor only.
 
 ## Screenshot QA (`Tools/showcase.sh` → `Logs/Showcase/`)
 

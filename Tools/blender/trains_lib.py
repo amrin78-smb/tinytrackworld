@@ -41,6 +41,11 @@ EXTRA = {
     "glass_hi":  ("#D9F3FF", "none", 0.0),
     "beacon":    ("#FF9A1F", "none", 0.0),
     "lemon":     ("#FFDA45", "none", 0.0),
+    # Purple Starlight
+    "violet":    ("#8E5CE6", "none", 0.0),
+    "violet_dk": ("#6A3FC0", "none", 0.0),
+    "midnight":  ("#232A63", "none", 0.0),
+    "star":      ("#FFD23F", "none", 0.0),
 }
 
 
@@ -468,3 +473,46 @@ def attach(root, child):
     child.matrix_parent_inverse = root.matrix_world.inverted()
     child.matrix_world = mw
     return child
+
+
+# ------------------------------------------------------------------------------------------------ paint mask
+PAINT_UV = "PaintMask"
+
+
+def add_paint_mask(obj, paint_mats=()):
+    """Adds a SECOND UV map "PaintMask" (after the primary "UVMap"): u = 1 on faces whose material is one of
+    `paint_mats` (the vehicle's repaintable signature colour), else 0; v = 0. Unity imports it as mesh.uv2
+    (UV channel 1). Call after the final join; wheels etc. get an all-zero mask (paint_mats empty)."""
+    me = obj.data
+    if not me.uv_layers:
+        T.cube_uv(obj, 0.5)
+    primary = me.uv_layers[0]
+    if PAINT_UV in me.uv_layers:
+        me.uv_layers.remove(me.uv_layers[PAINT_UV])
+    lay = me.uv_layers.new(name=PAINT_UV)
+    names = set(paint_mats)
+    flags = [1.0 if (m is not None and m.name in names) else 0.0 for m in me.materials] or [0.0]
+    import numpy as np
+    uv = np.zeros((len(me.loops), 2), dtype=np.float32)
+    for p in me.polygons:
+        f = flags[min(p.material_index, len(flags) - 1)]
+        if f:
+            uv[p.loop_start:p.loop_start + p.loop_total, 0] = 1.0
+    lay.data.foreach_set("uv", uv.ravel())
+    # keep the primary map first + active for render/export
+    me.uv_layers.active = primary
+    primary.active_render = True
+    return int(uv[:, 0].sum())
+
+
+def star(name, r, loc, facing="-Y", mat="gold", depth=0.02, inner=0.46, points=5, spin=0.0):
+    """Chunky five-point star slab (gold decals), built facing -Y then turned to `facing`."""
+    prof = []
+    for k in range(points * 2):
+        a = math.pi / 2 + spin + math.pi * k / points
+        rr = r if k % 2 == 0 else r * inner
+        prof.append((rr * math.cos(a), rr * math.sin(a)))
+    o = T.prism(name, prof, depth, loc=loc, material=M(mat), bevel=min(0.006, depth * 0.3), segments=1)
+    _orient(o, facing)
+    T.smooth(o, 30)
+    return o

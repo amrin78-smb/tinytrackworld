@@ -1,0 +1,187 @@
+[
+  {
+    "name": "Tree_SnowyPine",
+    "fbx": "_Project/Art/Models/Nature/Tree_SnowyPine.fbx",
+    "category": "tree",
+    "footprint": [
+      2.78,
+      2.76
+    ],
+    "height": 4.49,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 1481
+  },
+  {
+    "name": "Tree_SnowyPineSmall",
+    "fbx": "_Project/Art/Models/Nature/Tree_SnowyPineSmall.fbx",
+    "category": "tree",
+    "footprint": [
+      1.9,
+      1.9
+    ],
+    "height": 2.44,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 773
+  },
+  {
+    "name": "Tree_SnowyRound",
+    "fbx": "_Project/Art/Models/Nature/Tree_SnowyRound.fbx",
+    "category": "tree",
+    "footprint": [
+      2.75,
+      2.85
+    ],
+    "height": 3.77,
+    "parts": [
+      "Canopy"
+    ],
+    "verts": 1260
+  },
+  {
+    "name": "Bush_Snowy",
+    "fbx": "_Project/Art/Models/Nature/Bush_Snowy.fbx",
+    "category": "plant",
+    "footprint": [
+      1.7,
+      1.43
+    ],
+    "height": 0.87,
+    "parts": [],
+    "verts": 995
+  },
+  {
+    "name": "Rock_Snowy",
+    "fbx": "_Project/Art/Models/Nature/Rock_Snowy.fbx",
+    "category": "rock",
+    "footprint": [
+      2.18,
+      1.45
+    ],
+    "height": 1.05,
+    "parts": [],
+    "verts": 964
+  },
+  {
+    "name": "Snowdrift",
+    "fbx": "_Project/Art/Models/Nature/Snowdrift.fbx",
+    "category": "plant",
+    "footprint": [
+      2.21,
+      1.39
+    ],
+    "height": 0.39,
+    "parts": [],
+    "verts": 341
+  },
+  {
+    "name": "Snowman",
+    "fbx": "_Project/Art/Models/Props/Snowman.fbx",
+    "category": "prop",
+    "footprint": [
+      1.5,
+      0.85
+    ],
+    "height": 1.75,
+    "parts": [
+      "ArmL",
+      "ArmR",
+      "Head"
+    ],
+    "verts": 989
+  },
+  {
+    "name": "Sled",
+    "fbx": "_Project/Art/Models/Props/Sled.fbx",
+    "category": "prop",
+    "footprint": [
+      0.6,
+      1.28
+    ],
+    "height": 0.35,
+    "parts": [],
+    "verts": 754
+  },
+  {
+    "name": "Lamp_Snowy",
+    "fbx": "_Project/Art/Models/Props/Lamp_Snowy.fbx",
+    "category": "prop",
+    "footprint": [
+      0.47,
+      0.46
+    ],
+    "height": 2.93,
+    "parts": [
+      "LampHead"
+    ],
+    "verts": 723
+  },
+  {
+    "name": "Cabin_Snowy",
+    "fbx": "_Project/Art/Models/Buildings/Cabin_Snowy.fbx",
+    "category": "building",
+    "footprint": [
+      4.67,
+      4.53
+    ],
+    "height": 4.4,
+    "parts": [
+      "SmokePoint"
+    ],
+    "verts": 5738
+  },
+  {
+    "name": "Igloo",
+    "fbx": "_Project/Art/Models/Buildings/Igloo.fbx",
+    "category": "building",
+    "footprint": [
+      3.38,
+      3.71
+    ],
+    "height": 2.07,
+    "parts": [],
+    "verts": 1403
+  },
+  {
+    "name": "Penguin",
+    "fbx": "_Project/Art/Models/Animals/Penguin.fbx",
+    "kind": "animal",
+    "sound": "squeak",
+    "footprintRadius": 0.216,
+    "height": 0.616,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 1628
+  },
+  {
+    "name": "Reindeer",
+    "fbx": "_Project/Art/Models/Animals/Reindeer.fbx",
+    "kind": "animal",
+    "sound": "snort",
+    "footprintRadius": 0.642,
+    "height": 1.274,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 2646
+  },
+  {
+    "name": "Husky",
+    "fbx": "_Project/Art/Models/Animals/Husky.fbx",
+    "kind": "animal",
+    "sound": "bark",
+    "footprintRadius": 0.486,
+    "height": 0.775,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 2466
+  }
+]

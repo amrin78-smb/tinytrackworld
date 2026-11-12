@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TinyTracks.Audio;
 using TinyTracks.Core;
 using TinyTracks.Interaction;
 using TinyTracks.Tracks;
@@ -36,11 +37,13 @@ namespace TinyTracks.World
             if (root != null) Destroy(root.gameObject);
             root = new GameObject("World").transform;
             root.SetParent(transform, false);
-            TerrainGenerator.Settings s = TerrainGenerator.SunnyValley;
+            bool snowy = world != null && world.snowy;
+            TerrainGenerator.Settings s = snowy ? TerrainGenerator.SnowyValley : TerrainGenerator.SunnyValley;
+            Terrain = s;
 
             var terrain = new GameObject("Terrain");
             terrain.transform.SetParent(root, false);
-            terrain.AddComponent<MeshFilter>().sharedMesh = TerrainGenerator.Build(s);
+            terrain.AddComponent<MeshFilter>().sharedMesh = TerrainGenerator.Build(s, snowy ? TerrainGenerator.Snow : TerrainGenerator.Meadow);
             var tr = terrain.AddComponent<MeshRenderer>();
             tr.sharedMaterial = content.toyMaterial;
             tr.shadowCastingMode = ShadowCastingMode.Off;
@@ -50,8 +53,18 @@ namespace TinyTracks.World
             lake.transform.SetParent(root, false);
             lake.AddComponent<MeshFilter>().sharedMesh = TerrainGenerator.BuildLake(s);
             var lr = lake.AddComponent<MeshRenderer>();
-            lr.sharedMaterial = content.waterMaterial;
+            lr.sharedMaterial = WaterFor(world);
             lr.shadowCastingMode = ShadowCastingMode.Off;
+
+            // Gentle snowfall in snowy worlds.
+            if (snowy)
+            {
+                var snow = new GameObject("Snowfall");
+                snow.transform.SetParent(root, false);
+                snowfall = snow.AddComponent<SnowFall>();
+                snowfall.material = content.toyMaterial;
+                snowfall.SetLowDetail(lowDetail);
+            }
 
             if (world != null)
             {
@@ -79,8 +92,45 @@ namespace TinyTracks.World
             ApplyLighting();
         }
 
+        /// <summary>Terrain settings of the current world (heights for props, the lake).</summary>
+        public TerrainGenerator.Settings Terrain { get; private set; } = TerrainGenerator.SunnyValley;
+        public event System.Action WorldChanged;
+        private SnowFall snowfall;
+        private bool lowDetail;
+        private Material waterInstance, skyInstance;
+
+        /// <summary>Switches to another world (terrain, scenery, sky, light, ambience). The railway is handled by the caller.</summary>
+        public void SetWorld(WorldDefinition w)
+        {
+            if (w == null) return;
+            world = w;
+            optional.Clear();
+            Build();
+            if (AudioManager.Instance != null) AudioManager.Instance.SetAmbience(w.ambience);
+            WorldChanged?.Invoke();
+        }
+
+        public WorldDefinition Find(string id)
+        {
+            foreach (WorldDefinition w in content.worlds) if (w != null && w.id == id) return w;
+            return null;
+        }
+
+        private Material WaterFor(WorldDefinition w)
+        {
+            if (content.waterMaterial == null || w == null) return content.waterMaterial;
+            if (waterInstance == null) waterInstance = new Material(content.waterMaterial) { name = "Water (world)" };
+            waterInstance.SetColor("_Shallow", w.waterShallow);
+            waterInstance.SetColor("_Deep", w.waterDeep);
+            waterInstance.SetFloat("_WaveHeight", w.waterWaveHeight);
+            waterInstance.SetFloat("_WaveSpeed", w.waterWaveHeight > 0.001f ? 1.2f : 0f);
+            return waterInstance;
+        }
+
         public void SetLowDetail(bool low)
         {
+            lowDetail = low;
+            if (snowfall != null) snowfall.SetLowDetail(low);
             // Drop every other optional prop (grass tufts, flowers, extra trees) on Low.
             for (int i = 0; i < optional.Count; i++) if (optional[i] != null) optional[i].SetActive(!low || i % 2 == 0);
         }
@@ -97,6 +147,16 @@ namespace TinyTracks.World
             RenderSettings.fogColor = world.fogColor;
             RenderSettings.fogStartDistance = 70f;
             RenderSettings.fogEndDistance = 190f;
+            // Sky colours (on a copy, so the material asset is never modified).
+            if (RenderSettings.skybox != null)
+            {
+                if (skyInstance == null) { skyInstance = new Material(RenderSettings.skybox) { name = "Sky (world)" }; RenderSettings.skybox = skyInstance; }
+                skyInstance.SetColor("_Top", world.skyTop);
+                skyInstance.SetColor("_Horizon", world.skyHorizon);
+                skyInstance.SetColor("_Bottom", world.skyBottom);
+            }
+            Camera cam = Camera.main;
+            if (cam != null) cam.backgroundColor = world.skyHorizon;
             if (sun != null)
             {
                 sun.color = world.sunColor;
@@ -105,16 +165,19 @@ namespace TinyTracks.World
         }
 
         /// <summary>The ready-to-play starter railway for a new world: an oval with a station.</summary>
-        public static void BuildStarterLayout(TrackNetworkManager net)
+        public static void BuildStarterLayout(TrackNetworkManager net, bool withCargoYard = false)
         {
             TrackGraph g = net.Graph;
             TrackNode cur = net.Place(TrackType.Station, new TrackPose(new Vector3(-5f, 0f, -8f), 90f));
-            TrackType[] seq =
-            {
-                TrackType.Straight, TrackType.TightLeft, TrackType.TightLeft,
-                TrackType.Straight, TrackType.Straight, TrackType.ShortStraight,
-                TrackType.TightLeft, TrackType.TightLeft,
-            };
+            // The far side is 10 m either way: 4 + 4 + 2, or a 6 m cargo station + 4.
+            TrackType[] seq = withCargoYard
+                ? new[] { TrackType.Straight, TrackType.TightLeft, TrackType.TightLeft, TrackType.CargoStation, TrackType.Straight, TrackType.TightLeft, TrackType.TightLeft }
+                : new[]
+                {
+                    TrackType.Straight, TrackType.TightLeft, TrackType.TightLeft,
+                    TrackType.Straight, TrackType.Straight, TrackType.ShortStraight,
+                    TrackType.TightLeft, TrackType.TightLeft,
+                };
             foreach (TrackType t in seq)
             {
                 TrackPose pose = TrackSnapping.PoseForAttachment(TrackShapeLibrary.Get(t), 0, cur.worldConnectorPos[1], cur.worldConnectorHeading[1]);

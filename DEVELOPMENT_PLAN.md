@@ -18,6 +18,10 @@ Redmi A3.
 | 9 | Visual polish | **Tested** | Blender models (trains, creatures, buildings, nature, tracks) and 3D icons; tunnel remodelled in 0.2.0 (rounded hill, stone portals). Screenshot QA. Remaining: grain and noise detail on joined extras (minor). |
 | 10 | Performance optimisation | **Tested** (2 devices) | Low/Medium/High presets, auto Low on 32-bit or <4.5 GB RAM, FPS governor, one shared material (SRP batcher), pooling. Measured: TCL tablet Low 30 FPS with flat memory (~255 MB) over 4 minutes; S23 Ultra High 60 FPS. **Not yet profiled on the Redmi A3.** |
 | 11 | QA and Android release | **Tested** (2 real devices) | 0.2.1: universal APK (ARMv7 + ARM64) verified by inspection and run on a TCL tablet (Android 15, Low, 30 FPS, memory flat, relaunch and save OK) and a Galaxy S23 Ultra (Android 16, High, 60 FPS; 32-bit path forced and working). Five device-only bugs found and fixed. **Redmi A3 / PowerVR still pending.** See TEST_REPORT.md. |
+| 12 | Passengers & cargo | **Tested** | StationManager: platform passengers board/alight passenger carriages; CargoStation piece + CargoYard crane loads/unloads cargo wagons; narrator lines. PlayMode: boarding, load then deliver over two laps. Screenshot QA. Not yet on a device. |
+| 13 | Multiple trains | **Tested** | Up to 3 trains, per-train consist/paint, tap/chip selection, safe-gap look-ahead + face-to-face turn-round, saved (`moreTrains`). PlayMode: 3 trains for 25 s (closest approach 4.1 m), save/reload. |
+| 14 | Snowy Valley | **Tested** | Second WorldDefinition (palette, sky, frozen lake, ambience, layout, starter decorations), SnowFall, per-world saves, home-screen world picker. PlayMode: own railway, Sunny kept. Screenshot QA. |
+| 15 | Paint & surprises | **Tested** | Paint mask (uv2) on all trains, runtime vertex-colour repaint; Discoveries (Duck → Purple Starlight → Rabbit) via gift box; parent unlock. PlayMode: paint/undo, surprises in order. |
 
 ## Next steps
 

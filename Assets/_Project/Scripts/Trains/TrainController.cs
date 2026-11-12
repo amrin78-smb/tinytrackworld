@@ -36,6 +36,19 @@ namespace TinyTracks.Trains
         public bool LocoLeads { get; private set; } = true;
         public float TrainLength { get; private set; }
         public event Action<TrainState> StateChanged;
+        /// <summary>Any train stopped at a station or cargo yard: (train, stop node id).</summary>
+        public static event Action<TrainController, int> ArrivedAtStop;
+        /// <summary>A train has been waiting behind another one for a moment (the narrator explains).</summary>
+        public static event Action<TrainController> WaitingForTrain;
+        /// <summary>The train this one is waiting behind (null when the way is clear).</summary>
+        public TrainController BlockedBy { get; private set; }
+        public float BlockedTime { get; private set; }
+        /// <summary>Safe gap kept to the train ahead (metres, front to back).</summary>
+        public const float TrainGap = 1.6f;
+        private static readonly List<Vector3> aheadPoints = new List<Vector3>(64);
+        private bool waitingAnnounced;
+        /// <summary>The stop node the train is standing at (-1 when not stopped at one).</summary>
+        public int StopNode { get; private set; } = -1;
 
         private readonly List<TrainVehicle> vehicles = new List<TrainVehicle>();
         private TrackGraph graph;
@@ -68,6 +81,7 @@ namespace TinyTracks.Trains
             if (cars != null) foreach (TrainDefinition c in cars) if (c != null) vehicles.Add(TrainVehicle.Create(c, transform));
             TrainLength = 0f;
             foreach (TrainVehicle v in vehicles) TrainLength += v.Length + CouplingGap;
+            if (PaintColor.HasValue) foreach (TrainVehicle v in vehicles) v.Paint(PaintColor);
             if (Spine.IsValid)
             {
                 float have = Spine.ExtendBehind(graph, TrainLength + 1f);
@@ -79,6 +93,15 @@ namespace TinyTracks.Trains
                 engineLoop.clip = loco.engine == EngineSound.Motor ? AudioManager.Clips.motorLoop : AudioManager.Clips.chugLoop;
                 if (engineLoop.isPlaying) engineLoop.Play();
             }
+        }
+
+        /// <summary>The colour the child painted this train (null = original colours).</summary>
+        public Color? PaintColor { get; private set; }
+
+        public void Paint(Color? colour)
+        {
+            PaintColor = colour;
+            foreach (TrainVehicle v in vehicles) if (v != null) v.Paint(colour);
         }
 
         public TrainDefinition LocoDefinition => vehicles.Count > 0 ? vehicles[0].definition : null;
@@ -121,6 +144,18 @@ namespace TinyTracks.Trains
         {
             Running = false;
             if (State != TrainState.BlockedAtEnd) SetState(TrainState.Stopped);
+        }
+
+        /// <summary>Keeps the train at its stop while passengers board or cargo is loaded.</summary>
+        public void HoldAtStation(float seconds)
+        {
+            if (State == TrainState.AtStation) stationTimer = Mathf.Max(stationTimer, seconds);
+        }
+
+        /// <summary>Lets the train leave shortly (the station activity has finished).</summary>
+        public void ReleaseStation(float delay = 0.6f)
+        {
+            if (State == TrainState.AtStation) stationTimer = Mathf.Min(stationTimer, delay);
         }
 
         public void SetSpeedLevel(int level) => SpeedLevel = Mathf.Clamp(level, 0, SpeedLevels.Length - 1);
@@ -170,6 +205,7 @@ namespace TinyTracks.Trains
                 if (stationTimer <= 0f)
                 {
                     ignoreStation = la.stationNode >= 0 ? la.stationNode : ignoreStation;
+                    StopNode = -1;
                     SetState(Running ? TrainState.Running : TrainState.Stopped);
                 }
             }
@@ -187,8 +223,10 @@ namespace TinyTracks.Trains
                         Speed = 0f;
                         stationTimer = stationWait;
                         ignoreStation = la.stationNode;
+                        StopNode = la.stationNode;
                         SetState(TrainState.AtStation);
                         AudioManager.Sfx(AudioManager.Clips?.stationChime, 0.8f);
+                        ArrivedAtStop?.Invoke(this, StopNode);
                     }
                 }
             }
@@ -207,6 +245,18 @@ namespace TinyTracks.Trains
                 // Track was extended in front of the waiting train: carry on.
                 SetState(Running ? TrainState.Running : TrainState.Stopped);
                 effects?.HideDeadEnd();
+            }
+
+            // Other trains: keep a safe gap, and never get stuck nose to nose.
+            if (State != TrainState.AtStation)
+            {
+                float gap = TrainAhead(look, out TrainController other);
+                if (!float.IsPositiveInfinity(gap))
+                {
+                    float allowed = Mathf.Sqrt(2f * braking * Mathf.Max(0f, gap - TrainGap));
+                    if (allowed < Speed) Speed = Mathf.MoveTowards(Speed, allowed, braking * 2f * dt);
+                }
+                UpdateBlocked(dt, gap, other);
             }
 
             if (la.crossingNode >= 0 && la.crossingDistance < 10f) CrossingBarrier.KeepClosed(la.crossingNode);
@@ -269,6 +319,70 @@ namespace TinyTracks.Trains
                     effects.Puff(loco.smokePoint.position, 0.8f + 0.4f * speed01);
                 }
             }
+        }
+
+        /// <summary>Distance along the route to the nearest other train ahead (infinity when clear).</summary>
+        public float TrainAhead(float look, out TrainController other)
+        {
+            other = null;
+            TrainManager mgr = TrainManager.Instance;
+            if (mgr == null || mgr.All.Count < 2 || graph == null) return float.PositiveInfinity;
+            const float step = 0.5f;
+            Spine.SampleAhead(graph, step, look, aheadPoints);
+            for (int i = 0; i < aheadPoints.Count; i++)
+            {
+                foreach (TrainController t in mgr.All)
+                {
+                    if (t == null || t == this) continue;
+                    if (t.Touches(aheadPoints[i], 0.95f)) { other = t; return (i + 1) * step; }
+                }
+            }
+            return float.PositiveInfinity;
+        }
+
+        /// <summary>Is a world point within <paramref name="radius"/> of any of this train's vehicles (as a line along each)?</summary>
+        public bool Touches(Vector3 p, float radius)
+        {
+            foreach (TrainVehicle v in vehicles)
+            {
+                if (v == null) continue;
+                Vector3 c = v.transform.TransformPoint(v.bogieMidLocal);
+                if (Mathf.Abs(c.y - p.y) > 1.2f) continue;
+                Vector3 f = v.transform.forward;
+                f.y = 0f;
+                f.Normalize();
+                Vector3 d = p - c;
+                d.y = 0f;
+                float along = Mathf.Clamp(Vector3.Dot(d, f), -v.Length * 0.5f, v.Length * 0.5f);
+                if ((d - f * along).sqrMagnitude < radius * radius) return true;
+            }
+            return false;
+        }
+
+        private void UpdateBlocked(float dt, float gap, TrainController other)
+        {
+            bool blocked = Running && State == TrainState.Running && gap < TrainGap + 0.8f && Speed < 0.05f;
+            if (!blocked) { BlockedTime = 0f; BlockedBy = null; waitingAnnounced = false; return; }
+            BlockedTime += dt;
+            BlockedBy = other;
+            if (BlockedTime > 1.5f && !waitingAnnounced) { waitingAnnounced = true; WaitingForTrain?.Invoke(this); }
+            // Nobody waits forever: if the other train is parked, or the two block each other, one turns round.
+            bool otherParked = other == null || !other.Running;
+            bool faceToFace = other != null && other.BlockedBy == this;
+            bool myTurn = !faceToFace || GetInstanceID() < other.GetInstanceID();
+            if (BlockedTime > 5f && (otherParked || faceToFace) && myTurn) TurnAround();
+        }
+
+        /// <summary>Reverses direction where it stands (also used at dead ends when GO is pressed).</summary>
+        public void TurnAround()
+        {
+            Spine.Reverse(graph, TrainLength);
+            LocoLeads = !LocoLeads;
+            ignoreStation = -1;
+            BlockedTime = 0f;
+            BlockedBy = null;
+            waitingAnnounced = false;
+            effects?.Puff(Locomotive != null ? Locomotive.transform.position + Vector3.up * 1.2f : transform.position);
         }
 
         public bool IsOnTrackIntact() => Spine.IsValid && Spine.IsIntact(graph);

@@ -39,8 +39,8 @@ namespace TinyTracks.EditorTools
         public const string SettingsDir = Root + "/Settings";
         public const string ScenePath = Root + "/Scenes/Main.unity";
         public const string AppId = "com.nocvault.tinytracksworld";
-        public const string Version = "0.2.1";
-        public const int VersionCode = 3;
+        public const string Version = "0.3.0";
+        public const int VersionCode = 4;
 
         [MenuItem("Tiny Tracks/Setup Project")]
         public static void Run()
@@ -101,6 +101,8 @@ namespace TinyTracks.EditorTools
             PlayerSettings.SplashScreen.showUnityLogo = false;
             PlayerSettings.SplashScreen.backgroundColor = new Color32(143, 211, 255, 255);
             PlayerSettings.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+            // Keep every mesh channel: the trains' paint mask lives in uv2, which no shader reads, so "Optimize Mesh Data" would strip it.
+            PlayerSettings.stripUnusedMeshComponents = false;
             EditorUserBuildSettings.buildAppBundle = false;
             PlayerSettings.fullScreenMode = FullScreenMode.FullScreenWindow; // hide the status bar (immersive)
             PlayerSettings.defaultScreenWidth = 1280;
@@ -260,6 +262,12 @@ namespace TinyTracks.EditorTools
 
         private static Dictionary<string, GameObject> BuildPrefabs(Dictionary<string, Material> mats)
         {
+            // Train meshes are repainted at runtime: make sure they were imported readable (the import rule changed in 0.3).
+            foreach (string guid in AssetDatabase.FindAssets("t:Model", new[] { Models + "/Trains" }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                if (AssetImporter.GetAtPath(path) is ModelImporter mi && !mi.isReadable) { mi.isReadable = true; mi.SaveAndReimport(); }
+            }
             var result = new Dictionary<string, GameObject>();
             foreach (string g in Groups)
             {
@@ -361,8 +369,8 @@ namespace TinyTracks.EditorTools
         {
             if (name == "Bird") return TapReaction.Bird;
             if (group == "Animals") return TapReaction.Animal;
-            if (group == "People") return TapReaction.Person;
-            if (name.StartsWith("Tree") || name == "Bush") return TapReaction.Tree;
+            if (group == "People" || name == "Snowman") return TapReaction.Person; // the snowman waves its stick arms
+            if (name.StartsWith("Tree") || name.StartsWith("Bush")) return TapReaction.Tree;
             if (name == "Windmill") return TapReaction.Windmill;
             if (name == "Station") return TapReaction.Station;
             if (group == "Buildings") return TapReaction.House;
@@ -400,12 +408,15 @@ namespace TinyTracks.EditorTools
                 d.displayName = Nice(t.ToString());
                 d.category = CategoryOf(t);
                 prefabs.TryGetValue("Tracks/" + t, out d.prefab);
+                if (t == TrackType.CargoStation) prefabs.TryGetValue("Tracks/Station", out d.prefab); // same bed as the station
                 d.icon = Sprite($"{Root}/Art/UI/Thumbs/Track_{t}.png");
                 d.accessory = null;
                 d.accessoryOffset = Vector3.zero;
                 d.accessoryYaw = 0f;
                 if (t == TrackType.Station && prefabs.TryGetValue("Buildings/Station", out GameObject st))
                 { d.accessory = st; d.accessoryOffset = new Vector3(0f, 0f, TrackShapeLibrary.StationLength / 2f); }
+                if (t == TrackType.CargoStation && prefabs.TryGetValue("Buildings/CargoYard", out GameObject cy))
+                { d.accessory = cy; d.accessoryOffset = new Vector3(0f, 0f, TrackShapeLibrary.StationLength / 2f); }
                 if (t == TrackType.Depot && prefabs.TryGetValue("Buildings/Depot", out GameObject dp))
                 { d.accessory = dp; d.accessoryOffset = new Vector3(0f, 0f, 2.1f); d.accessoryYaw = 180f; }
                 if (t == TrackType.Crossing && prefabs.TryGetValue("Props/CrossingBarriers", out GameObject cb))
@@ -432,11 +443,14 @@ namespace TinyTracks.EditorTools
                 d.prefab = pf;
                 d.icon = Sprite($"{Root}/Art/UI/Thumbs/{m.name}.png");
                 d.uiColor = trainColours.TryGetValue(m.name, out Color c) ? c : new Color32(200, 220, 255, 255);
+                d.paintColor = m.paintColor != null && m.paintColor.Length >= 3 ? new Color(m.paintColor[0], m.paintColor[1], m.paintColor[2], 1f) : new Color(0f, 0f, 0f, 0f);
+                d.discoverable = m.name == "Loco_PurpleStarlight";
+                if (m.name == "Loco_PurpleStarlight") d.uiColor = new Color32(142, 92, 230, 255);
                 MeasureVehicle(pf, d);
                 EditorUtility.SetDirty(d);
                 lib.trains.Add(d);
             }
-            lib.trains = lib.trains.OrderBy(t => t.kind).ThenBy(t => Array.IndexOf(new[] { "Loco_RedExpress", "Loco_BlueAdventure", "Loco_GreenExplorer", "Loco_YellowSunshine" }, t.id)).ToList();
+            lib.trains = lib.trains.OrderBy(t => t.kind).ThenBy(t => Array.IndexOf(new[] { "Loco_RedExpress", "Loco_BlueAdventure", "Loco_GreenExplorer", "Loco_YellowSunshine", "Loco_PurpleStarlight" }, t.id)).ToList();
 
             // Audio
             AudioConfig audio = Asset<AudioConfig>($"{Defs}/AudioConfig.asset");
@@ -457,12 +471,17 @@ namespace TinyTracks.EditorTools
 
             // Decorations (creatures + environment manifests)
             lib.decorations.Clear();
-            var sounds = new Dictionary<string, AudioClip>
+            // Every SFX file by name (animal "sound" fields in the manifests refer to these).
+            var sounds = new Dictionary<string, AudioClip>();
+            foreach (string guid in AssetDatabase.FindAssets("t:AudioClip", new[] { Root + "/Audio/SFX" }))
             {
-                ["moo"] = audio.moo, ["baa"] = audio.baa, ["cluck"] = audio.cluck, ["bark"] = audio.bark, ["meow"] = audio.meow,
-                ["neigh"] = audio.neigh, ["tweet"] = audio.tweet,
-            };
-            foreach (Manifest.Item m in Manifest.Read("creatures_manifest.json").Concat(Manifest.Read("env_manifest.json")))
+                string ap = AssetDatabase.GUIDToAssetPath(guid);
+                sounds[Path.GetFileNameWithoutExtension(ap)] = AssetDatabase.LoadAssetAtPath<AudioClip>(ap);
+            }
+            // All model manifests except trains (creatures, env, passengers/cargo, snowy, discoveries, ...).
+            var decoManifests = Directory.GetFiles("Tools/blender/models", "*_manifest.json")
+                .Select(Path.GetFileName).Where(f => f != "trains_manifest.json").OrderBy(f => f).ToList();
+            foreach (Manifest.Item m in decoManifests.SelectMany(Manifest.Read))
             {
                 string group = GroupOf(m.fbx);
                 if (!prefabs.TryGetValue(group + "/" + m.name, out GameObject pf)) continue;
@@ -488,9 +507,37 @@ namespace TinyTracks.EditorTools
 
             // World
             WorldDefinition world = Asset<WorldDefinition>($"{Defs}/WorldDefinitions/SunnyValley.asset");
+            world.id = "sunny_valley";
+            world.displayName = "Sunny Valley";
             world.props = WorldLayout.SunnyValley(lib);
+            world.starterDecorations = WorldLayout.SunnyStarter(lib);
+            world.icon = Sprite($"{Root}/Art/UI/Icons/world_sunny.png");
+            world.welcomeLine = "welcome_sunny";
             EditorUtility.SetDirty(world);
-            lib.worlds = new List<WorldDefinition> { world };
+
+            WorldDefinition snowy = Asset<WorldDefinition>($"{Defs}/WorldDefinitions/SnowyValley.asset");
+            snowy.id = "snowy_valley";
+            snowy.displayName = "Snowy Valley";
+            snowy.snowy = true;
+            snowy.props = WorldLayout.SnowyValley(lib);
+            snowy.starterDecorations = WorldLayout.SnowyStarter(lib);
+            snowy.icon = Sprite($"{Root}/Art/UI/Icons/world_snowy.png");
+            snowy.welcomeLine = "welcome_snowy";
+            snowy.fogColor = new Color(0.82f, 0.88f, 0.96f);
+            snowy.ambientSky = new Color(0.6f, 0.67f, 0.82f);
+            snowy.ambientEquator = new Color(0.6f, 0.64f, 0.72f);
+            snowy.ambientGround = new Color(0.46f, 0.5f, 0.6f);
+            snowy.sunColor = new Color(1f, 0.95f, 0.9f);
+            snowy.sunEuler = new Vector3(40f, -30f, 0f);
+            snowy.skyTop = new Color(0.55f, 0.72f, 0.95f);
+            snowy.skyHorizon = new Color(0.9f, 0.94f, 1f);
+            snowy.skyBottom = new Color(0.88f, 0.92f, 0.98f);
+            snowy.waterShallow = new Color(0.86f, 0.94f, 1f);
+            snowy.waterDeep = new Color(0.6f, 0.78f, 0.95f);
+            snowy.waterWaveHeight = 0f; // frozen
+            snowy.ambience = AssetDatabase.LoadAssetAtPath<AudioClip>($"{Root}/Audio/Ambient/snowy_loop.wav");
+            EditorUtility.SetDirty(snowy);
+            lib.worlds = new List<WorldDefinition> { world, snowy };
 
             // Icons
             // Narrator lines (Tools/voice/voice_lines.json + generated clips) and the Thai-capable caption font.
@@ -515,7 +562,7 @@ namespace TinyTracks.EditorTools
 
         private static void MeasureVehicle(GameObject prefab, TrainDefinition d)
         {
-            Transform Find(string n) => prefab.GetComponentsInChildren<Transform>(true).FirstOrDefault(t => t.name == n);
+            Transform Find(string n) => prefab.GetComponentsInChildren<Transform>(true).FirstOrDefault(t => TrainVehicle.BaseName(t.name) == n);
             Transform bf = Find("BogieFront"), br = Find("BogieRear"), cf = Find("CouplerFront"), cr = Find("CouplerRear");
             Bounds b = PrefabBounds(prefab);
             float front = cf != null ? cf.position.z : b.max.z;
@@ -645,6 +692,8 @@ namespace TinyTracks.EditorTools
             fx.content = lib;
             TrainManager trains = Sys<TrainManager>("TrainManager");
             trains.content = lib; trains.network = net; trains.effects = fx;
+            TinyTracks.Stations.StationManager stations = Sys<TinyTracks.Stations.StationManager>("Stations");
+            stations.content = lib; stations.network = net;
             SaveManager save = Sys<SaveManager>("SaveManager");
             save.network = net; save.decorations = deco; save.trains = trains;
             PerformanceManager perf = Sys<PerformanceManager>("PerformanceManager");
@@ -652,7 +701,9 @@ namespace TinyTracks.EditorTools
             GameManager gm = Sys<GameManager>("GameManager");
             gm.content = lib; gm.input = input; gm.cameraController = cc; gm.network = net; gm.placement = place;
             gm.decorations = deco; gm.decoPlacement = dplace; gm.trains = trains; gm.world = world; gm.audioManager = audioMgr;
-            gm.save = save; gm.performance = perf;
+            gm.save = save; gm.performance = perf; gm.stations = stations;
+            Discoveries disc = Sys<Discoveries>("Discoveries");
+            disc.game = gm;
             UIManager ui = Sys<UIManager>("UI");
             ui.content = lib;
             ui.game = gm;
@@ -734,6 +785,7 @@ namespace TinyTracks.EditorTools
         {
             public string name, fbx, kind, displayName, sound, category;
             public float height, footprintRadius;
+            public float[] paintColor;
         }
 
         [Serializable]

@@ -34,11 +34,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 68f894b6d7f5026ed8cacc1ddeb9ced7, type: 2}
   - {fileID: 11400000, guid: 36466e60261aceda384a9581e18f1d38, type: 2}
   - {fileID: 11400000, guid: bcdfb4e3be2df173b9843f93749725c2, type: 2}
+  - {fileID: 11400000, guid: 612762c85b4efea469bcb445a980ffec, type: 2}
   trains:
   - {fileID: 11400000, guid: 9bb4dce01ab54ef88a392656498e2001, type: 2}
   - {fileID: 11400000, guid: b005fba3552288c29ae7dc25dc1c56ee, type: 2}
   - {fileID: 11400000, guid: dc475d7fd4a687081bdb74a1f2ce2189, type: 2}
   - {fileID: 11400000, guid: df8cb5a0b3fdbc46bb922f6e8f0c44d8, type: 2}
+  - {fileID: 11400000, guid: 72d90cc07756d17f396ead8856da89a0, type: 2}
   - {fileID: 11400000, guid: 272a8d3bb9c919418b9c6ab08031bd4f, type: 2}
   - {fileID: 11400000, guid: c531330fc01f82d6e9197d8d3ffbdde3, type: 2}
   decorations:
@@ -52,6 +54,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ded7f4ab99af5bfcd9d3161f2bfb2b3a, type: 2}
   - {fileID: 11400000, guid: 73062b0ed40bfdda7913c83f69d58964, type: 2}
   - {fileID: 11400000, guid: 1f3ec2fafa775419eb107b7dd51c6d06, type: 2}
+  - {fileID: 11400000, guid: 69c72c08b42951940bbdb2dee8d05d8e, type: 2}
+  - {fileID: 11400000, guid: 25021d32d1f84dfb09aec60a54bce7ef, type: 2}
   - {fileID: 11400000, guid: ddead8ebe0b0a1f82a73486d98d66479, type: 2}
   - {fileID: 11400000, guid: 00748393bdba4d92ea252514d8c492eb, type: 2}
   - {fileID: 11400000, guid: 76f2ddf79abbbd4639ba3178093493d0, type: 2}
@@ -82,8 +86,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69ee84b6761cff64ab26756df80dde1d, type: 2}
   - {fileID: 11400000, guid: 0ece432acb55d7592bb45257d1249e61, type: 2}
   - {fileID: 11400000, guid: ea976213b004fd554ac162728e938200, type: 2}
+  - {fileID: 11400000, guid: a0f5505d8ed611d219b11fdcc42822dd, type: 2}
+  - {fileID: 11400000, guid: ff925db23b0c911299a69f40e64a1557, type: 2}
+  - {fileID: 11400000, guid: ef36dd5b016273c15989c7bef66a1f45, type: 2}
+  - {fileID: 11400000, guid: e9bb012ac617f050a9deb55a33477c0f, type: 2}
+  - {fileID: 11400000, guid: 9ede1f5c77cea024cb23dcf6a4dbcc4b, type: 2}
+  - {fileID: 11400000, guid: bf90ef922cc4c7b1dbaf0cd163031f65, type: 2}
+  - {fileID: 11400000, guid: 9f94d7ab703d0dd93a208995b4bcc476, type: 2}
+  - {fileID: 11400000, guid: a2692c8ccecc07f9f899dc046ecb62d5, type: 2}
+  - {fileID: 11400000, guid: 3ac1c53218f3374e2a1a0636ae80f385, type: 2}
+  - {fileID: 11400000, guid: 7874675348d29622da14363fac86b496, type: 2}
+  - {fileID: 11400000, guid: 4afe111ffa9d72a14a5ff34d35417dab, type: 2}
+  - {fileID: 11400000, guid: b864b1975fe6ed37f9a9e4ac36927b5d, type: 2}
+  - {fileID: 11400000, guid: 95f9d814db4951825a9785c72545306c, type: 2}
+  - {fileID: 11400000, guid: 43a321ebfdc73a7d19d63ffc0e976740, type: 2}
+  - {fileID: 11400000, guid: 25cef36c9f08478dab5fde357d1c8b0a, type: 2}
+  - {fileID: 11400000, guid: fbc8ac2dbc928cc14a6e4a9ee9972e44, type: 2}
+  - {fileID: 11400000, guid: 03f410f0d74faa9fb88fec7223640ad1, type: 2}
+  - {fileID: 11400000, guid: 25f63042c620cd7a6a59d96f91806941, type: 2}
+  - {fileID: 11400000, guid: 8be2c09015f01cb8aa8de233547f332e, type: 2}
+  - {fileID: 11400000, guid: 2ae507b7d54b5808c88c637d28179c30, type: 2}
+  - {fileID: 11400000, guid: 6b4455da2cfdd3fc9926828e0e6dfcdd, type: 2}
+  - {fileID: 11400000, guid: 7791964d320cdb6ceaa5c5ad94937c6f, type: 2}
+  - {fileID: 11400000, guid: e187e95c99da49f34aedf781cc797691, type: 2}
   worlds:
   - {fileID: 11400000, guid: a3ead5a2b9c9ecb25a6ae16b3409095e, type: 2}
+  - {fileID: 11400000, guid: 4657a2c3a2aec38dda861f699f36ba8b, type: 2}
   audio: {fileID: 11400000, guid: 9dbbf20066167c132afcadc3359f3a13, type: 2}
   toyMaterial: {fileID: 2100000, guid: b57f35f7097db69ed80a333c06044dbc, type: 2}
   ghostMaterial: {fileID: 2100000, guid: 20c35137b8de73d47b11db015f335238, type: 2}
@@ -95,6 +123,8 @@ MonoBehaviour:
   smokePuffPrefab: {fileID: 0}
   quadMesh: {fileID: 4300000, guid: f92262b88bbfdd641879684469d771d9, type: 2}
   icons:
+  - name: add_train
+    sprite: {fileID: 21300000, guid: 8079876fb848a7cd39c560a3aac32a20, type: 3}
   - name: bell
     sprite: {fileID: 21300000, guid: a422b353532351ecd9a5787e3f8c817c, type: 3}
   - name: build
@@ -105,6 +135,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: c0579b0021ce748a594e0763f525f277, type: 3}
   - name: cancel
     sprite: {fileID: 21300000, guid: 3a855fcb354154b22a900aa934d00179, type: 3}
+  - name: cargo
+    sprite: {fileID: 21300000, guid: 12b20503c7fa6083baa88e03077acb32, type: 3}
   - name: carriage_cargo
     sprite: {fileID: 21300000, guid: 24f66318bb412d28a92f7a8185e9acf0, type: 3}
   - name: carriage_passenger
@@ -119,6 +151,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 6c243975a9fb3a62e8df8a31c1b371d6, type: 3}
   - name: explore
     sprite: {fileID: 21300000, guid: a01cf50a4f5eb3b909f3b2fc2b2303b1, type: 3}
+  - name: gift
+    sprite: {fileID: 21300000, guid: 50984029679a47f91a5ddbbe1c86cfd2, type: 3}
   - name: go
     sprite: {fileID: 21300000, guid: f47f935495ea9610b96c8279ea3d71d0, type: 3}
   - name: hand
@@ -133,6 +167,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: eb4394cdee8a9db7ea135446da52f8cc, type: 3}
   - name: new_world
     sprite: {fileID: 21300000, guid: aee116e9d2b6cf8caaefa8fc2cdd3423, type: 3}
+  - name: paint
+    sprite: {fileID: 21300000, guid: ad0860b95d5b301a98e6414aae0a06a6, type: 3}
+  - name: passengers
+    sprite: {fileID: 21300000, guid: c2dffc5cd555ed9798e1bbe744683b11, type: 3}
   - name: play
     sprite: {fileID: 21300000, guid: e230344a881bdcf85b57e271f171fab3, type: 3}
   - name: plus
@@ -159,6 +197,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 57362f2c5dfc9ded3a3d9fb44f971300, type: 3}
   - name: whistle
     sprite: {fileID: 21300000, guid: c4b59815fc19e3140823bd4c6bd0eaf4, type: 3}
+  - name: world_snowy
+    sprite: {fileID: 21300000, guid: 3cf3f2ba643e0d0238ef93686a9c53b0, type: 3}
+  - name: world_sunny
+    sprite: {fileID: 21300000, guid: 42e3639d79c3b5e79b81fd73d9f92029, type: 3}
   voice:
   - key: welcome
     en: Welcome to Tiny Tracks World! Tap the big green button to play.
@@ -284,4 +326,83 @@ MonoBehaviour:
     th: "\u0E1B\u0E39\u0E4A\u0E19 \u0E1B\u0E39\u0E4A\u0E19! \u0E23\u0E16\u0E44\u0E1F\u0E21\u0E32\u0E41\u0E25\u0E49\u0E27!"
     enClip: {fileID: 8300000, guid: 30e3e79f6e6ca36a3800965cb85b629d, type: 3}
     thClip: {fileID: 8300000, guid: c2a7b4add8c827410920ba4c6561c040, type: 3}
+  - key: add_carriage
+    en: The passengers want a ride! Add a carriage to the train.
+    th: "\u0E1C\u0E39\u0E49\u0E42\u0E14\u0E22\u0E2A\u0E32\u0E23\u0E2D\u0E22\u0E32\u0E01\u0E19\u0E31\u0E48\u0E07\u0E23\u0E16\u0E44\u0E1F!
+      \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E15\u0E39\u0E49\u0E42\u0E14\u0E22\u0E2A\u0E32\u0E23\u0E43\u0E2B\u0E49\u0E23\u0E16\u0E44\u0E1F\u0E2B\u0E19\u0E48\u0E2D\u0E22\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: 2273434a065560a6f9c2606bf88ba990, type: 3}
+    thClip: {fileID: 8300000, guid: 7254e955160a45bde8551d630b75dd20, type: 3}
+  - key: bye_bye
+    en: Bye bye! Thank you for the ride!
+    th: "\u0E1A\u0E4A\u0E32\u0E22\u0E1A\u0E32\u0E22! \u0E02\u0E2D\u0E1A\u0E04\u0E38\u0E13\u0E17\u0E35\u0E48\u0E1E\u0E32\u0E21\u0E32\u0E2A\u0E48\u0E07\u0E19\u0E30!"
+    enClip: {fileID: 8300000, guid: 46783939288bf48fc8d8a393f7ff4203, type: 3}
+    thClip: {fileID: 8300000, guid: 44ea046433a8aeeb9b1b920dbc073131, type: 3}
+  - key: load_cargo
+    en: The crane is loading the cargo!
+    th: "\u0E40\u0E04\u0E23\u0E19\u0E01\u0E33\u0E25\u0E31\u0E07\u0E22\u0E01\u0E02\u0E2D\u0E07\u0E02\u0E36\u0E49\u0E19\u0E23\u0E16\u0E44\u0E1F!"
+    enClip: {fileID: 8300000, guid: d16aae060a67024ba98500048961d25e, type: 3}
+    thClip: {fileID: 8300000, guid: ddec249e6a79a38cc8f4c7aa547ea8da, type: 3}
+  - key: delivery
+    en: Delivery done! Well done, little train!
+    th: "\u0E2A\u0E48\u0E07\u0E02\u0E2D\u0E07\u0E40\u0E23\u0E35\u0E22\u0E1A\u0E23\u0E49\u0E2D\u0E22!
+      \u0E40\u0E01\u0E48\u0E07\u0E21\u0E32\u0E01\u0E40\u0E08\u0E49\u0E32\u0E23\u0E16\u0E44\u0E1F\u0E19\u0E49\u0E2D\u0E22!"
+    enClip: {fileID: 8300000, guid: 8b6f38f3262dd8ab29c74375c8eacf04, type: 3}
+    thClip: {fileID: 8300000, guid: 36ec2605e4d633ab885a8072a8c151fa, type: 3}
+  - key: add_wagon
+    en: Add a cargo wagon to carry the boxes!
+    th: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E15\u0E39\u0E49\u0E2A\u0E34\u0E19\u0E04\u0E49\u0E32\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E02\u0E19\u0E01\u0E25\u0E48\u0E2D\u0E07\u0E01\u0E31\u0E19\u0E19\u0E30!"
+    enClip: {fileID: 8300000, guid: 9b3121c0e0ae7e459965203d6f2d08f0, type: 3}
+    thClip: {fileID: 8300000, guid: 1bd9dc5a1c674ebd6913127651a89af8, type: 3}
+  - key: new_train
+    en: Here comes another train! Choo choo!
+    th: "\u0E23\u0E16\u0E44\u0E1F\u0E2D\u0E35\u0E01\u0E02\u0E1A\u0E27\u0E19\u0E21\u0E32\u0E41\u0E25\u0E49\u0E27!
+      \u0E1B\u0E39\u0E4A\u0E19 \u0E1B\u0E39\u0E4A\u0E19!"
+    enClip: {fileID: 8300000, guid: 8351fb6616702fe859a717225f516d5c, type: 3}
+    thClip: {fileID: 8300000, guid: 15443230ade50fb8bbfc50598f7605c7, type: 3}
+  - key: train_waiting
+    en: This train is waiting for the track to be clear.
+    th: "\u0E23\u0E16\u0E44\u0E1F\u0E02\u0E1A\u0E27\u0E19\u0E19\u0E35\u0E49\u0E23\u0E2D\u0E43\u0E2B\u0E49\u0E17\u0E32\u0E07\u0E27\u0E48\u0E32\u0E07\u0E01\u0E48\u0E2D\u0E19\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: bbdf3e2c2edf20e8bafa6de57204dbb1, type: 3}
+    thClip: {fileID: 8300000, guid: 1bccd2e3c7963854ba91f5aad6567e7d, type: 3}
+  - key: tap_train_pick
+    en: Tap a train to drive it.
+    th: "\u0E41\u0E15\u0E30\u0E17\u0E35\u0E48\u0E23\u0E16\u0E44\u0E1F\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E02\u0E31\u0E1A\u0E02\u0E1A\u0E27\u0E19\u0E19\u0E31\u0E49\u0E19\u0E19\u0E30"
+    enClip: {fileID: 8300000, guid: 2fa8a8210b5300d4e8738b11cda28748, type: 3}
+    thClip: {fileID: 8300000, guid: 04ccdc80f7f8eaf0cab2a6eb124a4e85, type: 3}
+  - key: pick_world
+    en: Which world do you want to play in?
+    th: "\u0E2D\u0E22\u0E32\u0E01\u0E40\u0E25\u0E48\u0E19\u0E43\u0E19\u0E42\u0E25\u0E01\u0E44\u0E2B\u0E19\u0E14\u0E35\u0E08\u0E4A\u0E30?"
+    enClip: {fileID: 8300000, guid: 30e58146b70b65ae1b76fd7af2234c4b, type: 3}
+    thClip: {fileID: 8300000, guid: 5e0068590062456a6b06672003079eda, type: 3}
+  - key: welcome_snowy
+    en: Welcome to Snowy Valley! Brrr, it's chilly!
+    th: "\u0E22\u0E34\u0E19\u0E14\u0E35\u0E15\u0E49\u0E2D\u0E19\u0E23\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E2B\u0E38\u0E1A\u0E40\u0E02\u0E32\u0E2B\u0E34\u0E21\u0E30!
+      \u0E1A\u0E23\u0E37\u0E4B\u0E2D \u0E2B\u0E19\u0E32\u0E27\u0E08\u0E31\u0E07!"
+    enClip: {fileID: 8300000, guid: ec86e66cc007a1f53b52854b727f5154, type: 3}
+    thClip: {fileID: 8300000, guid: 4637ff78e622969d9aae9ab8cba39876, type: 3}
+  - key: welcome_sunny
+    en: Welcome back to Sunny Valley!
+    th: "\u0E22\u0E34\u0E19\u0E14\u0E35\u0E15\u0E49\u0E2D\u0E19\u0E23\u0E31\u0E1A\u0E01\u0E25\u0E31\u0E1A\u0E2A\u0E39\u0E48\u0E2B\u0E38\u0E1A\u0E40\u0E02\u0E32\u0E41\u0E2A\u0E19\u0E2A\u0E14\u0E43\u0E2A!"
+    enClip: {fileID: 8300000, guid: 35fc880fe5b5e9c738e9c99085cfad3e, type: 3}
+    thClip: {fileID: 8300000, guid: a71019b143a2b7b8095634f4edae1316, type: 3}
+  - key: paint_train
+    en: Pick a colour to paint your train!
+    th: "\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E2A\u0E35\u0E21\u0E32\u0E17\u0E32\u0E2A\u0E35\u0E23\u0E16\u0E44\u0E1F\u0E01\u0E31\u0E19\u0E40\u0E25\u0E22!"
+    enClip: {fileID: 8300000, guid: 4c34f0439dae6993e8e763efce9274a2, type: 3}
+    thClip: {fileID: 8300000, guid: 92a27580085dd4d58a49528882061342, type: 3}
+  - key: nice_colour
+    en: Ooh, what a lovely colour!
+    th: "\u0E27\u0E49\u0E32\u0E27 \u0E2A\u0E35\u0E2A\u0E27\u0E22\u0E08\u0E31\u0E07\u0E40\u0E25\u0E22!"
+    enClip: {fileID: 8300000, guid: 2aece5b57a30985419c758ce985a9899, type: 3}
+    thClip: {fileID: 8300000, guid: fe5a8456211274c66b74087d91590182, type: 3}
+  - key: new_friend
+    en: Look! A new friend has come to play!
+    th: "\u0E14\u0E39\u0E2A\u0E34! \u0E21\u0E35\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E19\u0E43\u0E2B\u0E21\u0E48\u0E21\u0E32\u0E40\u0E25\u0E48\u0E19\u0E14\u0E49\u0E27\u0E22\u0E41\u0E25\u0E49\u0E27!"
+    enClip: {fileID: 8300000, guid: e6e92c0d0a760e76e8524652cee6078a, type: 3}
+    thClip: {fileID: 8300000, guid: f00e142564acade4ebee09606219adcf, type: 3}
+  - key: new_loco
+    en: Wow! A new train has come to visit!
+    th: "\u0E27\u0E49\u0E32\u0E27! \u0E23\u0E16\u0E44\u0E1F\u0E02\u0E1A\u0E27\u0E19\u0E43\u0E2B\u0E21\u0E48\u0E21\u0E32\u0E40\u0E22\u0E35\u0E48\u0E22\u0E21\u0E41\u0E25\u0E49\u0E27!"
+    enClip: {fileID: 8300000, guid: 264a58c65331c3809ab047c050308572, type: 3}
+    thClip: {fileID: 8300000, guid: a2756c1aea136d934bbc4b8b56e2fc09, type: 3}
   captionFont: {fileID: 12800000, guid: eb7f7e064e0708380bdeafe2a7c8d362, type: 3}

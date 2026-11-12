@@ -58,6 +58,15 @@ Tools/voice/generate_voice.sh [key...]   # narrator clips from Tools/voice/voice
 * **Train:** GO / STOP / whistle / bell, turtle and rabbit for speed, and the camera button to follow the train. Pick
   a locomotive and add or remove passenger and cargo carriages. Trains stop safely at the end of the track (a yellow
   "!" marks the gap); press GO and the train turns round. Trains pause at stations and lower crossing barriers.
+* **Passengers and cargo:** passengers wait at stations and ride in the passenger carriage. Build a **Cargo
+  Station** (station tray) and add a cargo wagon: the crane loads crates, logs, milk or hay, and unloads them on the
+  next visit.
+* **More trains:** the green "+" adds a train (up to three). Tap a train, or its chip, to drive it; hold a chip to
+  send that train away. Trains keep their distance by themselves.
+* **Paint:** the paintbrush opens colours for the selected train; the curly arrow restores its own colours.
+* **Worlds:** pick Sunny Valley or Snowy Valley at the top left of the home screen. Each world keeps its own
+  railway.
+* **Surprises:** after a while of play a gift box appears; tap it to meet a new friend (or a new train).
 * **Decorate (tree):** trees, flowers, buildings, animals, people and props are placed the same way as track.
 * **Explore (magnifier):** tap animals, trees, houses and the windmill for sounds and animations; tap the train to
   make it whistle.

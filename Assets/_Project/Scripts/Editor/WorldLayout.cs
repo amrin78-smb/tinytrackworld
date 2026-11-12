@@ -95,5 +95,95 @@ namespace TinyTracks.EditorTools
             for (int i = 0; i < 4; i++) Add("Bird", R(-20f, 20f), R(0f, 30f), 0f, 1f, 8f);
             return list;
         }
+
+        /// <summary>Starter decorations around the oval railway in a new Sunny Valley world.</summary>
+        public static List<WorldProp> SunnyStarter(ContentLibrary lib) => Starter(lib, new (string, float, float, float)[]
+        {
+            ("House_A", 12f, 9f, 200f), ("Tree_Round", 17f, 5f, 0f), ("Tree_Apple", -15f, 7f, 0f), ("Tree_Pine", -19f, 1f, 30f),
+            ("Cow", -15f, -6f, 120f), ("Sheep", -13f, -10f, 200f), ("Flowers_Red", 5f, 4f, 0f), ("Flowers_Yellow", -6f, 5f, 0f),
+            ("Bush", 14f, -12f, 0f), ("Person_Conductor", -1.5f, -10.4f, 180f), ("Dog", 9f, 5f, 210f), ("Fence", -16f, -13f, 0f),
+        });
+
+        /// <summary>Starter decorations around the oval railway in a new Snowy Valley world.</summary>
+        public static List<WorldProp> SnowyStarter(ContentLibrary lib) => Starter(lib, new (string, float, float, float)[]
+        {
+            ("Cabin_Snowy", 13f, 10f, 200f), ("Tree_SnowyPine", 18f, 4f, 0f), ("Tree_SnowyRound", -15f, 7f, 0f), ("Tree_SnowyPineSmall", -19f, 1f, 30f),
+            ("Penguin", -14f, -6f, 140f), ("Penguin", -12.8f, -6.6f, 200f), ("Reindeer", -13f, -11f, 200f), ("Snowman", 6f, 5f, 190f),
+            ("Bush_Snowy", 14f, -12f, 0f), ("Person_Conductor", -1.5f, -10.4f, 180f), ("Husky", 9f, 4f, 210f), ("Sled", -16f, -13f, 30f),
+            ("Lamp_Snowy", 3f, -11f, 180f),
+        });
+
+        private static List<WorldProp> Starter(ContentLibrary lib, (string id, float x, float z, float yaw)[] items)
+        {
+            var list = new List<WorldProp>();
+            foreach (var d in items)
+                if (lib.Decoration(d.id) != null) list.Add(new WorldProp { decorationId = d.id, position = new Vector3(d.x, 0f, d.z), yaw = d.yaw, scale = 1f });
+            return list;
+        }
+
+        /// <summary>
+        /// Snowy Valley dressing (outside the buildable area): a log-cabin village with snowmen and huskies (back right),
+        /// a reindeer meadow (back left), penguins and an igloo by the frozen lake (left), a snowy pine forest (right)
+        /// and frosted hills all round.
+        /// </summary>
+        public static List<WorldProp> SnowyValley(ContentLibrary lib)
+        {
+            var list = new List<WorldProp>();
+            var rng = new System.Random(4321);
+            float R(float a, float b) => a + (float)rng.NextDouble() * (b - a);
+            void Add(string id, float x, float z, float yaw = 180f, float scale = 1f, float y = 0f)
+            {
+                if (lib.Decoration(id) == null) return;
+                list.Add(new WorldProp { decorationId = id, position = new Vector3(x, y, z), yaw = yaw, scale = scale });
+            }
+
+            // Cabin village (back right)
+            Add("Cabin_Snowy", 8f, 31f, 185f); Add("Cabin_Snowy", 18f, 33f, 170f, 1.1f); Add("Cabin_Snowy", 28f, 31f, 200f, 0.95f);
+            Add("Lamp_Snowy", 4f, 25.5f, 180f); Add("Lamp_Snowy", 13f, 25.5f, 180f); Add("Lamp_Snowy", 23f, 26f, 180f);
+            Add("Snowman", 11f, 26f, 190f); Add("Snowman", 25f, 27f, 160f, 0.9f);
+            Add("Sled", 16f, 26.5f, 120f); Add("Husky", 19f, 25.5f, 200f); Add("Husky", 20.5f, 26.3f, 160f);
+            Add("Person_Child", 14.5f, 24.8f, 200f); Add("Person_Conductor", 1f, 24.5f, 170f);
+            Add("Tree_SnowyPine", 34f, 30f); Add("Tree_SnowyRound", 36f, 25f);
+
+            // Reindeer meadow (back left)
+            Add("Reindeer", -22f, 30f, 150f); Add("Reindeer", -17f, 33f, 210f); Add("Reindeer", -27f, 27f, 120f, 0.9f);
+            Add("Snowdrift", -20f, 26f, 0f, 1.3f); Add("Rock_Snowy", -12f, 31f, 40f); Add("Tree_SnowyPineSmall", -9f, 28f);
+
+            // Frozen lake (left, centre -46,6): igloo and penguins on the shore
+            Add("Igloo", -36f, 22f, 150f);
+            for (int i = 0; i < 6; i++) Add("Penguin", R(-40f, -33f), R(14f, 20f), R(120f, 240f), R(0.9f, 1.1f));
+            Add("Rock_Snowy", -33f, -6f, 30f); Add("Rock_Snowy", -58f, 18f, 80f, 1.2f); Add("Snowdrift", -34f, 0f, 0f);
+
+            // Snowy forest (right)
+            string[] trees = { "Tree_SnowyPine", "Tree_SnowyPineSmall", "Tree_SnowyRound", "Tree_SnowyPine" };
+            for (int i = 0; i < 46; i++) Add(trees[i % trees.Length], R(33f, 62f), R(-30f, 20f), R(0f, 360f), R(0.85f, 1.25f));
+            for (int i = 0; i < 10; i++) Add("Bush_Snowy", R(32f, 40f), R(-20f, 18f), R(0f, 360f), R(0.8f, 1.2f));
+
+            // Hills all round
+            for (int i = 0; i < 70; i++)
+            {
+                float a = R(0f, Mathf.PI * 2f), r = R(62f, 95f);
+                float x = Mathf.Cos(a) * r * 1.1f, z = Mathf.Sin(a) * r * 0.9f;
+                if (z < -50f) continue;
+                Add(trees[i % trees.Length], x, z, R(0f, 360f), R(1.0f, 1.6f));
+            }
+
+            // Snowdrifts and frosted rocks along the edges of the buildable area
+            string[] edge = { "Snowdrift", "Bush_Snowy", "Rock_Snowy", "Snowdrift" };
+            for (int i = 0; i < 40; i++)
+            {
+                float x, z;
+                int side = i % 4;
+                if (side == 0) { x = R(-30f, 30f); z = R(-34f, -24f); }
+                else if (side == 1) { x = R(31f, 34f); z = R(-20f, 20f); }
+                else if (side == 2) { x = R(-30f, 30f); z = R(23f, 26f); }
+                else { x = R(-33f, -30.5f); z = R(-20f, -8f); }
+                Add(edge[i % edge.Length], x, z, R(0f, 360f), R(0.8f, 1.2f));
+            }
+
+            // Sky: a few soft clouds, no birds.
+            for (int i = 0; i < 7; i++) Add(i % 2 == 0 ? "Cloud_A" : "Cloud_B", R(-100f, 100f), R(-20f, 90f), R(0f, 360f), R(0.9f, 1.5f), R(20f, 28f));
+            return list;
+        }
     }
 }

@@ -1,0 +1,846 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bc56192d34fa5a6862db9e139f1f22, type: 3}
+  m_Name: SnowyValley
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.WorldDefinition
+  id: snowy_valley
+  displayName: Snowy Valley
+  icon: {fileID: 21300000, guid: 3cf3f2ba643e0d0238ef93686a9c53b0, type: 3}
+  buildableHalfSize: {x: 30, y: 22}
+  cameraHalfSize: {x: 34, y: 26}
+  terrainPrefab: {fileID: 0}
+  waterPrefab: {fileID: 0}
+  props:
+  - decorationId: Cabin_Snowy
+    position: {x: 8, y: 0, z: 31}
+    yaw: 185
+    scale: 1
+  - decorationId: Cabin_Snowy
+    position: {x: 18, y: 0, z: 33}
+    yaw: 170
+    scale: 1.1
+  - decorationId: Cabin_Snowy
+    position: {x: 28, y: 0, z: 31}
+    yaw: 200
+    scale: 0.95
+  - decorationId: Lamp_Snowy
+    position: {x: 4, y: 0, z: 25.5}
+    yaw: 180
+    scale: 1
+  - decorationId: Lamp_Snowy
+    position: {x: 13, y: 0, z: 25.5}
+    yaw: 180
+    scale: 1
+  - decorationId: Lamp_Snowy
+    position: {x: 23, y: 0, z: 26}
+    yaw: 180
+    scale: 1
+  - decorationId: Snowman
+    position: {x: 11, y: 0, z: 26}
+    yaw: 190
+    scale: 1
+  - decorationId: Snowman
+    position: {x: 25, y: 0, z: 27}
+    yaw: 160
+    scale: 0.9
+  - decorationId: Sled
+    position: {x: 16, y: 0, z: 26.5}
+    yaw: 120
+    scale: 1
+  - decorationId: Husky
+    position: {x: 19, y: 0, z: 25.5}
+    yaw: 200
+    scale: 1
+  - decorationId: Husky
+    position: {x: 20.5, y: 0, z: 26.3}
+    yaw: 160
+    scale: 1
+  - decorationId: Person_Child
+    position: {x: 14.5, y: 0, z: 24.8}
+    yaw: 200
+    scale: 1
+  - decorationId: Person_Conductor
+    position: {x: 1, y: 0, z: 24.5}
+    yaw: 170
+    scale: 1
+  - decorationId: Tree_SnowyPine
+    position: {x: 34, y: 0, z: 30}
+    yaw: 180
+    scale: 1
+  - decorationId: Tree_SnowyRound
+    position: {x: 36, y: 0, z: 25}
+    yaw: 180
+    scale: 1
+  - decorationId: Reindeer
+    position: {x: -22, y: 0, z: 30}
+    yaw: 150
+    scale: 1
+  - decorationId: Reindeer
+    position: {x: -17, y: 0, z: 33}
+    yaw: 210
+    scale: 1
+  - decorationId: Reindeer
+    position: {x: -27, y: 0, z: 27}
+    yaw: 120
+    scale: 0.9
+  - decorationId: Snowdrift
+    position: {x: -20, y: 0, z: 26}
+    yaw: 0
+    scale: 1.3
+  - decorationId: Rock_Snowy
+    position: {x: -12, y: 0, z: 31}
+    yaw: 40
+    scale: 1
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -9, y: 0, z: 28}
+    yaw: 180
+    scale: 1
+  - decorationId: Igloo
+    position: {x: -36, y: 0, z: 22}
+    yaw: 150
+    scale: 1
+  - decorationId: Penguin
+    position: {x: -39.117817, y: 0, z: 18.075031}
+    yaw: 131.41554
+    scale: 1.0690129
+  - decorationId: Penguin
+    position: {x: -39.468597, y: 0, z: 18.027845}
+    yaw: 235.08208
+    scale: 0.94409645
+  - decorationId: Penguin
+    position: {x: -36.098114, y: 0, z: 17.883184}
+    yaw: 204.5421
+    scale: 1.0868865
+  - decorationId: Penguin
+    position: {x: -39.23921, y: 0, z: 16.955181}
+    yaw: 187.26997
+    scale: 1.017032
+  - decorationId: Penguin
+    position: {x: -38.362614, y: 0, z: 14.0746355}
+    yaw: 197.79846
+    scale: 0.9853777
+  - decorationId: Penguin
+    position: {x: -33.346474, y: 0, z: 19.68753}
+    yaw: 151.50623
+    scale: 1.0112339
+  - decorationId: Rock_Snowy
+    position: {x: -33, y: 0, z: -6}
+    yaw: 30
+    scale: 1
+  - decorationId: Rock_Snowy
+    position: {x: -58, y: 0, z: 18}
+    yaw: 80
+    scale: 1.2
+  - decorationId: Snowdrift
+    position: {x: -34, y: 0, z: 0}
+    yaw: 0
+    scale: 1
+  - decorationId: Tree_SnowyPine
+    position: {x: 38.29627, y: 0, z: 6.0036163}
+    yaw: 352.2338
+    scale: 0.8554457
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 34.831963, y: 0, z: -28.00493}
+    yaw: 145.49263
+    scale: 1.1036822
+  - decorationId: Tree_SnowyRound
+    position: {x: 58.370094, y: 0, z: -14.064603}
+    yaw: 159.67078
+    scale: 0.8606134
+  - decorationId: Tree_SnowyPine
+    position: {x: 42.504642, y: 0, z: -23.130156}
+    yaw: 116.15056
+    scale: 1.0238231
+  - decorationId: Tree_SnowyPine
+    position: {x: 53.859993, y: 0, z: -20.36126}
+    yaw: 131.3433
+    scale: 0.9520395
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 35.718956, y: 0, z: -28.003492}
+    yaw: 156.07668
+    scale: 0.9098162
+  - decorationId: Tree_SnowyRound
+    position: {x: 41.158936, y: 0, z: -13.741644}
+    yaw: 151.60196
+    scale: 0.9281557
+  - decorationId: Tree_SnowyPine
+    position: {x: 60.23423, y: 0, z: 9.597744}
+    yaw: 139.42346
+    scale: 0.92124164
+  - decorationId: Tree_SnowyPine
+    position: {x: 45.08198, y: 0, z: -3.05201}
+    yaw: 238.47636
+    scale: 0.9923369
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 53.09353, y: 0, z: 17.27016}
+    yaw: 56.632065
+    scale: 1.0570043
+  - decorationId: Tree_SnowyRound
+    position: {x: 40.048485, y: 0, z: -26.484402}
+    yaw: 21.456528
+    scale: 1.1659906
+  - decorationId: Tree_SnowyPine
+    position: {x: 34.421013, y: 0, z: -3.2975185}
+    yaw: 92.66891
+    scale: 0.8886062
+  - decorationId: Tree_SnowyPine
+    position: {x: 53.004166, y: 0, z: -19.311861}
+    yaw: 254.7283
+    scale: 1.1530915
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 49.9093, y: 0, z: -29.627337}
+    yaw: 166.46855
+    scale: 0.90707994
+  - decorationId: Tree_SnowyRound
+    position: {x: 41.309254, y: 0, z: 11.444338}
+    yaw: 263.61774
+    scale: 1.1452016
+  - decorationId: Tree_SnowyPine
+    position: {x: 50.94476, y: 0, z: -19.562153}
+    yaw: 250.2339
+    scale: 0.8831504
+  - decorationId: Tree_SnowyPine
+    position: {x: 60.011196, y: 0, z: -16.728703}
+    yaw: 219.56883
+    scale: 1.1655146
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 46.773914, y: 0, z: 18.339907}
+    yaw: 267.0039
+    scale: 1.1595627
+  - decorationId: Tree_SnowyRound
+    position: {x: 34.028442, y: 0, z: 12.366585}
+    yaw: 4.3370852
+    scale: 0.8593781
+  - decorationId: Tree_SnowyPine
+    position: {x: 61.42953, y: 0, z: 2.1784945}
+    yaw: 36.1944
+    scale: 1.1489172
+  - decorationId: Tree_SnowyPine
+    position: {x: 34.96485, y: 0, z: -13.769939}
+    yaw: 182.01256
+    scale: 1.1401395
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 35.44691, y: 0, z: 1.4779311}
+    yaw: 214.20885
+    scale: 1.0136667
+  - decorationId: Tree_SnowyRound
+    position: {x: 35.219868, y: 0, z: -4.013272}
+    yaw: 24.95386
+    scale: 1.1955974
+  - decorationId: Tree_SnowyPine
+    position: {x: 39.18082, y: 0, z: -9.0346365}
+    yaw: 323.54138
+    scale: 0.86371773
+  - decorationId: Tree_SnowyPine
+    position: {x: 43.881317, y: 0, z: 18.836273}
+    yaw: 309.0801
+    scale: 1.1634297
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 59.79995, y: 0, z: -6.568642}
+    yaw: 223.75902
+    scale: 1.1392003
+  - decorationId: Tree_SnowyRound
+    position: {x: 46.690475, y: 0, z: 16.683588}
+    yaw: 260.0155
+    scale: 1.144299
+  - decorationId: Tree_SnowyPine
+    position: {x: 61.866768, y: 0, z: -8.051628}
+    yaw: 58.45359
+    scale: 1.1071825
+  - decorationId: Tree_SnowyPine
+    position: {x: 54.122055, y: 0, z: 19.248922}
+    yaw: 241.29019
+    scale: 0.9676735
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 53.39183, y: 0, z: 18.487282}
+    yaw: 359.4599
+    scale: 0.9707448
+  - decorationId: Tree_SnowyRound
+    position: {x: 52.44164, y: 0, z: -19.96267}
+    yaw: 256.40616
+    scale: 1.2320912
+  - decorationId: Tree_SnowyPine
+    position: {x: 59.026974, y: 0, z: 13.8842}
+    yaw: 201.87904
+    scale: 1.0964625
+  - decorationId: Tree_SnowyPine
+    position: {x: 60.509563, y: 0, z: 18.887661}
+    yaw: 233.36186
+    scale: 0.8514413
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 55.765408, y: 0, z: -14.151724}
+    yaw: 296.33646
+    scale: 1.0896505
+  - decorationId: Tree_SnowyRound
+    position: {x: 53.3884, y: 0, z: 9.129484}
+    yaw: 91.17479
+    scale: 0.91028184
+  - decorationId: Tree_SnowyPine
+    position: {x: 59.31151, y: 0, z: 12.963844}
+    yaw: 148.95395
+    scale: 1.1050318
+  - decorationId: Tree_SnowyPine
+    position: {x: 43.36354, y: 0, z: -8.6819935}
+    yaw: 48.83283
+    scale: 0.94126135
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 54.722645, y: 0, z: 0.22711873}
+    yaw: 119.205986
+    scale: 1.0121889
+  - decorationId: Tree_SnowyRound
+    position: {x: 61.368546, y: 0, z: -2.1653044}
+    yaw: 40.742332
+    scale: 1.1393558
+  - decorationId: Tree_SnowyPine
+    position: {x: 54.935246, y: 0, z: 3.3162427}
+    yaw: 297.1868
+    scale: 1.0877606
+  - decorationId: Tree_SnowyPine
+    position: {x: 43.814003, y: 0, z: -24.69455}
+    yaw: 283.37112
+    scale: 0.8570611
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 55.93146, y: 0, z: -22.061607}
+    yaw: 308.8592
+    scale: 1.0145525
+  - decorationId: Tree_SnowyRound
+    position: {x: 37.692825, y: 0, z: -26.443789}
+    yaw: 212.8087
+    scale: 1.2182307
+  - decorationId: Tree_SnowyPine
+    position: {x: 53.77799, y: 0, z: 12.389763}
+    yaw: 142.0447
+    scale: 1.1744498
+  - decorationId: Tree_SnowyPine
+    position: {x: 55.822586, y: 0, z: -26.26702}
+    yaw: 215.2312
+    scale: 1.0384487
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 54.51908, y: 0, z: -13.36891}
+    yaw: 312.15585
+    scale: 0.9876253
+  - decorationId: Bush_Snowy
+    position: {x: 37.173004, y: 0, z: -10.775303}
+    yaw: 9.135903
+    scale: 0.89132804
+  - decorationId: Bush_Snowy
+    position: {x: 33.63034, y: 0, z: -16.208845}
+    yaw: 303.38586
+    scale: 0.8146894
+  - decorationId: Bush_Snowy
+    position: {x: 39.656567, y: 0, z: 5.0367556}
+    yaw: 280.01083
+    scale: 1.1204737
+  - decorationId: Bush_Snowy
+    position: {x: 32.57708, y: 0, z: -4.9478836}
+    yaw: 304.86227
+    scale: 0.8794383
+  - decorationId: Bush_Snowy
+    position: {x: 36.547344, y: 0, z: 7.522087}
+    yaw: 23.879404
+    scale: 1.0711731
+  - decorationId: Bush_Snowy
+    position: {x: 32.107258, y: 0, z: -4.399066}
+    yaw: 248.03636
+    scale: 0.8521722
+  - decorationId: Bush_Snowy
+    position: {x: 33.297, y: 0, z: -8.522149}
+    yaw: 337.1054
+    scale: 1.0726913
+  - decorationId: Bush_Snowy
+    position: {x: 32.547684, y: 0, z: -6.5329084}
+    yaw: 306.85107
+    scale: 0.81610996
+  - decorationId: Bush_Snowy
+    position: {x: 33.912075, y: 0, z: -3.163006}
+    yaw: 133.56978
+    scale: 1.019194
+  - decorationId: Bush_Snowy
+    position: {x: 33.067123, y: 0, z: 3.9256377}
+    yaw: 74.732
+    scale: 0.82482177
+  - decorationId: Tree_SnowyPine
+    position: {x: 11.958282, y: 0, z: 71.60063}
+    yaw: 346.86218
+    scale: 1.0345722
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 81.20208, y: 0, z: 31.25693}
+    yaw: 266.03625
+    scale: 1.2345264
+  - decorationId: Tree_SnowyRound
+    position: {x: 11.486996, y: 0, z: 67.002335}
+    yaw: 324.97336
+    scale: 1.010663
+  - decorationId: Tree_SnowyPine
+    position: {x: -7.669983, y: 0, z: 61.096825}
+    yaw: 119.0362
+    scale: 1.1416447
+  - decorationId: Tree_SnowyPine
+    position: {x: -94.99579, y: 0, z: -27.303093}
+    yaw: 23.830118
+    scale: 1.5410463
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 38.345203, y: 0, z: 51.825596}
+    yaw: 348.57468
+    scale: 1.3616042
+  - decorationId: Tree_SnowyPine
+    position: {x: -84.17611, y: 0, z: -28.362785}
+    yaw: 9.029231
+    scale: 1.1793128
+  - decorationId: Tree_SnowyPine
+    position: {x: 93.8139, y: 0, z: 33.333263}
+    yaw: 186.00357
+    scale: 1.0025663
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -80.63311, y: 0, z: 21.643677}
+    yaw: 160.93616
+    scale: 1.3788217
+  - decorationId: Tree_SnowyRound
+    position: {x: 82.514885, y: 0, z: 26.947645}
+    yaw: 202.7013
+    scale: 1.3273159
+  - decorationId: Tree_SnowyPine
+    position: {x: -88.64005, y: 0, z: 21.610634}
+    yaw: 162.60963
+    scale: 1.5007554
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 55.6078, y: 0, z: 38.820145}
+    yaw: 357.91904
+    scale: 1.143066
+  - decorationId: Tree_SnowyRound
+    position: {x: -73.08761, y: 0, z: -25.178709}
+    yaw: 323.52878
+    scale: 1.0404253
+  - decorationId: Tree_SnowyPine
+    position: {x: -69.676285, y: 0, z: -34.27211}
+    yaw: 90.40406
+    scale: 1.1994725
+  - decorationId: Tree_SnowyPine
+    position: {x: 70.80707, y: 0, z: 11.5082}
+    yaw: 131.68661
+    scale: 1.5573791
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -52.004387, y: 0, z: 72.9224}
+    yaw: 180.39426
+    scale: 1.1572077
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -47.92652, y: 0, z: 62.932953}
+    yaw: 254.55672
+    scale: 1.1794429
+  - decorationId: Tree_SnowyRound
+    position: {x: 60.307335, y: 0, z: 68.80112}
+    yaw: 346.87744
+    scale: 1.3073995
+  - decorationId: Tree_SnowyPine
+    position: {x: -99.96325, y: 0, z: -8.579004}
+    yaw: 109.66868
+    scale: 1.4960572
+  - decorationId: Tree_SnowyPine
+    position: {x: -53.7604, y: 0, z: 43.782467}
+    yaw: 38.011044
+    scale: 1.2293028
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 49.7506, y: 0, z: -41.82164}
+    yaw: 136.88898
+    scale: 1.4367933
+  - decorationId: Tree_SnowyRound
+    position: {x: -82.30567, y: 0, z: -16.181372}
+    yaw: 64.70295
+    scale: 1.3149658
+  - decorationId: Tree_SnowyPine
+    position: {x: -43.789543, y: 0, z: 60.47035}
+    yaw: 120.05896
+    scale: 1.3071831
+  - decorationId: Tree_SnowyPine
+    position: {x: -28.423183, y: 0, z: 58.49762}
+    yaw: 124.53222
+    scale: 1.0430943
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -58.121914, y: 0, z: 32.783222}
+    yaw: 348.17786
+    scale: 1.1685126
+  - decorationId: Tree_SnowyRound
+    position: {x: -50.21888, y: 0, z: 49.493645}
+    yaw: 75.54675
+    scale: 1.1675301
+  - decorationId: Tree_SnowyPine
+    position: {x: -59.142147, y: 0, z: 52.24421}
+    yaw: 213.58801
+    scale: 1.2854005
+  - decorationId: Tree_SnowyPine
+    position: {x: -61.50338, y: 0, z: -49.899033}
+    yaw: 211.87408
+    scale: 1.1741583
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 45.023705, y: 0, z: 55.263996}
+    yaw: 359.57303
+    scale: 1.4216903
+  - decorationId: Tree_SnowyRound
+    position: {x: -69.55409, y: 0, z: -15.433274}
+    yaw: 345.57187
+    scale: 1.5313354
+  - decorationId: Tree_SnowyPine
+    position: {x: -69.2262, y: 0, z: 23.208479}
+    yaw: 347.0196
+    scale: 1.3979168
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 23.181005, y: 0, z: 61.11819}
+    yaw: 195.91411
+    scale: 1.139687
+  - decorationId: Tree_SnowyRound
+    position: {x: -70.27361, y: 0, z: 30.29384}
+    yaw: 87.72143
+    scale: 1.4948392
+  - decorationId: Tree_SnowyPine
+    position: {x: 88.61798, y: 0, z: 10.039313}
+    yaw: 315.48975
+    scale: 1.0606183
+  - decorationId: Tree_SnowyPine
+    position: {x: -43.597466, y: 0, z: 43.62779}
+    yaw: 309.53723
+    scale: 1.4224378
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 79.707886, y: 0, z: -46.99909}
+    yaw: 323.72873
+    scale: 1.02594
+  - decorationId: Tree_SnowyRound
+    position: {x: -63.2759, y: 0, z: 66.272995}
+    yaw: 87.10127
+    scale: 1.3858634
+  - decorationId: Tree_SnowyPine
+    position: {x: -77.62731, y: 0, z: -11.981493}
+    yaw: 38.17863
+    scale: 1.0489612
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -39.0485, y: 0, z: 64.56332}
+    yaw: 230.69096
+    scale: 1.5503975
+  - decorationId: Tree_SnowyRound
+    position: {x: -32.4717, y: 0, z: 59.57179}
+    yaw: 335.3262
+    scale: 1.2349111
+  - decorationId: Tree_SnowyPine
+    position: {x: 67.55462, y: 0, z: 32.443996}
+    yaw: 16.77354
+    scale: 1.1990168
+  - decorationId: Tree_SnowyPine
+    position: {x: -42.59672, y: 0, z: 58.46813}
+    yaw: 297.52444
+    scale: 1.264671
+  - decorationId: Tree_SnowyRound
+    position: {x: 93.60872, y: 0, z: 12.492477}
+    yaw: 101.35649
+    scale: 1.08167
+  - decorationId: Tree_SnowyPine
+    position: {x: 63.610027, y: 0, z: 35.864685}
+    yaw: 12.212443
+    scale: 1.5406601
+  - decorationId: Tree_SnowyRound
+    position: {x: 21.40791, y: 0, z: 58.027527}
+    yaw: 353.5142
+    scale: 1.5062699
+  - decorationId: Tree_SnowyPine
+    position: {x: -6.357955, y: 0, z: 65.385574}
+    yaw: 165.68
+    scale: 1.2650522
+  - decorationId: Tree_SnowyPine
+    position: {x: 69.050385, y: 0, z: -1.1928232}
+    yaw: 222.19986
+    scale: 1.4973421
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -70.55208, y: 0, z: -18.752758}
+    yaw: 20.112694
+    scale: 1.0652227
+  - decorationId: Tree_SnowyRound
+    position: {x: 59.7029, y: 0, z: -37.124844}
+    yaw: 281.77533
+    scale: 1.0273798
+  - decorationId: Tree_SnowyPine
+    position: {x: -14.481906, y: 0, z: 55.449905}
+    yaw: 247.8176
+    scale: 1.5754485
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: 89.14505, y: 0, z: 37.62659}
+    yaw: 125.89588
+    scale: 1.2950609
+  - decorationId: Tree_SnowyRound
+    position: {x: 50.506504, y: 0, z: 57.18546}
+    yaw: 353.12256
+    scale: 1.1834071
+  - decorationId: Tree_SnowyPine
+    position: {x: 5.7183805, y: 0, z: 69.9989}
+    yaw: 346.11917
+    scale: 1.4634707
+  - decorationId: Tree_SnowyPine
+    position: {x: -57.378006, y: 0, z: 37.480373}
+    yaw: 215.47263
+    scale: 1.0433086
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -51.043144, y: 0, z: -45.674366}
+    yaw: 30.402483
+    scale: 1.3687476
+  - decorationId: Snowdrift
+    position: {x: 4.5243464, y: 0, z: -33.614418}
+    yaw: 38.232075
+    scale: 1.1493118
+  - decorationId: Bush_Snowy
+    position: {x: 33.841644, y: 0, z: -16.975271}
+    yaw: 196.91774
+    scale: 0.9658357
+  - decorationId: Rock_Snowy
+    position: {x: 7.2273517, y: 0, z: 24.90338}
+    yaw: 93.20104
+    scale: 1.0968959
+  - decorationId: Snowdrift
+    position: {x: -30.94822, y: 0, z: -10.588799}
+    yaw: 195.94862
+    scale: 0.8448463
+  - decorationId: Snowdrift
+    position: {x: 10.44838, y: 0, z: -32.745464}
+    yaw: 244.25797
+    scale: 0.927958
+  - decorationId: Bush_Snowy
+    position: {x: 31.322983, y: 0, z: -10.227438}
+    yaw: 333.1465
+    scale: 1.0290129
+  - decorationId: Rock_Snowy
+    position: {x: -21.164253, y: 0, z: 23.372353}
+    yaw: 285.92932
+    scale: 1.0555454
+  - decorationId: Snowdrift
+    position: {x: -31.882256, y: 0, z: -11.010596}
+    yaw: 156.71277
+    scale: 0.8313941
+  - decorationId: Snowdrift
+    position: {x: 26.75461, y: 0, z: -33.26197}
+    yaw: 138.12305
+    scale: 0.81489694
+  - decorationId: Bush_Snowy
+    position: {x: 33.334972, y: 0, z: -0.94274044}
+    yaw: 196.03935
+    scale: 0.82991636
+  - decorationId: Rock_Snowy
+    position: {x: 26.985605, y: 0, z: 24.698921}
+    yaw: 246.68008
+    scale: 1.0419673
+  - decorationId: Snowdrift
+    position: {x: -32.43889, y: 0, z: -17.369572}
+    yaw: 342.62598
+    scale: 1.043401
+  - decorationId: Snowdrift
+    position: {x: 5.972639, y: 0, z: -29.135807}
+    yaw: 143.29486
+    scale: 1.0026648
+  - decorationId: Bush_Snowy
+    position: {x: 32.57958, y: 0, z: 10.582252}
+    yaw: 182.49063
+    scale: 0.9324367
+  - decorationId: Rock_Snowy
+    position: {x: -23.210917, y: 0, z: 24.601004}
+    yaw: 261.3661
+    scale: 1.1292387
+  - decorationId: Snowdrift
+    position: {x: -32.296574, y: 0, z: -9.102437}
+    yaw: 348.29688
+    scale: 1.1485356
+  - decorationId: Snowdrift
+    position: {x: -18.051197, y: 0, z: -32.195934}
+    yaw: 286.67865
+    scale: 1.0987638
+  - decorationId: Bush_Snowy
+    position: {x: 32.201775, y: 0, z: 0.2823758}
+    yaw: 120.16498
+    scale: 0.8790833
+  - decorationId: Rock_Snowy
+    position: {x: 4.853997, y: 0, z: 24.811111}
+    yaw: 133.24858
+    scale: 1.0165417
+  - decorationId: Snowdrift
+    position: {x: -31.602272, y: 0, z: -16.154133}
+    yaw: 125.311615
+    scale: 1.1712241
+  - decorationId: Snowdrift
+    position: {x: -19.657276, y: 0, z: -32.142544}
+    yaw: 14.15502
+    scale: 1.1842715
+  - decorationId: Bush_Snowy
+    position: {x: 32.053226, y: 0, z: 17.146053}
+    yaw: 198.7054
+    scale: 0.87254155
+  - decorationId: Rock_Snowy
+    position: {x: 4.013064, y: 0, z: 23.157751}
+    yaw: 332.67273
+    scale: 0.89786255
+  - decorationId: Snowdrift
+    position: {x: -31.123964, y: 0, z: -11.342517}
+    yaw: 285.63147
+    scale: 0.81665194
+  - decorationId: Snowdrift
+    position: {x: 5.9289265, y: 0, z: -25.861164}
+    yaw: 146.07768
+    scale: 0.81761515
+  - decorationId: Bush_Snowy
+    position: {x: 32.26862, y: 0, z: -11.806828}
+    yaw: 74.847885
+    scale: 0.8369939
+  - decorationId: Rock_Snowy
+    position: {x: -20.842339, y: 0, z: 23.601}
+    yaw: 333.2743
+    scale: 1.1691289
+  - decorationId: Snowdrift
+    position: {x: -32.013947, y: 0, z: -8.413229}
+    yaw: 277.92004
+    scale: 1.1170651
+  - decorationId: Snowdrift
+    position: {x: -18.865194, y: 0, z: -26.020432}
+    yaw: 234.2585
+    scale: 0.8382498
+  - decorationId: Bush_Snowy
+    position: {x: 33.606434, y: 0, z: -19.727491}
+    yaw: 187.29477
+    scale: 0.9081982
+  - decorationId: Rock_Snowy
+    position: {x: 7.7068305, y: 0, z: 24.844927}
+    yaw: 64.809044
+    scale: 0.9392033
+  - decorationId: Snowdrift
+    position: {x: -31.54258, y: 0, z: -18.930376}
+    yaw: 161.02568
+    scale: 1.1437773
+  - decorationId: Snowdrift
+    position: {x: 18.616966, y: 0, z: -30.71495}
+    yaw: 339.31393
+    scale: 1.0980833
+  - decorationId: Bush_Snowy
+    position: {x: 33.744152, y: 0, z: -7.8380013}
+    yaw: 181.86742
+    scale: 1.1870198
+  - decorationId: Rock_Snowy
+    position: {x: 28.670097, y: 0, z: 25.840504}
+    yaw: 290.89832
+    scale: 0.860297
+  - decorationId: Snowdrift
+    position: {x: -32.992775, y: 0, z: -12.450353}
+    yaw: 283.2957
+    scale: 1.040528
+  - decorationId: Snowdrift
+    position: {x: -13.165005, y: 0, z: -32.685715}
+    yaw: 21.267422
+    scale: 1.1809832
+  - decorationId: Bush_Snowy
+    position: {x: 31.212217, y: 0, z: 7.911854}
+    yaw: 62.214905
+    scale: 1.0368011
+  - decorationId: Rock_Snowy
+    position: {x: -12.382783, y: 0, z: 23.405828}
+    yaw: 149.61263
+    scale: 1.1231588
+  - decorationId: Snowdrift
+    position: {x: -32.93799, y: 0, z: -9.681169}
+    yaw: 183.42583
+    scale: 0.82539696
+  - decorationId: Cloud_A
+    position: {x: 50.607906, y: 20.184204, z: -12.704916}
+    yaw: 40.514194
+    scale: 0.9395498
+  - decorationId: Cloud_B
+    position: {x: -94.64157, y: 25.46535, z: 76.57394}
+    yaw: 317.35083
+    scale: 1.0756617
+  - decorationId: Cloud_A
+    position: {x: -76.44211, y: 22.140848, z: 81.417336}
+    yaw: 71.55425
+    scale: 1.1217124
+  - decorationId: Cloud_B
+    position: {x: 99.86199, y: 23.61232, z: 71.08476}
+    yaw: 208.33376
+    scale: 0.94045496
+  - decorationId: Cloud_A
+    position: {x: -93.98817, y: 21.245487, z: 34.431927}
+    yaw: 283.93347
+    scale: 0.96749187
+  - decorationId: Cloud_B
+    position: {x: -29.892803, y: 25.578321, z: 29.674648}
+    yaw: 280.599
+    scale: 1.4330755
+  - decorationId: Cloud_A
+    position: {x: 88.54904, y: 23.181623, z: -7.027445}
+    yaw: 157.43474
+    scale: 1.3467351
+  fogColor: {r: 0.82, g: 0.88, b: 0.96, a: 1}
+  ambientSky: {r: 0.6, g: 0.67, b: 0.82, a: 1}
+  ambientEquator: {r: 0.6, g: 0.64, b: 0.72, a: 1}
+  ambientGround: {r: 0.46, g: 0.5, b: 0.6, a: 1}
+  sunColor: {r: 1, g: 0.95, b: 0.9, a: 1}
+  sunEuler: {x: 40, y: -30, z: 0}
+  snowy: 1
+  skyTop: {r: 0.55, g: 0.72, b: 0.95, a: 1}
+  skyHorizon: {r: 0.9, g: 0.94, b: 1, a: 1}
+  skyBottom: {r: 0.88, g: 0.92, b: 0.98, a: 1}
+  waterShallow: {r: 0.86, g: 0.94, b: 1, a: 1}
+  waterDeep: {r: 0.6, g: 0.78, b: 0.95, a: 1}
+  waterWaveHeight: 0
+  ambience: {fileID: 8300000, guid: 7e45daaf1a075bd5eb5b462985e2c141, type: 3}
+  starterDecorations:
+  - decorationId: Cabin_Snowy
+    position: {x: 13, y: 0, z: 10}
+    yaw: 200
+    scale: 1
+  - decorationId: Tree_SnowyPine
+    position: {x: 18, y: 0, z: 4}
+    yaw: 0
+    scale: 1
+  - decorationId: Tree_SnowyRound
+    position: {x: -15, y: 0, z: 7}
+    yaw: 0
+    scale: 1
+  - decorationId: Tree_SnowyPineSmall
+    position: {x: -19, y: 0, z: 1}
+    yaw: 30
+    scale: 1
+  - decorationId: Penguin
+    position: {x: -14, y: 0, z: -6}
+    yaw: 140
+    scale: 1
+  - decorationId: Penguin
+    position: {x: -12.8, y: 0, z: -6.6}
+    yaw: 200
+    scale: 1
+  - decorationId: Reindeer
+    position: {x: -13, y: 0, z: -11}
+    yaw: 200
+    scale: 1
+  - decorationId: Snowman
+    position: {x: 6, y: 0, z: 5}
+    yaw: 190
+    scale: 1
+  - decorationId: Bush_Snowy
+    position: {x: 14, y: 0, z: -12}
+    yaw: 0
+    scale: 1
+  - decorationId: Person_Conductor
+    position: {x: -1.5, y: 0, z: -10.4}
+    yaw: 180
+    scale: 1
+  - decorationId: Husky
+    position: {x: 9, y: 0, z: 4}
+    yaw: 210
+    scale: 1
+  - decorationId: Sled
+    position: {x: -16, y: 0, z: -13}
+    yaw: 30
+    scale: 1
+  - decorationId: Lamp_Snowy
+    position: {x: 3, y: 0, z: -11}
+    yaw: 180
+    scale: 1
+  welcomeLine: welcome_snowy

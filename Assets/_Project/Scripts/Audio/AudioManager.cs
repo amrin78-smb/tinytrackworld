@@ -101,6 +101,15 @@ namespace TinyTracks.Audio
             ApplyBackgroundVolumes();
         }
 
+        /// <summary>Changes the ambience loop (per world); null restores the default.</summary>
+        public void SetAmbience(AudioClip clip)
+        {
+            AudioClip c = clip != null ? clip : config != null ? config.ambience : null;
+            if (c == null || ambient.clip == c) return;
+            ambient.clip = c;
+            ambient.Play();
+        }
+
         public void StartBackground()
         {
             if (config == null) return;

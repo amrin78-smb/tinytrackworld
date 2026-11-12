@@ -12,7 +12,7 @@
 
 ## Player settings (applied by `ProjectSetup.ConfigurePlayer`, re-applied before every build)
 
-* Package `com.nocvault.tinytracksworld`, version **0.2.1** (code 3), landscape only.
+* Package `com.nocvault.tinytracksworld`, version **0.3.0** (code 4), landscape only.
 * **IL2CPP**, target architectures **ARMv7 + ARM64** (per-APK overrides for the single-ABI builds).
 * **OpenGL ES 3.0 only**. Vulkan is deliberately not used: on the sibling project the Redmi A3's PowerVR GE8320
   crashed on second launch with Vulkan.
@@ -24,6 +24,8 @@
 * **No INTERNET permission.** Unity writes it into the generated `unityLibrary` manifest even with
   `forceInternetPermission = false`, so `Scripts/Editor/StripInternetPermission.cs` (an
   `IPostGenerateGradleAndroidProject` hook) removes it before packaging. `verify_apk.sh` fails the build if it is there.
+* **Train meshes are imported Read/Write** and `stripUnusedMeshComponents` is off: the paint mask lives in uv2, which
+  no shader reads, so it would otherwise be stripped from builds.
 * APKs are signed with the Android **debug key**: fine for sideloading and testing, not for the Play Store (a release
   keystore would be needed).
 

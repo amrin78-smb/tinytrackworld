@@ -1,5 +1,5 @@
 """
-Tiny Tracks World - original toy trains (4 locomotives + 2 wagons).
+Tiny Tracks World - original toy trains (5 locomotives + 2 wagons).
 
 Run:  blender -b --factory-startup --python Tools/blender/models/build_trains.py -- [Loco_RedExpress ...]
 Exports Assets/_Project/Art/Models/Trains/<Name>.fbx, previews to Logs/Blender/, manifest next to this script.
@@ -7,7 +7,10 @@ Exports Assets/_Project/Art/Models/Trains/<Name>.fbx, previews to Logs/Blender/,
 Vehicle conventions (match the wooden track): origin on the track bed top (z = 0) under the vehicle centre, length along
 Y, front = -Y. Wheels Wheel_0.. are separate children (pivot = axle centre, axle = local X) at x = +/-0.30 with their
 bottom at z = -0.02. Empties: BogieFront/BogieRear (track points under the front/rear axles), CouplerFront/CouplerRear
-(vehicle ends incl. buffers), LampPoint (locos), SmokePoint (steam locos).
+(vehicle ends incl. buffers), LampPoint (locos), SmokePoint (steam locos), CargoBed (cargo wagon bed floor centre),
+DoorL/DoorR (passenger carriage boarding points).
+Paint mask: every mesh has a second UV map "PaintMask" (Unity mesh.uv2 / UV channel 1): u = 1 on the vehicle's
+repaintable signature colour (PAINT below, manifest "paintColor" = its sRGB before AO), 0 elsewhere; v = 0.
 """
 import sys
 import os
@@ -559,7 +562,11 @@ def build_passenger():
     wheels = []
     for i, y in enumerate(axles):
         wheels += L.wheel_pair(i * 2, y, R, rim="steel", disc="charcoal", hub="brass")
-    return dict(parts=P, wheels=wheels, axles=axles, front=front_tip, rear=rear_tip, lamp=None, smoke=None)
+    # DoorL / DoorR: boarding points at carriage-floor height (top of "floor", z = 0.545) just outside the front
+    # door of each side (doors sit at y = +/-0.62; the model's left is +X)
+    door_y, floor_top = -0.62, 0.545
+    return dict(parts=P, wheels=wheels, axles=axles, front=front_tip, rear=rear_tip, lamp=None, smoke=None,
+                extras=[("DoorL", (0.55, door_y, floor_top)), ("DoorR", (-0.55, door_y, floor_top))])
 
 
 def build_cargo():
@@ -597,41 +604,111 @@ def build_cargo():
             P.append(br)
     for e in (-1, 1):
         P.append(box(f"etop{e}", (0.90, 0.06, 0.03), (0, e * 0.776, top + 0.012), "charcoal", bevel=0.008))
-    # load: logs (front half) and crates (rear half)
+    # the bed is left empty: the game loads separate cargo items at the CargoBed empty
     floor_z = 0.56
-    lr = 0.105
-
-    def log(name, x, y, z, r, ln):
-        return lathe_m(name, [(0.0, -ln / 2, 1), (r * 0.8, -ln / 2, 1), (r, -ln / 2 + 0.01, 0), (r, ln / 2 - 0.01, 1),
-                              (r * 0.8, ln / 2, 1), (0.0, ln / 2, 1)], ["bark", "log_end"], segs=14,
-                       loc=(x, y, z), rot=(HALF_PI, 0, 0), smooth_angle=50)
-    for k, x in enumerate((-0.22, 0.0, 0.22)):
-        P.append(log(f"log{k}", x, -0.40 + 0.02 * k, floor_z + lr, lr, 0.70))
-    for k, x in enumerate((-0.11, 0.11)):
-        P.append(log(f"logt{k}", x, -0.42, floor_z + lr + 0.185, lr, 0.66))
-    P.append(L.tube("strapL", [(-0.36, -0.40, 0.56), (-0.30, -0.40, 0.88), (-0.11, -0.40, 0.99), (0.11, -0.40, 0.99),
-                               (0.30, -0.40, 0.88), (0.36, -0.40, 0.56)], 0.012, "red", segs=6, up=(0, 1, 0)))
-
-    def crate(name, x, y, z, s, col):
-        Q = [box(name, (s, s, s), (x, y, z + s / 2), col, bevel=0.012)]
-        e = 0.03
-        h = s / 2 - e / 2 + 0.004
-        for a in (-1, 1):
-            for b in (-1, 1):
-                Q.append(box(f"{name}_v{a}{b}", (e, e, s + 0.006), (x + a * h, y + b * h, z + s / 2), "beech", bevel=0.0))
-                Q.append(box(f"{name}_x{a}{b}", (s + 0.006, e, e), (x, y + a * h, z + s / 2 + b * h), "beech", bevel=0.0))
-                Q.append(box(f"{name}_y{a}{b}", (e, s + 0.006, e), (x + a * h, y, z + s / 2 + b * h), "beech", bevel=0.0))
-        return Q
-    P += crate("crateA", -0.19, 0.22, floor_z, 0.34, "red")
-    P += crate("crateB", 0.19, 0.26, floor_z, 0.32, "blue")
-    P += crate("crateC", 0.0, 0.60, floor_z, 0.28, "yellow")
-    P += crate("crateD", 0.0, 0.25, floor_z + 0.34, 0.24, "green")
     front_tip = buffer_beam(P, "front", -0.84, -1, "red_deep", rivets=None)
     rear_tip = buffer_beam(P, "rear", 0.84, 1, "red_deep", rivets=None)
     wheels = []
     for i, y in enumerate(axles):
         wheels += L.wheel_pair(i * 2, y, R, rim="steel", disc="red_deep", hub="brass")
-    return dict(parts=P, wheels=wheels, axles=axles, front=front_tip, rear=rear_tip, lamp=None, smoke=None)
+    # CargoBed: centre of the bed floor's top surface; usable interior = inside faces of the side / end planks
+    bed_w = round(2 * (0.425 - 0.024), 3)
+    bed_l = round(2 * (0.776 - 0.024), 3)
+    return dict(parts=P, wheels=wheels, axles=axles, front=front_tip, rear=rear_tip, lamp=None, smoke=None,
+                extras=[("CargoBed", (0.0, 0.0, floor_z))], manifest={"cargoBedSize": [bed_w, bed_l]})
+
+
+def build_purple_starlight():
+    """Unlockable night-sky tank engine: violet boiler, side tanks and cab, midnight-blue frame and roof, gold stars,
+    a star finial on the dome and a little lantern on the smokebox."""
+    P = []
+    R, axles = 0.19, (-0.42, 0.04, 0.50)
+    zc = 0.80
+    chassis(P, 2.04, 0.0, "midnight", trim="gold")
+    # smokebox, boiler, bands
+    P.append(cyl_y("smokebox", 0.30, 0.28, -0.85, zc, mat="midnight", verts=40))
+    P.append(box("saddle", (0.42, 0.28, 0.14), (0, -0.85, 0.53), "midnight", bevel=0.02))
+    P.append(cyl_y("boiler", 0.275, 1.00, -0.21, zc, mat="violet", verts=40))
+    P.append(cyl_y("sbband", 0.305, 0.03, -0.71, zc, mat="gold", verts=40))
+    for i, y in enumerate((-0.50, 0.12)):
+        P.append(cyl_y(f"band{i}", 0.287, 0.032, y, zc, mat="gold", verts=32))
+    smokebox_face(P, "psf", -0.99, zc, 0.268, ring="gold", look=(0.0, 0.015))
+    # chimney with a gold crown rim
+    P.append(lathe_m("chimney", [(0.13, 1.02, 0), (0.115, 1.10, 0), (0.09, 1.15, 0), (0.085, 1.25, 0),
+                                 (0.10, 1.285, 1), (0.135, 1.33, 1), (0.14, 1.37, 1), (0.112, 1.38, 2),
+                                 (0.09, 1.35, 2), (0.0, 1.33, 2)], ["midnight", "gold", "coal"], segs=24,
+                     loc=(0, -0.79, 0)))
+    smoke = (0, -0.79, 1.385)
+    for k in range(6):  # little crown points around the chimney rim
+        a = 2 * math.pi * k / 6
+        P.append(ball(f"crown{k}", 0.026, (0.135 * math.cos(a), -0.79 + 0.135 * math.sin(a), 1.385), "gold",
+                      segs=8, rings=4))
+    # dome with a standing gold star
+    P.append(dome_lathe("dome", -0.28, 1.03, 0.15, 0.21, "violet"))
+    P.append(T.torus("dome_ring", 0.172, 0.016, loc=(0, -0.28, 1.09), material=M("gold"), major_segs=28,
+                     minor_segs=4))
+    P.append(cyl_z("finial", 0.018, 0.08, 0, -0.28, 1.27, "gold", verts=8))
+    P.append(L.star("dome_star", 0.085, (0, -0.28, 1.36), "-Y", mat="star", depth=0.035))
+    P.append(safety_valve("valve", 0.02, 1.05, mat="gold"))
+    # little lantern on top of the smokebox
+    parts, lamp_pt = L.lamp("lamp", 0, -0.97, 1.16, -1, body="midnight", rim="gold", r=0.05)
+    P += parts
+    P.append(ball("lamp_knob", 0.022, (0, -0.97, 1.255), "gold", segs=8, rings=4))
+    boiler_handrails(P, zc, 0.275, -0.66, 0.24, (-0.48, 0.12), mat="gold")
+    # side tanks with big stars
+    for sd in (1, -1):
+        facing = "+X" if sd > 0 else "-X"
+        P.append(box(f"tank{sd}", (0.17, 0.80, 0.38), (sd * 0.385, -0.24, 0.69), "violet", bevel=0.05, segments=3))
+        P.append(box(f"tank_top{sd}", (0.19, 0.82, 0.03), (sd * 0.385, -0.24, 0.885), "midnight", bevel=0.01))
+        P.append(L.frame_ring(f"tank_line{sd}", 0.70, 0.28, 0.06, 0.016, 0.012, (sd * 0.47, -0.24, 0.69), "gold",
+                              facing=facing))
+        P.append(L.star(f"tstar{sd}", 0.10, (sd * 0.476, -0.24, 0.69), facing, mat="star", depth=0.02))
+        for k, (dy, dz, r) in enumerate(((-0.25, 0.10, 0.035), (0.25, -0.08, 0.03), (0.22, 0.10, 0.022))):
+            P.append(L.star(f"tstar{sd}{k}", r, (sd * 0.476, -0.24 + dy, 0.69 + dz), facing, mat="star",
+                            depth=0.016, spin=0.3 * k))
+    # cylinders + motion
+    for sd in (1, -1):
+        P += steam_cylinder(f"cyl{sd}", sd, -0.78, 0.30, 0.095, 0.24, "midnight", "gold")
+        P.append(L.tube(f"slide{sd}", [(sd * 0.40, -0.65, 0.30), (sd * 0.40, -0.48, 0.30)], 0.014, "steel", segs=6))
+        P.append(box(f"xhead{sd}", (0.05, 0.06, 0.06), (sd * 0.40, -0.49, 0.30), "steel", bevel=0.01))
+        P.append(L.tube(f"conrod{sd}", [(sd * 0.40, -0.49, 0.30), (sd * 0.395, -0.42, 0.17)], 0.014, "steel", segs=6,
+                        up=(1, 0, 0)))
+        P += coupling_rods(f"cr{sd}", sd, axles, R - 0.02)
+    # cab
+    P.append(box("cab", (0.92, 0.66, 0.82), (0, 0.63, 0.91), "violet", bevel=0.05, segments=3))
+    P.append(arc_roof("roof", 1.04, 0.09, 0.045, 0.80, 0.63, 1.31, "midnight"))
+    P.append(box("roof_rim", (0.94, 0.68, 0.03), (0, 0.63, 1.31), "gold", bevel=0.01))
+    # crescent moon on the roof
+    moon = []
+    for k in range(13):  # outer arc 60 -> 300 deg (left bulge)
+        a = math.radians(60 + 240 * k / 12)
+        moon.append((0.09 * math.cos(a), 0.09 * math.sin(a)))
+    for k in range(1, 10):  # inner arc back up (circle centred right), endpoints shared with the outer arc
+        a = math.radians(270 - 180 * k / 10)
+        moon.append((0.045 + 0.078 * math.cos(a), 0.078 * math.sin(a)))
+    mo = T.prism("moon", moon, 0.03, loc=(0, 0.63, 1.50), material=M("star"), bevel=0.006, segments=1)
+    mo.rotation_euler = Euler((0, 0, 0))
+    T.smooth(mo, 30)
+    P.append(mo)
+    P.append(cyl_z("moon_post", 0.014, 0.08, 0.0, 0.63, 1.42, "gold", verts=8))
+    for sd in (1, -1):
+        facing = "+X" if sd > 0 else "-X"
+        P += L.round_window(f"spec{sd}", 0.085, (sd * 0.29, 0.30, 1.12), "-Y", "gold")
+        P += L.round_window(f"rspec{sd}", 0.085, (sd * 0.25, 0.96, 1.12), "+Y", "gold")
+        P += L.window(f"sidew{sd}", 0.30, 0.28, 0.07, (sd * 0.46, 0.66, 1.07), facing, "gold")
+        # star cluster on the cab side
+        for k, (dy, dz, r) in enumerate(((0.0, 0.0, 0.07), (-0.17, 0.08, 0.035), (0.17, -0.06, 0.03))):
+            P.append(L.star(f"cstar{sd}{k}", r, (sd * 0.466, 0.63 + dy, 0.72 + dz), facing, mat="star", depth=0.02,
+                            spin=0.25 * k))
+    cab_grabs(P, 0.475, 0.94, 0.62, 1.06, mat="gold")
+    steps(P, 0.47, 0.72, 0.31)
+    front_tip = buffer_beam(P, "front", -1.00, -1, "midnight", trim="gold", rivets="gold")
+    rear_tip = buffer_beam(P, "rear", 1.00, 1, "midnight", trim="gold", rivets="gold")
+    wheels = []
+    for i, y in enumerate(axles):
+        wheels += L.wheel_pair(i * 2, y, R, rim="steel", disc="midnight", hub="gold", spokes=8, spoke_mat="violet_dk",
+                               counterweight="violet_dk")
+    return dict(parts=P, wheels=wheels, axles=axles, front=front_tip, rear=rear_tip, lamp=lamp_pt, smoke=smoke)
 
 
 MODELS = {
@@ -641,7 +718,23 @@ MODELS = {
     "Loco_YellowSunshine": ("loco", "Yellow Sunshine", build_yellow_sunshine),
     "Car_Passenger": ("car", "Passenger Carriage", build_passenger),
     "Car_Cargo": ("car", "Cargo Wagon", build_cargo),
+    "Loco_PurpleStarlight": ("loco", "Purple Starlight", build_purple_starlight),
 }
+
+# Repaintable signature colour of each vehicle (material names -> PaintMask u = 1). The first one is "paintColor".
+PAINT = {
+    "Loco_RedExpress": ["red"],
+    "Loco_BlueAdventure": ["blue"],
+    "Loco_GreenExplorer": ["green"],
+    "Loco_YellowSunshine": ["lemon"],
+    "Car_Passenger": ["red_deep"],
+    "Car_Cargo": ["plank"],
+    "Loco_PurpleStarlight": ["violet"],
+}
+
+# Built in a scene of their own (and removed afterwards) so their object names carry no ".00N" suffix and the
+# older models keep exactly the names they always had.
+ISOLATED = {"Loco_PurpleStarlight"}
 
 
 def build(name):
@@ -651,6 +744,11 @@ def build(name):
     wheels = d["wheels"]
     fast = bool(os.environ.get("TT_FAST"))
     T.finalize([root] + wheels, ao=not fast, ao_distance=0.35, ao_strength=0.7)
+    paint = PAINT.get(name, [])
+    painted = L.add_paint_mask(root, paint)
+    for w in wheels:
+        L.add_paint_mask(w, ())
+    print(f"[TRAIN] {name}: PaintMask {painted}/{len(root.data.loops)} loops painted ({paint})")
     for w in wheels:
         L.attach(root, w)
     yf, yr = d["axles"][0], d["axles"][-1]
@@ -662,6 +760,8 @@ def build(name):
         L.add_empty(root, "LampPoint", tuple(d["lamp"]))
     if d.get("smoke"):
         L.add_empty(root, "SmokePoint", tuple(d["smoke"]))
+    for en, loc in d.get("extras", []):
+        L.add_empty(root, en, loc)
     T.export_fbx(f"Trains/{name}", [root])
     verts, tris = T.stats([root] + wheels)
     print(f"[TRAIN] body={T.stats([root])[0]} wheels={[len(w.data.vertices) for w in wheels]}")
@@ -675,11 +775,16 @@ def build(name):
     entry = dict(name=name, fbx=f"Assets/_Project/Art/Models/Trains/{name}.fbx", kind=kind, displayName=display,
                  length=round(d["rear"] - d["front"], 3), bogieSpacing=round(yr - yf, 3),
                  wheelNames=[w.name for w in wheels], verts=verts)
+    if paint:
+        entry["paintColor"] = [round(c, 4) for c in M(paint[0])["tt_srgb"]]
+    entry.update(d.get("manifest", {}))
     return root, entry
 
 
 def main():
     names = [a for a in T.args() if a in MODELS] or list(MODELS)
+    isolated = [n for n in names if n in ISOLATED]
+    names = [n for n in names if n not in ISOLATED]
     T.reset()
     built = []
     for i, n in enumerate(names):
@@ -687,21 +792,8 @@ def main():
         built.append((root, entry))
         root.location.z = -1000  # park it so it does not shadow the next model's AO bake
         bpy.context.view_layer.update()
-    # manifest (merge with an existing one when building a subset)
-    mpath = os.path.join(HERE, "trains_manifest.json")
-    old = {}
-    if os.path.exists(mpath):
-        try:
-            old = {e["name"]: e for e in json.load(open(mpath))}
-        except Exception:
-            old = {}
-    for _r, e in built:
-        old[e["name"]] = e
-    ordered = [old[n] for n in MODELS if n in old]
-    with open(mpath, "w") as f:
-        json.dump(ordered, f, indent=2)
-    print("[TT] manifest", mpath)
-    if len(built) > 1:
+    entries = [e for _r, e in built]
+    if len(built) > 1 and not os.environ.get("TT_FAST"):
         x = 0.0
         roots = []
         for r, _e in built:
@@ -711,6 +803,24 @@ def main():
         bpy.context.view_layer.update()
         T.render(roots, os.path.join(T.PREVIEWS, "Trains_Lineup.png"), size=(1800, 720), yaw_deg=-28, pitch_deg=18,
                  distance_scale=0.95)
+    for n in isolated:  # after the others (their names / bakes stay exactly as before), each in a fresh scene
+        T.reset()
+        _root, entry = build(n)
+        entries.append(entry)
+    # manifest (merge with an existing one when building a subset)
+    mpath = os.path.join(HERE, "trains_manifest.json")
+    old = {}
+    if os.path.exists(mpath):
+        try:
+            old = {e["name"]: e for e in json.load(open(mpath))}
+        except Exception:
+            old = {}
+    for e in entries:
+        old[e["name"]] = e
+    ordered = [old[n] for n in MODELS if n in old]
+    with open(mpath, "w") as f:
+        json.dump(ordered, f, indent=2)
+    print("[TT] manifest", mpath)
 
 
 main()

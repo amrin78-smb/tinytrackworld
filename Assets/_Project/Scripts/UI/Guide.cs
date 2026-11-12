@@ -17,6 +17,8 @@ namespace TinyTracks.UI
         Component FirstTrackButton { get; }
         Component FirstDecoButton { get; }
         string FirstDecoId { get; }
+        /// <summary>The surprise gift, when one is waiting (else null).</summary>
+        Component GiftButton { get; }
     }
 
     /// <summary>
@@ -83,6 +85,13 @@ namespace TinyTracks.UI
             game.decorations.Changed += () => decorPlaced = game.decorations.Count;
             game.decoPlacement.Rejected += () => React("doesnt_fit", 12f);
             game.trains.TrainChanged += OnTrainChanged;
+            Stations.StationManager.Happened += OnStationEvent;
+            game.trains.TrainAdded += _ => React("new_train", 5f);
+            game.TrainPainted += _ => React("nice_colour", 10f);
+            if (Discoveries.Instance != null)
+                Discoveries.Instance.Discovered += id => { if (!TutorialRunning) narrator.Say(game.content.Train(id) != null ? "new_loco" : "new_friend"); };
+            game.WorldSwitched += w => { if (!TutorialRunning && w != null && !string.IsNullOrEmpty(w.welcomeLine)) narrator.Say(w.welcomeLine); };
+            TrainController.WaitingForTrain += OnWaitingForTrain;
             decorPlaced = game.decorations.Count;
             OnTrainChanged();
             BuildTour();
@@ -351,6 +360,8 @@ namespace TinyTracks.UI
 
         private Func<Vector2> TipTarget(GameMode m)
         {
+            // A waiting present is the most exciting thing on screen.
+            if (m != GameMode.Menu && ui.GiftButton != null) return Narrator.Of(() => ui.GiftButton);
             switch (m)
             {
                 case GameMode.Menu: return Narrator.Of(() => ui.PlayButton);
@@ -419,6 +430,24 @@ namespace TinyTracks.UI
             if (closedLoop) React("loop_done", 20f);
         }
 
+        private void OnDestroy()
+        {
+            Stations.StationManager.Happened -= OnStationEvent;
+            TrainController.WaitingForTrain -= OnWaitingForTrain;
+        }
+
+        private void OnWaitingForTrain(TrainController t)
+        {
+            if (t == game.trains.Current) React("train_waiting", 45f);
+        }
+
+        private void OnStationEvent(string key)
+        {
+            // Hints that ask for something (a carriage, a wagon) less often than the cheerful ones.
+            float cooldown = key == "add_carriage" || key == "add_wagon" ? 60f : 18f;
+            React(key, cooldown);
+        }
+
         private void OnTrainChanged()
         {
             if (watchedTrain != null) watchedTrain.StateChanged -= OnTrainState;
@@ -435,7 +464,7 @@ namespace TinyTracks.UI
         {
             if (game.Mode == GameMode.Menu) return;
             if (s == TrainState.BlockedAtEnd) React("end_of_track", 25f);
-            else if (s == TrainState.AtStation) React("all_aboard", 40f);
+            // Station lines (all aboard, bye bye, cargo) come from the StationManager, which knows what happened.
         }
     }
 }

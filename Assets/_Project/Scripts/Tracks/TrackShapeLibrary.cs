@@ -54,6 +54,7 @@ namespace TinyTracks.Tracks
             Add(Simple(TrackType.Tunnel, new PathBuilder().Straight(TunnelLength)));
             Add(Simple(TrackType.Ramp, new PathBuilder().Straight(RampLength).Rise(ElevatedHeight)));
             Add(Simple(TrackType.Station, new PathBuilder().Straight(StationLength)));
+            Add(Simple(TrackType.CargoStation, new PathBuilder().Straight(StationLength)));
             Add(Simple(TrackType.Crossing, new PathBuilder().Straight(StraightLength)));
             Add(Simple(TrackType.EndPiece, new PathBuilder().Straight(EndLength), deadEnd: true));
             Add(Simple(TrackType.Depot, new PathBuilder().Straight(DepotLength), deadEnd: true));
@@ -109,6 +110,9 @@ namespace TinyTracks.Tracks
 
         /// <summary>True for pieces whose far connector is not a real connection point (buffer stops).</summary>
         public static bool IsDeadEndPiece(TrackType t) => t == TrackType.EndPiece || t == TrackType.Depot;
+
+        /// <summary>Pieces where a train stops for a moment (passengers at stations, cargo at the cargo yard).</summary>
+        public static bool IsStop(TrackType t) => t == TrackType.Station || t == TrackType.CargoStation;
 
         /// <summary>Connector indices a neighbour may attach to (dead-end pieces only connect at their entry).</summary>
         public static bool IsConnectable(TrackType t, int connector) => !IsDeadEndPiece(t) || connector == 0;

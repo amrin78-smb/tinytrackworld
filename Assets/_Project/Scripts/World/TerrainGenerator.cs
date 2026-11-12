@@ -26,14 +26,33 @@ namespace TinyTracks.World
             lakeCentre = new Vector2(46f, -2f), lakeRadius = new Vector2(10f, 13f), lakeDepth = 1.4f, hillHeight = 13f,
         };
 
+        public static Settings SnowyValley => new Settings
+        {
+            halfSize = 110f, step = 2.5f, floorHalf = new Vector2(52f, 40f),
+            lakeCentre = new Vector2(-46f, 6f), lakeRadius = new Vector2(11f, 12f), lakeDepth = 1.2f, hillHeight = 16f,
+        };
+
         public const float WaterLevel = -0.18f;
 
-        private static readonly Color32 Grass = new Color32(118, 191, 86, 70);
-        private static readonly Color32 GrassDark = new Color32(86, 160, 70, 70);
-        private static readonly Color32 GrassLight = new Color32(150, 205, 102, 70);
-        private static readonly Color32 HillGreen = new Color32(96, 168, 80, 70);
-        private static readonly Color32 Sand = new Color32(235, 212, 155, 70);
-        private static readonly Color32 LakeBed = new Color32(150, 170, 120, 40);
+        /// <summary>Ground colours. Alpha is the ToyLit detail code (speckle strength).</summary>
+        public struct Palette
+        {
+            public Color32 grass, grassDark, grassLight, hill, sand, lakeBed;
+        }
+
+        public static readonly Palette Meadow = new Palette
+        {
+            grass = new Color32(118, 191, 86, 70), grassDark = new Color32(86, 160, 70, 70), grassLight = new Color32(150, 205, 102, 70),
+            hill = new Color32(96, 168, 80, 70), sand = new Color32(235, 212, 155, 70), lakeBed = new Color32(150, 170, 120, 40),
+        };
+
+        public static readonly Palette Snow = new Palette
+        {
+            // Soft blue-white (pure white washed out under the bright winter light and hid every shape).
+            grass = new Color32(216, 228, 242, 40), grassDark = new Color32(190, 207, 230, 50), grassLight = new Color32(232, 240, 250, 30),
+            hill = new Color32(220, 231, 245, 40), sand = new Color32(178, 196, 220, 60), lakeBed = new Color32(160, 186, 214, 30),
+        };
+
 
         public static float Height(Settings s, float x, float z)
         {
@@ -60,8 +79,11 @@ namespace TinyTracks.World
             return h;
         }
 
-        public static Mesh Build(Settings s)
+        public static Mesh Build(Settings s) => Build(s, Meadow);
+
+        public static Mesh Build(Settings s, Palette pal)
         {
+            Color32 Grass = pal.grass, GrassDark = pal.grassDark, GrassLight = pal.grassLight, HillGreen = pal.hill, Sand = pal.sand, LakeBed = pal.lakeBed;
             int n = Mathf.CeilToInt(s.halfSize * 2f / s.step) + 1;
             var verts = new Vector3[n * n];
             var cols = new Color32[n * n];

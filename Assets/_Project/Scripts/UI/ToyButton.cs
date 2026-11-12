@@ -129,3 +129,32 @@ namespace TinyTracks.UI
         }
     }
 }
+
+namespace TinyTracks.UI
+{
+    /// <summary>
+    /// Adds a long-press action next to a button's normal tap (e.g. a train chip: tap = drive it, hold = send it away).
+    /// The button squashes while held so the hold is visible.
+    /// </summary>
+    public class HoldAction : UnityEngine.MonoBehaviour, UnityEngine.EventSystems.IPointerDownHandler, UnityEngine.EventSystems.IPointerUpHandler, UnityEngine.EventSystems.IPointerExitHandler
+    {
+        public float seconds = 1.2f;
+        public System.Action action;
+        private float downAt = -1f;
+
+        public void OnPointerDown(UnityEngine.EventSystems.PointerEventData e) => downAt = UnityEngine.Time.unscaledTime;
+        public void OnPointerUp(UnityEngine.EventSystems.PointerEventData e) => downAt = -1f;
+        public void OnPointerExit(UnityEngine.EventSystems.PointerEventData e) => downAt = -1f;
+
+        private void Update()
+        {
+            if (downAt < 0f) return;
+            float p = (UnityEngine.Time.unscaledTime - downAt) / seconds;
+            transform.localScale = UnityEngine.Vector3.one * (1f - 0.15f * UnityEngine.Mathf.Clamp01(p));
+            if (p < 1f) return;
+            downAt = -1f;
+            transform.localScale = UnityEngine.Vector3.one;
+            action?.Invoke();
+        }
+    }
+}

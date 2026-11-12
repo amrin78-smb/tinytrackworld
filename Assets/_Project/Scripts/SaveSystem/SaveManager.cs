@@ -35,6 +35,8 @@ namespace TinyTracks.SaveSystem
         public float s;
         public bool forward;
         public int speed = 1;
+        /// <summary>Painted body colour as "RRGGBB" (empty = original colours).</summary>
+        public string paint = "";
     }
 
     [Serializable]
@@ -47,6 +49,8 @@ namespace TinyTracks.SaveSystem
         public List<TrackSave> tracks = new List<TrackSave>();
         public List<DecorationSave> decorations = new List<DecorationSave>();
         public TrainSave train = new TrainSave();
+        /// <summary>Additional trains (0.3+). Older saves simply have none.</summary>
+        public List<TrainSave> moreTrains = new List<TrainSave>();
     }
 
     [Serializable]
@@ -57,6 +61,10 @@ namespace TinyTracks.SaveSystem
         public bool tutorialSeen;
         public float voice = 1f;
         public string language = "auto"; // "auto" | "en" | "th"
+        public string lastWorld = "sunny_valley";
+        /// <summary>Surprises found so far (discoverable locos/animals) and progress towards the next one.</summary>
+        public List<string> discovered = new List<string>();
+        public float surprisePoints;
     }
 
     /// <summary>
@@ -74,8 +82,11 @@ namespace TinyTracks.SaveSystem
         public TrainManager trains;
 
         public static string Folder => Application.persistentDataPath;
-        public static string WorldPath => Path.Combine(Folder, "world.json");
-        public static string BackupPath => Path.Combine(Folder, "world.bak.json");
+        /// <summary>The world being played; each world has its own save (Sunny Valley keeps the original file names).</summary>
+        public static string WorldId { get; set; } = "sunny_valley";
+        private static string Stem => WorldId == "sunny_valley" ? "world" : "world_" + WorldId;
+        public static string WorldPath => Path.Combine(Folder, Stem + ".json");
+        public static string BackupPath => Path.Combine(Folder, Stem + ".bak.json");
         public static string SettingsPath => Path.Combine(Folder, "settings.json");
 
         public SettingsSave Settings { get; private set; } = new SettingsSave();
@@ -126,7 +137,7 @@ namespace TinyTracks.SaveSystem
         // ------------------------------------------------------------------------------------------------ capture
         public WorldSave Capture()
         {
-            var w = new WorldSave { savedAt = DateTime.UtcNow.ToString("o") };
+            var w = new WorldSave { savedAt = DateTime.UtcNow.ToString("o"), world = WorldId };
             foreach (TrackNode n in network.Graph.Nodes.Values)
                 w.tracks.Add(new TrackSave
                 {
@@ -140,21 +151,37 @@ namespace TinyTracks.SaveSystem
             {
                 w.train.loco = trains.SelectedLocoId;
                 w.train.cars = new List<string>(trains.SelectedCars);
-                TrainController t = trains.Current;
-                if (t != null && t.Spine.IsValid)
+                Fill(w.train, trains.Current);
+                foreach (TrainController t in trains.All)
                 {
-                    Span h = t.Spine.Head;
-                    TrackPath p = network.Graph.Get(h.node).shape.paths[h.path];
-                    w.train.placed = true;
-                    w.train.node = h.node;
-                    w.train.path = h.path;
-                    w.train.forward = h.forward;
-                    w.train.s = h.forward ? t.Spine.headS : p.Length - t.Spine.headS;
-                    w.train.speed = t.SpeedLevel;
+                    if (t == trains.Current) continue;
+                    var ts = new TrainSave { loco = t.LocoDefinition != null ? t.LocoDefinition.id : null };
+                    foreach (TinyTracks.Core.TrainDefinition d in t.CarDefinitions()) ts.cars.Add(d.id);
+                    Fill(ts, t);
+                    if (ts.placed) w.moreTrains.Add(ts);
                 }
             }
             return w;
         }
+
+        private void Fill(TrainSave ts, TrainController t)
+        {
+            if (t == null || !t.Spine.IsValid) return;
+            Span h = t.Spine.Head;
+            TrackNode n = network.Graph.Get(h.node);
+            if (n == null) return;
+            TrackPath p = n.shape.paths[h.path];
+            ts.placed = true;
+            ts.node = h.node;
+            ts.path = h.path;
+            ts.forward = h.forward;
+            ts.s = h.forward ? t.Spine.headS : p.Length - t.Spine.headS;
+            ts.speed = t.SpeedLevel;
+            ts.paint = t.PaintColor.HasValue ? ColorUtility.ToHtmlStringRGB(t.PaintColor.Value) : "";
+        }
+
+        private static Color? ParsePaint(string hex) =>
+            !string.IsNullOrEmpty(hex) && ColorUtility.TryParseHtmlString("#" + hex, out Color c) ? c : (Color?)null;
 
         public bool SaveWorld()
         {
@@ -230,7 +257,7 @@ namespace TinyTracks.SaveSystem
             if (decorations != null) decorations.SuppressEffects = true;
             try
             {
-                trains?.RemoveTrain();
+                trains?.RemoveAll();
                 network.ClearAll();
                 decorations?.ClearAll();
                 foreach (TrackSave t in w.tracks)
@@ -250,7 +277,21 @@ namespace TinyTracks.SaveSystem
                     {
                         trains.PlaceAt(n.id, w.train.path, Mathf.Clamp(w.train.s, 0f, n.shape.paths[w.train.path].Length), w.train.forward);
                         trains.Current?.SetSpeedLevel(w.train.speed);
+                        Color? paint = ParsePaint(w.train.paint);
+                        if (paint.HasValue) trains.Current?.Paint(paint);
                     }
+                    TrainController selected = trains.Current;
+                    if (w.moreTrains != null)
+                        foreach (TrainSave ts in w.moreTrains)
+                        {
+                            TrackNode m = network.Graph.Get(ts.node);
+                            if (m == null || ts.path < 0 || ts.path >= m.shape.paths.Length) continue;
+                            TrainController extra = trains.RestoreTrain(ts.loco, ts.cars ?? new List<string>(), m.id, ts.path,
+                                Mathf.Clamp(ts.s, 0f, m.shape.paths[ts.path].Length), ts.forward, ts.speed);
+                            Color? p2 = ParsePaint(ts.paint);
+                            if (extra != null && p2.HasValue) extra.Paint(p2);
+                        }
+                    if (selected != null) trains.Select(selected);
                 }
             }
             finally

@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Duck",
+    "fbx": "_Project/Art/Models/Animals/Duck.fbx",
+    "kind": "animal",
+    "sound": "quack",
+    "footprintRadius": 0.27,
+    "height": 0.502,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 1990
+  },
+  {
+    "name": "Rabbit",
+    "fbx": "_Project/Art/Models/Animals/Rabbit.fbx",
+    "kind": "animal",
+    "sound": "squeak",
+    "footprintRadius": 0.24,
+    "height": 0.629,
+    "parts": [
+      "Head",
+      "Tail"
+    ],
+    "verts": 2338
+  }
+]

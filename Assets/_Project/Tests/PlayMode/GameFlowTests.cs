@@ -54,7 +54,7 @@ namespace TinyTracks.Tests
             Assert.IsNotNull(loco.definition, "starter locomotive has no definition");
             Assert.IsNotNull(loco.body, "starter locomotive has no model");
             Assert.Greater(loco.GetComponentsInChildren<Renderer>().Length, 3, "starter locomotive has no renderers");
-            Assert.AreEqual(4, System.Linq.Enumerable.Count(gm.content.Locomotives()));
+            Assert.GreaterOrEqual(System.Linq.Enumerable.Count(gm.content.Locomotives()), 4);
             yield return null;
         }
 

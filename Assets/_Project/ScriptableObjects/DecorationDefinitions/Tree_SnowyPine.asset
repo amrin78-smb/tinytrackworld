@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Tree_SnowyPine
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Tree_SnowyPine
+  displayName: Tree Snowy Pine
+  category: 0
+  icon: {fileID: 21300000, guid: bcb0096950002d1518cf91b9ba4f3354, type: 3}
+  prefab: {fileID: 9158847424229740375, guid: 803a1f1378aeba6b39f17e57968eb4a7, type: 3}
+  footprintRadius: 1.1833894
+  height: 4.5
+  reaction: 2
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

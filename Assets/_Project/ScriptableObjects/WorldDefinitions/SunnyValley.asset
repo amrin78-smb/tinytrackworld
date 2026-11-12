@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.WorldDefinition
   id: sunny_valley
   displayName: Sunny Valley
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 42e3639d79c3b5e79b81fd73d9f92029, type: 3}
   buildableHalfSize: {x: 30, y: 22}
   cameraHalfSize: {x: 34, y: 26}
   terrainPrefab: {fileID: 0}
@@ -978,3 +978,61 @@ MonoBehaviour:
   ambientGround: {r: 0.45, g: 0.5, b: 0.38, a: 1}
   sunColor: {r: 1, g: 0.96, b: 0.88, a: 1}
   sunEuler: {x: 48, y: -35, z: 0}
+  snowy: 0
+  skyTop: {r: 0.36, g: 0.68, b: 1, a: 1}
+  skyHorizon: {r: 0.82, g: 0.93, b: 1, a: 1}
+  skyBottom: {r: 0.72, g: 0.88, b: 0.75, a: 1}
+  waterShallow: {r: 0.55, g: 0.88, b: 0.95, a: 1}
+  waterDeep: {r: 0.18, g: 0.55, b: 0.86, a: 1}
+  waterWaveHeight: 0.04
+  ambience: {fileID: 0}
+  starterDecorations:
+  - decorationId: House_A
+    position: {x: 12, y: 0, z: 9}
+    yaw: 200
+    scale: 1
+  - decorationId: Tree_Round
+    position: {x: 17, y: 0, z: 5}
+    yaw: 0
+    scale: 1
+  - decorationId: Tree_Apple
+    position: {x: -15, y: 0, z: 7}
+    yaw: 0
+    scale: 1
+  - decorationId: Tree_Pine
+    position: {x: -19, y: 0, z: 1}
+    yaw: 30
+    scale: 1
+  - decorationId: Cow
+    position: {x: -15, y: 0, z: -6}
+    yaw: 120
+    scale: 1
+  - decorationId: Sheep
+    position: {x: -13, y: 0, z: -10}
+    yaw: 200
+    scale: 1
+  - decorationId: Flowers_Red
+    position: {x: 5, y: 0, z: 4}
+    yaw: 0
+    scale: 1
+  - decorationId: Flowers_Yellow
+    position: {x: -6, y: 0, z: 5}
+    yaw: 0
+    scale: 1
+  - decorationId: Bush
+    position: {x: 14, y: 0, z: -12}
+    yaw: 0
+    scale: 1
+  - decorationId: Person_Conductor
+    position: {x: -1.5, y: 0, z: -10.4}
+    yaw: 180
+    scale: 1
+  - decorationId: Dog
+    position: {x: 9, y: 0, z: 5}
+    yaw: 210
+    scale: 1
+  - decorationId: Fence
+    position: {x: -16, y: 0, z: -13}
+    yaw: 0
+    scale: 1
+  welcomeLine: welcome_sunny

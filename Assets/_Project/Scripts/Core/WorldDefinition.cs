@@ -23,5 +23,20 @@ namespace TinyTracks.Core
         public Color ambientGround = new Color(0.45f, 0.5f, 0.38f);
         public Color sunColor = new Color(1f, 0.96f, 0.88f);
         public Vector3 sunEuler = new Vector3(48f, -35f, 0f);
+
+        [Header("Look (0.3+)")]
+        public bool snowy;
+        public Color skyTop = new Color(0.36f, 0.68f, 1f);
+        public Color skyHorizon = new Color(0.82f, 0.93f, 1f);
+        public Color skyBottom = new Color(0.72f, 0.88f, 0.75f);
+        public Color waterShallow = new Color(0.55f, 0.88f, 0.95f);
+        public Color waterDeep = new Color(0.18f, 0.55f, 0.86f);
+        public float waterWaveHeight = 0.04f;
+        [Tooltip("Ambience loop for this world (null = the default countryside loop).")]
+        public AudioClip ambience;
+        [Tooltip("Decorations placed around the starter railway in a brand-new world.")]
+        public List<WorldProp> starterDecorations = new List<WorldProp>();
+        [Tooltip("Narrator line when the child arrives in this world.")]
+        public string welcomeLine = "welcome_sunny";
     }
 }

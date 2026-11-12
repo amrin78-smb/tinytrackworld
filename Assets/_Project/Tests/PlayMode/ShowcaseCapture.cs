@@ -129,5 +129,100 @@ namespace TinyTracks.Tests
             TinyTracks.UI.UIManager.AutoStartTutorial = true;
             Assert.Pass();
         }
+
+        /// <summary>Milestones 12-15: stations, cargo, three trains, paint, gift, Snowy Valley.</summary>
+        [UnityTest]
+        public IEnumerator CaptureExpansion()
+        {
+            foreach (string f in new[] { "world.json", "world.bak.json", "world_snowy_valley.json", "world_snowy_valley.bak.json" })
+            {
+                string p = System.IO.Path.Combine(TinyTracks.SaveSystem.SaveManager.Folder, f);
+                if (File.Exists(p)) File.Delete(p);
+            }
+            TinyTracks.SaveSystem.SaveManager.WorldId = "sunny_valley";
+            TinyTracks.UI.UIManager.AutoStartTutorial = false;
+            SceneManager.LoadScene("Assets/_Project/Scenes/Main.unity");
+            yield return new WaitForSeconds(1.5f);
+            GameManager gm = GameManager.Instance;
+            var ui = Object.FindAnyObjectByType<TinyTracks.UI.UIManager>();
+            if (gm.world.world.id != "sunny_valley") gm.SwitchWorld("sunny_valley");
+
+            // Cargo loop: station + cargo yard, a train with a passenger carriage and a cargo wagon.
+            gm.ClearRailway();
+            TinyTracks.World.WorldManager.BuildStarterLayout(gm.network, withCargoYard: true);
+            gm.trains.AutoPlace(new Vector3(-2f, 0f, -8f));
+            gm.SetMode(GameMode.Train);
+            gm.trains.AddCarriage("Car_Passenger");
+            gm.trains.AddCarriage("Car_Cargo");
+            gm.cameraController.StopFollowing();
+            gm.cameraController.FocusOn(new Vector3(-2f, 0f, -6f), 13f);
+            yield return new WaitForSeconds(9f); // passengers gather
+            yield return Shot("14_passengers_waiting");
+            gm.trains.Current.SetSpeedLevel(1);
+            gm.TrainGo();
+            float until = Time.realtimeSinceStartup + 40f;
+            bool boarding = false;
+            while (Time.realtimeSinceStartup < until && gm.trains.Current.State != TinyTracks.Trains.TrainState.AtStation) yield return null;
+            yield return new WaitForSeconds(1.4f);
+            yield return Shot("15_passengers_boarding");
+            // On to the cargo yard.
+            int yard = -1;
+            foreach (TrackNode n in gm.network.Graph.Nodes.Values) if (n.type == TrackType.CargoStation) yard = n.id;
+            gm.stations.ActivityFinished += (t, n) => { if (n == yard) boarding = true; };
+            Vector3 yardPos = gm.network.Graph.Get(yard).pose.position;
+            gm.cameraController.FocusOn(yardPos, 13f);
+            until = Time.realtimeSinceStartup + 60f;
+            while (Time.realtimeSinceStartup < until && !(gm.trains.Current.State == TinyTracks.Trains.TrainState.AtStation && gm.trains.Current.StopNode == yard)) yield return null;
+            yield return new WaitForSeconds(1.1f);
+            yield return Shot("16_cargo_crane");
+            until = Time.realtimeSinceStartup + 15f;
+            while (Time.realtimeSinceStartup < until && !boarding) yield return null;
+            yield return new WaitForSeconds(0.5f);
+            yield return Shot("17_cargo_loaded");
+
+            // Three trains, chips UI, paint palette.
+            gm.AddTrain();
+            gm.AddTrain();
+            foreach (var t in gm.trains.All) t.Go();
+            gm.cameraController.StopFollowing();
+            gm.cameraController.ResetView(true);
+            yield return new WaitForSeconds(4f);
+            yield return Shot("18_three_trains");
+            gm.PaintTrain(new Color32(255, 130, 190, 255));
+            ui.ShowPalette(true);
+            gm.cameraController.Follow(gm.trains.Current.Anchor, 9f);
+            yield return new WaitForSeconds(2.5f);
+            yield return Shot("19_paint");
+            ui.ShowPalette(false);
+
+            // A surprise gift.
+            Discoveries.Instance.AddPoints(7f);
+            yield return new WaitForSeconds(1f);
+            yield return Shot("20_gift");
+            Discoveries.Instance.OpenGift();
+            yield return new WaitForSeconds(2f);
+            yield return Shot("21_duck_arrived");
+
+            // Snowy Valley.
+            gm.SetMode(GameMode.Menu);
+            gm.SwitchWorld("snowy_valley");
+            yield return new WaitForSeconds(3f);
+            yield return Shot("22_snowy_menu");
+            gm.Play();
+            gm.TrainGo();
+            gm.cameraController.StopFollowing();
+            gm.cameraController.ResetView(true);
+            yield return new WaitForSeconds(4f);
+            yield return Shot("23_snowy_world");
+            gm.cameraController.FocusOn(new Vector3(-40f, 0f, 14f), 18f);
+            yield return new WaitForSeconds(2f);
+            yield return Shot("24_snowy_lake");
+            gm.cameraController.FocusOn(new Vector3(16f, 0f, 28f), 16f);
+            yield return new WaitForSeconds(2f);
+            yield return Shot("25_snowy_village");
+            gm.SwitchWorld("sunny_valley");
+            TinyTracks.UI.UIManager.AutoStartTutorial = true;
+            Assert.Pass();
+        }
     }
 }

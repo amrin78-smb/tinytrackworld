@@ -1,0 +1,308 @@
+[
+  {
+    "name": "Passenger_Girl",
+    "fbx": "_Project/Art/Models/People/Passenger_Girl.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.281,
+    "height": 0.943,
+    "parts": [
+      "ArmL",
+      "ArmR",
+      "Head",
+      "LegL",
+      "LegR"
+    ],
+    "verts": 2422,
+    "size": [
+      0.562,
+      0.399,
+      0.946
+    ],
+    "bounds": [
+      [
+        -0.281,
+        -0.171,
+        -0.003
+      ],
+      [
+        0.281,
+        0.228,
+        0.943
+      ]
+    ]
+  },
+  {
+    "name": "Passenger_Grandpa",
+    "fbx": "_Project/Art/Models/People/Passenger_Grandpa.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.3,
+    "height": 1.269,
+    "parts": [
+      "ArmL",
+      "ArmR",
+      "Head",
+      "LegL",
+      "LegR"
+    ],
+    "verts": 2483,
+    "size": [
+      0.58,
+      0.531,
+      1.272
+    ],
+    "bounds": [
+      [
+        -0.3,
+        -0.252,
+        -0.003
+      ],
+      [
+        0.28,
+        0.278,
+        1.269
+      ]
+    ]
+  },
+  {
+    "name": "Passenger_Mum",
+    "fbx": "_Project/Art/Models/People/Passenger_Mum.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.377,
+    "height": 1.188,
+    "parts": [
+      "ArmL",
+      "ArmR",
+      "Head",
+      "LegL",
+      "LegR"
+    ],
+    "verts": 2472,
+    "size": [
+      0.657,
+      0.477,
+      1.19
+    ],
+    "bounds": [
+      [
+        -0.377,
+        -0.2,
+        -0.003
+      ],
+      [
+        0.28,
+        0.277,
+        1.188
+      ]
+    ]
+  },
+  {
+    "name": "Passenger_Boy",
+    "fbx": "_Project/Art/Models/People/Passenger_Boy.fbx",
+    "kind": "person",
+    "sound": "hello",
+    "footprintRadius": 0.386,
+    "height": 1.546,
+    "parts": [
+      "ArmL",
+      "ArmR",
+      "Head",
+      "LegL",
+      "LegR"
+    ],
+    "verts": 2383,
+    "size": [
+      0.612,
+      0.393,
+      1.549
+    ],
+    "bounds": [
+      [
+        -0.225,
+        -0.208,
+        -0.003
+      ],
+      [
+        0.386,
+        0.185,
+        1.546
+      ]
+    ]
+  },
+  {
+    "name": "Cargo_Crate",
+    "fbx": "_Project/Art/Models/Props/Cargo_Crate.fbx",
+    "category": "cargo",
+    "footprint": [
+      0.64,
+      0.64
+    ],
+    "height": 0.54,
+    "parts": [],
+    "verts": 752,
+    "size": [
+      0.636,
+      0.636,
+      0.54
+    ],
+    "bounds": [
+      [
+        -0.318,
+        -0.318,
+        0.0
+      ],
+      [
+        0.318,
+        0.318,
+        0.54
+      ]
+    ],
+    "fitsCargoWagon": true
+  },
+  {
+    "name": "Cargo_Logs",
+    "fbx": "_Project/Art/Models/Props/Cargo_Logs.fbx",
+    "category": "cargo",
+    "footprint": [
+      0.68,
+      1.16
+    ],
+    "height": 0.43,
+    "parts": [],
+    "verts": 785,
+    "size": [
+      0.68,
+      1.162,
+      0.432
+    ],
+    "bounds": [
+      [
+        -0.341,
+        -0.556,
+        0.0
+      ],
+      [
+        0.339,
+        0.606,
+        0.432
+      ]
+    ],
+    "fitsCargoWagon": true
+  },
+  {
+    "name": "Cargo_Milk",
+    "fbx": "_Project/Art/Models/Props/Cargo_Milk.fbx",
+    "category": "cargo",
+    "footprint": [
+      0.6,
+      0.53
+    ],
+    "height": 0.55,
+    "parts": [],
+    "verts": 765,
+    "size": [
+      0.601,
+      0.534,
+      0.551
+    ],
+    "bounds": [
+      [
+        -0.301,
+        -0.227,
+        0.0
+      ],
+      [
+        0.301,
+        0.307,
+        0.551
+      ]
+    ],
+    "fitsCargoWagon": true
+  },
+  {
+    "name": "Cargo_Hay",
+    "fbx": "_Project/Art/Models/Props/Cargo_Hay.fbx",
+    "category": "cargo",
+    "footprint": [
+      0.66,
+      0.6
+    ],
+    "height": 0.6,
+    "parts": [],
+    "verts": 662,
+    "size": [
+      0.656,
+      0.599,
+      0.599
+    ],
+    "bounds": [
+      [
+        -0.328,
+        -0.299,
+        0.002
+      ],
+      [
+        0.328,
+        0.299,
+        0.6
+      ]
+    ],
+    "fitsCargoWagon": true
+  },
+  {
+    "name": "CargoYard",
+    "fbx": "_Project/Art/Models/Buildings/CargoYard.fbx",
+    "category": "building",
+    "footprint": [
+      4.54,
+      5.66
+    ],
+    "height": 2.82,
+    "parts": [
+      "Crane",
+      "LoadPoint"
+    ],
+    "verts": 5879,
+    "size": [
+      4.541,
+      5.663,
+      2.82
+    ],
+    "bounds": [
+      [
+        0.609,
+        -2.82,
+        0.0
+      ],
+      [
+        5.15,
+        2.842,
+        2.82
+      ]
+    ],
+    "points": {
+      "Crane": [
+        1.45,
+        2.25,
+        1.0
+      ],
+      "LoadPoint": [
+        1.05,
+        0.45,
+        0.36
+      ]
+    },
+    "craneHookLocalBlender": [
+      0.0,
+      -1.9,
+      0.84
+    ],
+    "craneHookLocalUnity": [
+      -0.0,
+      0.84,
+      1.9
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3f11e80e469dffe8f52ae558d6be09, type: 3}
+  m_Name: Loco_PurpleStarlight
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.TrainDefinition
+  id: Loco_PurpleStarlight
+  displayName: Purple Starlight
+  kind: 0
+  engine: 0
+  icon: {fileID: 21300000, guid: 95f5a8e3a819acb16b72db83c9cd69af, type: 3}
+  prefab: {fileID: 4041267298736128309, guid: 1d9bcba0f9fb32cc5815e10c22b7db89, type: 3}
+  bogieSpacing: 0.91999996
+  frontOverhang: 0.74100006
+  length: 2.322
+  uiColor: {r: 0.5568628, g: 0.36078432, b: 0.9019608, a: 1}
+  paintColor: {r: 0.5569, g: 0.3608, b: 0.902, a: 1}
+  discoverable: 1

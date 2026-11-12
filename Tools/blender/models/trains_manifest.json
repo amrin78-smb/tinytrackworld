@@ -14,7 +14,12 @@
       "Wheel_4",
       "Wheel_5"
     ],
-    "verts": 6973
+    "verts": 6973,
+    "paintColor": [
+      0.949,
+      0.2784,
+      0.2941
+    ]
   },
   {
     "name": "Loco_BlueAdventure",
@@ -31,7 +36,12 @@
       "Wheel_4.001",
       "Wheel_5.001"
     ],
-    "verts": 6190
+    "verts": 6190,
+    "paintColor": [
+      0.1804,
+      0.5451,
+      0.902
+    ]
   },
   {
     "name": "Loco_GreenExplorer",
@@ -48,7 +58,12 @@
       "Wheel_4.002",
       "Wheel_5.002"
     ],
-    "verts": 6333
+    "verts": 6333,
+    "paintColor": [
+      0.2392,
+      0.7294,
+      0.3529
+    ]
   },
   {
     "name": "Loco_YellowSunshine",
@@ -63,7 +78,12 @@
       "Wheel_2.003",
       "Wheel_3.003"
     ],
-    "verts": 6854
+    "verts": 6854,
+    "paintColor": [
+      1.0,
+      0.8549,
+      0.2706
+    ]
   },
   {
     "name": "Car_Passenger",
@@ -78,7 +98,12 @@
       "Wheel_2.004",
       "Wheel_3.004"
     ],
-    "verts": 4230
+    "verts": 4230,
+    "paintColor": [
+      0.6588,
+      0.1373,
+      0.1843
+    ]
   },
   {
     "name": "Car_Cargo",
@@ -93,6 +118,37 @@
       "Wheel_2.005",
       "Wheel_3.005"
     ],
-    "verts": 3774
+    "verts": 2840,
+    "paintColor": [
+      0.7882,
+      0.5529,
+      0.3216
+    ],
+    "cargoBedSize": [
+      0.802,
+      1.504
+    ]
+  },
+  {
+    "name": "Loco_PurpleStarlight",
+    "fbx": "Assets/_Project/Art/Models/Trains/Loco_PurpleStarlight.fbx",
+    "kind": "loco",
+    "displayName": "Purple Starlight",
+    "length": 2.322,
+    "bogieSpacing": 0.92,
+    "wheelNames": [
+      "Wheel_0",
+      "Wheel_1",
+      "Wheel_2",
+      "Wheel_3",
+      "Wheel_4",
+      "Wheel_5"
+    ],
+    "verts": 8453,
+    "paintColor": [
+      0.5569,
+      0.3608,
+      0.902
+    ]
   }
 ]

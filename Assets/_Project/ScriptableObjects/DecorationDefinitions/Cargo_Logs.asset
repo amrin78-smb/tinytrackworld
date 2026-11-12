@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Cargo_Logs
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Cargo_Logs
+  displayName: Cargo Logs
+  category: 4
+  icon: {fileID: 21300000, guid: 305ccb18291f078ffab2c56530497026, type: 3}
+  prefab: {fileID: 6532431026779778733, guid: d0dd1796c763caa52b8e01895064b8f4, type: 3}
+  footprintRadius: 0.49401677
+  height: 0.43239886
+  reaction: 8
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TinyTracks.Audio;
 using TinyTracks.Core;
 using TinyTracks.Performance;
 using TinyTracks.Tracks;
@@ -83,6 +84,38 @@ namespace TinyTracks.UI
             helpBtn = UIFactory.Button("Help", canvas.transform.Find("Safe"), Icon("narrator") ?? Icon("sound"), UIFactory.Cream, 120f, 0.92f);
             helpBtn.Clicked += () => guide.Help();
             settingsRoot.SetAsLastSibling(); // the grown-ups' panel covers the bubble and the conductor
+            BuildGift();
+        }
+
+        // ------------------------------------------------------------------------------------------------ surprises
+        private ToyButton giftBtn;
+        public Component GiftButton => giftBtn != null && giftBtn.gameObject.activeInHierarchy ? giftBtn : null;
+
+        private void BuildGift()
+        {
+            giftBtn = UIFactory.Button("Gift", hudRoot, Icon("gift") ?? Icon("plus"), new Color32(255, 236, 246, 255), 170f, 0.95f);
+            UIFactory.Anchor((RectTransform)giftBtn.transform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -190f), new Vector2(170f, 170f));
+            giftBtn.gameObject.SetActive(false);
+            giftBtn.Clicked += () =>
+            {
+                Juice.Spin(giftBtn.transform, 1f, 0.4f);
+                Juice.ShrinkOut(giftBtn.transform, () => { giftBtn.gameObject.SetActive(false); giftBtn.transform.localScale = Vector3.one; }, 0.45f);
+                Discoveries.Instance?.OpenGift();
+            };
+            Discoveries d = Discoveries.Instance;
+            if (d == null) return;
+            d.GiftReady += _ => ShowGift();
+            d.Discovered += _ => { RefreshLocoSelection(); if (openDecoCat != null) OpenDecoTray(openDecoCat); };
+            if (d.PendingGift != null) ShowGift();
+        }
+
+        private void ShowGift()
+        {
+            if (giftBtn == null) return;
+            giftBtn.gameObject.SetActive(true);
+            giftBtn.transform.SetAsLastSibling();
+            Juice.PopIn(giftBtn.transform, 0.4f);
+            AudioManager.Sfx(AudioManager.Clips?.tada, 0.5f);
         }
 
         private void BuildCanvas()
@@ -139,6 +172,20 @@ namespace TinyTracks.UI
                 menuLocoButtons.Add((b, id));
             }
 
+            // World picker (top left): one picture per world; the current one has a ring.
+            RectTransform worlds = UIFactory.Row("Worlds", menuRoot, 24f, TextAnchor.MiddleLeft);
+            UIFactory.Anchor(worlds, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(50f, -50f), new Vector2(420f, 170f));
+            foreach (WorldDefinition w in content.worlds)
+            {
+                if (w == null) continue;
+                Sprite ic = w.icon != null ? w.icon : Icon(w.snowy ? "world_snowy" : "world_sunny");
+                ToyButton b = UIFactory.Button("World_" + w.id, worlds, ic, w.snowy ? new Color32(220, 236, 255, 255) : new Color32(214, 246, 214, 255), 160f, 0.92f);
+                string id = w.id;
+                b.Clicked += () => { game.SwitchWorld(id); RefreshWorlds(); };
+                worldButtons.Add((b, id));
+            }
+            game.WorldSwitched += _ => RefreshWorlds();
+
             ToyButton newWorld = UIFactory.Button("NewWorld", menuRoot, Icon("new_world"), UIFactory.Yellow, 140f);
             UIFactory.Anchor((RectTransform)newWorld.transform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(60f, 60f), new Vector2(140f, 140f));
             newWorld.holdSeconds = 1.5f;
@@ -184,7 +231,7 @@ namespace TinyTracks.UI
         {
             RectTransform bar = UIFactory.Rect(name, hudRoot);
             UIFactory.Anchor(bar, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 0f), new Vector2(1920f, 220f));
-            Image bg = UIFactory.Image("Back", bar, UIFactory.Rounded, new Color(1f, 1f, 1f, 0.35f));
+            Image bg = UIFactory.Image("Back", bar, UIFactory.Rounded, new Color(0.9f, 0.94f, 1f, 0.5f)); // faint blue: shows on grass and snow
             UIFactory.Anchor(bg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(1880f, 230f));
             return bar;
         }
@@ -374,6 +421,87 @@ namespace TinyTracks.UI
             }
             ToyButton minus = UIFactory.Button("RemoveCar", pick, Icon("minus"), UIFactory.Cream, 100f);
             minus.Clicked += () => game.trains.RemoveCarriage();
+
+            // Several trains: one chip per train (tap = drive this one, hold = send it away) and "add a train".
+            RectTransform gap2 = UIFactory.Rect("Gap2", pick);
+            gap2.sizeDelta = new Vector2(30f, 10f);
+            // The chips get their own row above the pickers (it grows to three trains).
+            trainChips = UIFactory.Row("TrainChips", hudRoot, 14f, TextAnchor.MiddleLeft);
+            UIFactory.Anchor(trainChips, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(40f, 368f), new Vector2(600f, 110f));
+            trainOnly.Add(trainChips.gameObject);
+            addTrainBtn = UIFactory.Button("AddTrain", pick, Icon("add_train") ?? Icon("plus"), new Color32(214, 246, 214, 255), 110f, 0.9f);
+            addTrainBtn.Clicked += () => game.AddTrain();
+            game.trains.TrainChanged += RefreshTrainChips;
+
+            // Paint the train: a pot button opens a row of colours.
+            ToyButton paint = UIFactory.Button("Paint", pick, Icon("paint") ?? Icon("decorate"), new Color32(255, 230, 246, 255), 110f, 0.9f);
+            palette = UIFactory.Row("Palette", hudRoot, 14f, TextAnchor.MiddleLeft);
+            UIFactory.Anchor(palette, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(40f, 495f), new Vector2(1300f, 110f));
+            Image pb = UIFactory.Image("PaletteBack", palette, UIFactory.Rounded, new Color(1f, 1f, 1f, 0.55f));
+            pb.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+            UIFactory.Stretch(pb.rectTransform);
+            pb.rectTransform.offsetMin = new Vector2(-10f, -6f);
+            pb.rectTransform.offsetMax = new Vector2(10f, 6f);
+            Color[] colours =
+            {
+                new Color32(240, 70, 75, 255), new Color32(255, 150, 50, 255), new Color32(255, 214, 60, 255), new Color32(80, 196, 90, 255),
+                new Color32(60, 170, 230, 255), new Color32(60, 90, 220, 255), new Color32(150, 95, 230, 255), new Color32(255, 130, 190, 255),
+                new Color32(245, 245, 245, 255), new Color32(60, 60, 70, 255),
+            };
+            foreach (Color c in colours)
+            {
+                ToyButton cb = UIFactory.Button("Colour", palette, null, c, 96f);
+                Color cc = c;
+                cb.Clicked += () => game.PaintTrain(cc);
+            }
+            ToyButton orig = UIFactory.Button("Original", palette, Icon("undo"), UIFactory.Cream, 96f, 0.8f);
+            orig.Clicked += () => game.PaintTrain(null);
+            palette.gameObject.SetActive(false);
+            trainOnly.Add(paint.gameObject);
+            paint.Clicked += () =>
+            {
+                bool show = !palette.gameObject.activeSelf;
+                palette.gameObject.SetActive(show);
+                if (show) { foreach (Transform c in palette) Juice.PopIn(c, 0.25f); Narrator?.Say("paint_train"); }
+            };
+        }
+
+        private RectTransform palette;
+
+        /// <summary>Opens or closes the paint colours (the paint button does this; screenshots use it too).</summary>
+        public void ShowPalette(bool show)
+        {
+            if (palette != null) palette.gameObject.SetActive(show && game.Mode == GameMode.Train);
+        }
+
+        private RectTransform trainChips;
+        private ToyButton addTrainBtn;
+        private readonly List<(ToyButton button, TrainController train)> chipButtons = new List<(ToyButton, TrainController)>();
+
+        private void RefreshTrainChips()
+        {
+            if (trainChips == null) return;
+            foreach (Transform c in trainChips) Destroy(c.gameObject);
+            chipButtons.Clear();
+            var list = game.trains.All;
+            // A single train needs no chooser.
+            if (list.Count > 1)
+                foreach (TrainController t in list)
+                {
+                    TrainDefinition d = t.LocoDefinition;
+                    ToyButton b = UIFactory.Button("Chip_" + t.name, trainChips, d != null ? d.icon : Icon("train"),
+                        d != null ? Color.Lerp(d.uiColor, Color.white, 0.45f) : UIFactory.Cream, 96f, 0.95f);
+                    TrainController tt = t;
+                    b.Clicked += () => { game.trains.Select(tt); game.cameraController.Follow(tt.Anchor); };
+                    chipButtons.Add((b, t));
+                    b.Selected = t == game.trains.Current;
+                    // Hold to send this train back to the depot.
+                    var hold = b.gameObject.AddComponent<HoldAction>();
+                    hold.seconds = 1.2f;
+                    hold.action = () => game.trains.RemoveTrain(tt);
+                }
+            if (addTrainBtn != null) addTrainBtn.Interactable = list.Count < TrainManager.MaxTrains;
+            RefreshLocoSelection();
         }
 
         private readonly List<GameObject> trainOnly = new List<GameObject>();
@@ -414,7 +542,7 @@ namespace TinyTracks.UI
             var row = TrayRow();
             foreach (DecorationDefinition d in content.decorations)
             {
-                if (d == null || !d.placeable || d.category != cat.Value) continue;
+                if (d == null || !d.placeable || d.category != cat.Value || !Discoveries.IsUnlocked(d.id)) continue;
                 ToyButton b = UIFactory.Button("Deco_" + d.id, row, d.icon, new Color32(222, 246, 214, 255), 150f, 0.95f);
                 string id = d.id;
                 b.Clicked += () => game.decoPlacement.Select(id);
@@ -478,6 +606,11 @@ namespace TinyTracks.UI
             RectTransform howBox = UIFactory.Rect("ShowMeHow", p);
             UIFactory.Anchor(howBox, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(80f, 70f), new Vector2(330f, 100f));
             ToyButton how = TextToggle(howBox, "Show me how", () => { ShowSettings(false); game.SetMode(GameMode.Menu); guide.StartTutorial(); });
+            RectTransform unlockBox = UIFactory.Rect("UnlockSurprises", p);
+            UIFactory.Anchor(unlockBox, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(430f, 70f), new Vector2(330f, 100f));
+            ToyButton unlock = TextToggle(unlockBox, "Unlock surprises", () => { Discoveries.Instance?.UnlockAll(); RefreshLocoSelection(); });
+            ((RectTransform)unlock.transform).sizeDelta = new Vector2(330f, 100f);
+            unlock.Selected = false;
             ((RectTransform)how.transform).sizeDelta = new Vector2(330f, 100f);
             how.Selected = false; // an action, not a toggle: no selection ring
 
@@ -585,6 +718,7 @@ namespace TinyTracks.UI
             trainPanel.gameObject.SetActive(m == GameMode.Train);
             decoPanel.gameObject.SetActive(m == GameMode.Decorate);
             foreach (GameObject g in trainOnly) g.SetActive(m == GameMode.Train);
+            if (palette != null && m != GameMode.Train) palette.gameObject.SetActive(false);
             foreach (GameObject g in buildOnly) g.SetActive(m == GameMode.Build);
             foreach (KeyValuePair<GameMode, ToyButton> kv in modeTabs) kv.Value.Selected = kv.Key == m;
             openTrackCat = null;
@@ -604,12 +738,21 @@ namespace TinyTracks.UI
             if (m == GameMode.Build) OpenTrackTray(TrackCategory.Straight);
             if (m == GameMode.Decorate) OpenDecoTray(DecorationCategory.Nature);
             RefreshLocoSelection();
+            RefreshWorlds();
+        }
+
+        private readonly List<(ToyButton button, string id)> worldButtons = new List<(ToyButton, string)>();
+
+        private void RefreshWorlds()
+        {
+            string current = game.world != null && game.world.world != null ? game.world.world.id : null;
+            foreach (var (b, id) in worldButtons) b.Selected = id == current;
         }
 
         private void RefreshLocoSelection()
         {
-            foreach (var (b, id) in locoButtons) b.Selected = id == game.trains.SelectedLocoId;
-            foreach (var (b, id) in menuLocoButtons) b.Selected = id == game.trains.SelectedLocoId;
+            foreach (var (b, id) in locoButtons) { b.Selected = id == game.trains.SelectedLocoId; b.gameObject.SetActive(Discoveries.IsUnlocked(id)); }
+            foreach (var (b, id) in menuLocoButtons) { b.Selected = id == game.trains.SelectedLocoId; b.gameObject.SetActive(Discoveries.IsUnlocked(id)); }
         }
 
         private void Update()

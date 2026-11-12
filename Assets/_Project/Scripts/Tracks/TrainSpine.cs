@@ -190,6 +190,32 @@ namespace TinyTracks.Tracks
             return cur.Point(g, s);
         }
 
+        /// <summary>
+        /// Fills <paramref name="points"/> with world points every <paramref name="step"/> metres ahead of the head
+        /// (first one at <paramref name="step"/>) along the currently set route, stopping at a dead end. One walk.
+        /// </summary>
+        public void SampleAhead(TrackGraph g, float step, float maxDistance, List<Vector3> points)
+        {
+            points.Clear();
+            if (!IsValid) return;
+            Span cur = Head;
+            float s = headS + step;
+            float travelled = step;
+            int guard = 0;
+            while (travelled <= maxDistance && guard++ < 512)
+            {
+                while (s > cur.length)
+                {
+                    if (!NextSpan(g, cur, out Span next)) return;
+                    s -= cur.length;
+                    cur = next;
+                }
+                points.Add(cur.Point(g, s));
+                s += step;
+                travelled += step;
+            }
+        }
+
         /// <summary>Looks along the route for dead ends, stations and level crossings.</summary>
         public LookAhead Scan(TrackGraph g, float maxDistance, int ignoreStation)
         {
@@ -208,7 +234,7 @@ namespace TinyTracks.Tracks
             {
                 TrackNode n = g.Get(cur.node);
                 if (n == null) { la.deadEndDistance = Mathf.Max(0f, dist); break; }
-                if (n.type == TrackType.Station && n.id != ignoreStation && la.stationNode < 0)
+                if (TrackShapeLibrary.IsStop(n.type) && n.id != ignoreStation && la.stationNode < 0)
                 {
                     float mid = dist + cur.length * 0.5f;
                     if (mid >= -0.05f) { la.stationDistance = mid; la.stationNode = n.id; }

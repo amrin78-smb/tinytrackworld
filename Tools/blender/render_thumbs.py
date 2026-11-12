@@ -33,7 +33,11 @@ ACCESSORIES = {
     "Station": [("Buildings/Station", (0, 0, 3.0), 0)],
     "Depot": [("Buildings/Depot", (0, 0, 2.1), 180)],
     "Crossing": [("Props/Barrier_Crossing", (1.0, 0, 0.5), 90), ("Props/Barrier_Crossing", (-1.0, 0, 3.5), -90)],
+    "CargoStation": [("Buildings/CargoYard", (0, 0, 3.0), 0)],
 }
+
+# Track types that reuse another type's bed model (no Tracks/<Type>.fbx of their own): type -> bed model name.
+TRACK_BEDS = {"CargoStation": "Station"}
 
 
 def add_accessories(name):
@@ -46,20 +50,22 @@ def add_accessories(name):
         for o in objs:
             if o.parent is None:
                 o.location = (-x, -z, y)
-                o.rotation_euler = (0, 0, math.radians(-yaw))
+                # keep the importer's axis-conversion rotation (x = 90 deg); only set the yaw
+                o.rotation_euler = (o.rotation_euler.x, o.rotation_euler.y, math.radians(-yaw))
         out += [o for o in objs if o.type == 'MESH']
     return out
 
 
-def render_one(group, path):
+def render_one(group, path, name=None):
+    """name: thumbnail/accessory key when it differs from the fbx name (track types sharing a bed model)."""
     T.reset()
     objs = import_fbx(path)
+    name = name or os.path.splitext(os.path.basename(path))[0]
     if group == "Tracks":
-        objs += add_accessories(os.path.splitext(os.path.basename(path))[0])
+        objs += add_accessories(name)
     meshes = [o for o in objs if o.type == 'MESH']
     if not meshes:
         return
-    name = os.path.splitext(os.path.basename(path))[0]
     roots = [o for o in meshes if o.parent is None or o.parent.type != 'MESH']
     out = os.path.join(OUT, ("Track_" + name if group == "Tracks" else name) + ".png")
     if group == "Tracks":
@@ -82,6 +88,17 @@ def main():
                 render_one(g, path)
             except Exception as e:  # keep going; the validator reports missing icons
                 print("[TT] thumb failed", key, e)
+    for name, bed in TRACK_BEDS.items():
+        key = "Tracks/" + name
+        path = os.path.join(T.MODELS, "Tracks", bed + ".fbx")
+        if os.path.exists(os.path.join(T.MODELS, "Tracks", name + ".fbx")) or not os.path.exists(path):
+            continue
+        if wanted and key not in wanted and "Tracks" not in wanted:
+            continue
+        try:
+            render_one("Tracks", path, name)
+        except Exception as e:
+            print("[TT] thumb failed", key, e)
 
 
 if __name__ == "__main__":

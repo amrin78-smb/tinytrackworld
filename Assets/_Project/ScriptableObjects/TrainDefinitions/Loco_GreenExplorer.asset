@@ -18,7 +18,9 @@ MonoBehaviour:
   engine: 1
   icon: {fileID: 21300000, guid: 5a5e56758ffdacd8391c28020dd02ec2, type: 3}
   prefab: {fileID: 1315983106759936825, guid: 93560ccc2b026ed44a0caab99cffd89f, type: 3}
-  bogieSpacing: 1.3932
-  frontOverhang: 0.46440002
+  bogieSpacing: 0.9
+  frontOverhang: 0.711
   length: 2.322
   uiColor: {r: 0.23921569, g: 0.7294118, b: 0.3529412, a: 1}
+  paintColor: {r: 0.2392, g: 0.7294, b: 0.3529, a: 1}
+  discoverable: 0

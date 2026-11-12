@@ -17,7 +17,8 @@ namespace TinyTracks.EditorTools
             mi.importLights = false;
             mi.importBlendShapes = false;
             mi.importVisibility = false;
-            mi.isReadable = assetPath.Contains("/Tracks/"); // track meshes are read for ghost/bounds; others not
+            // Track meshes are read for the ghost/bounds; train meshes are repainted at runtime (vertex colours + uv2 paint mask).
+            mi.isReadable = assetPath.Contains("/Tracks/") || assetPath.Contains("/Trains/");
             mi.meshCompression = ModelImporterMeshCompression.Off;
             mi.importNormals = ModelImporterNormals.Import;
             mi.importTangents = ModelImporterTangents.None;

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4336304cb0d71d61acb64677a38d849, type: 3}
+  m_Name: Bush_Snowy
+  m_EditorClassIdentifier: TinyTracks.Runtime::TinyTracks.Core.DecorationDefinition
+  id: Bush_Snowy
+  displayName: Bush Snowy
+  category: 0
+  icon: {fileID: 21300000, guid: 6378069289bd104348edbdd9207db78f, type: 3}
+  prefab: {fileID: 4669217918225451775, guid: 03e44a515731cc0fd820dcae3e4eb05a, type: 3}
+  footprintRadius: 0.7241871
+  height: 0.85359347
+  reaction: 2
+  sound: {fileID: 0}
+  placeable: 1
+  lowDetailOptional: 0

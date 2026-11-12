@@ -20,6 +20,10 @@ namespace TinyTracks.Core
         [Tooltip("Coupler-to-coupler length.")]
         public float length = 2f;
         public Color uiColor = Color.white;
+        [Tooltip("The body colour the paint mask (mesh uv2.x = 1) was modelled in (sRGB, before AO). Alpha 0 = not paintable.")]
+        public Color paintColor = new Color(0f, 0f, 0f, 0f);
+        [Tooltip("Hidden until discovered (a gentle surprise after playing for a while).")]
+        public bool discoverable;
     }
 
     public enum DecorationCategory { Nature, Buildings, Animals, People, Props }

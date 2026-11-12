@@ -28,6 +28,7 @@ namespace TinyTracks.Tracks
         Depot,
         Crossing,
         ElevatedStraight,
+        CargoStation,   // appended: saves store names, but keep new types at the end anyway
     }
 
     /// <summary>A connection point in a piece's local space. Heading points OUT of the piece (degrees, 0 = +Z, 90 = +X).</summary>

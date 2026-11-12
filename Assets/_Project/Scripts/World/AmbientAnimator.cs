@@ -97,9 +97,19 @@ namespace TinyTracks.World
             I.flyers.Add(new Flyer { t = t, wingL = wl, wingR = wr, centre = centre, radius = radius, speed = speed, height = height, phase = Random.value * 6.28f });
         }
 
+        private void Prune()
+        {
+            for (int i = entries.Count - 1; i >= 0; i--)
+                if (entries[i].owner == null) { lookup.Remove(entries[i].owner); entries.RemoveAt(i); }
+            drifters.RemoveAll(d => d.t == null);
+            flyers.RemoveAll(f => f.t == null);
+        }
+
         private void Update()
         {
             float time = Time.time, dt = Time.deltaTime;
+            // Scenery is destroyed when the world changes: drop the dead entries now and then.
+            if (Time.frameCount % 120 == 0) Prune();
             Camera cam = Camera.main;
             Vector3 camPos = cam != null ? cam.transform.position : Vector3.zero;
             float maxD2 = (LowDetail ? maxAnimatedDistance * 0.6f : maxAnimatedDistance * 1.5f);

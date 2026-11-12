@@ -22,3 +22,5 @@ MonoBehaviour:
   frontOverhang: 0.73
   length: 2.2810001
   uiColor: {r: 0.9490196, g: 0.2784314, b: 0.29411766, a: 1}
+  paintColor: {r: 0.949, g: 0.2784, b: 0.2941, a: 1}
+  discoverable: 0

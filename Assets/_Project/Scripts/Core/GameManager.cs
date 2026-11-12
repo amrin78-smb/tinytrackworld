@@ -36,12 +36,15 @@ namespace TinyTracks.Core
         public AudioManager audioManager;
         public SaveManager save;
         public PerformanceManager performance;
+        public TinyTracks.Stations.StationManager stations;
 
         public GameMode Mode { get; private set; } = GameMode.Menu;
         public CommandStack Commands { get; } = new CommandStack();
         public event Action<GameMode> ModeChanged;
         /// <summary>The train whistled (button or a tap on the train).</summary>
         public event Action Whistled;
+        /// <summary>The child moved to another world (Sunny Valley, Snowy Valley...).</summary>
+        public event Action<WorldDefinition> WorldSwitched;
 
         /// <summary>Seconds since the child last touched anything (drives the gentle hint hand).</summary>
         public float IdleTime => Time.unscaledTime - lastInput;
@@ -74,6 +77,11 @@ namespace TinyTracks.Core
             Localization.Set(s.language);
             performance.Apply(s.quality >= 0 ? (QualityPreset)s.quality : PerformanceManager.AutoDetect());
             audioManager.StartBackground();
+            // Return to the world the child played last.
+            WorldDefinition last = world != null ? world.Find(s.lastWorld) : null;
+            if (last != null && world.world != last) world.SetWorld(last);
+            SaveManager.WorldId = world != null && world.world != null ? world.world.id : "sunny_valley";
+            if (world != null && world.world != null) audioManager.SetAmbience(world.world.ambience);
             LoadOrCreateWorld();
             SetMode(GameMode.Menu);
         }
@@ -102,13 +110,19 @@ namespace TinyTracks.Core
             WorldManager.BuildStarterLayout(network);
             network.SuppressEffects = false;
             decorations.SuppressEffects = true;
-            (string id, float x, float z, float yaw)[] starter =
+            WorldDefinition wd = world != null ? world.world : null;
+            if (wd != null && wd.starterDecorations.Count > 0)
+                foreach (WorldProp p in wd.starterDecorations) decorations.Place(p.decorationId, new Vector3(p.position.x, 0f, p.position.z), p.yaw);
+            else
             {
-                ("House_A", 12f, 9f, 200f), ("Tree_Round", 17f, 5f, 0f), ("Tree_Apple", -15f, 7f, 0f), ("Tree_Pine", -19f, 1f, 30f),
-                ("Cow", -15f, -6f, 120f), ("Sheep", -13f, -10f, 200f), ("Flowers_Red", 5f, 4f, 0f), ("Flowers_Yellow", -6f, 5f, 0f),
-                ("Bush", 14f, -12f, 0f), ("Person_Conductor", -1.5f, -10.4f, 180f), ("Dog", 9f, 5f, 210f), ("Fence", -16f, -13f, 0f),
-            };
-            foreach (var d in starter) decorations.Place(d.id, new Vector3(d.x, 0f, d.z), d.yaw);
+                (string id, float x, float z, float yaw)[] starter =
+                {
+                    ("House_A", 12f, 9f, 200f), ("Tree_Round", 17f, 5f, 0f), ("Tree_Apple", -15f, 7f, 0f), ("Tree_Pine", -19f, 1f, 30f),
+                    ("Cow", -15f, -6f, 120f), ("Sheep", -13f, -10f, 200f), ("Flowers_Red", 5f, 4f, 0f), ("Flowers_Yellow", -6f, 5f, 0f),
+                    ("Bush", 14f, -12f, 0f), ("Person_Conductor", -1.5f, -10.4f, 180f), ("Dog", 9f, 5f, 210f), ("Fence", -16f, -13f, 0f),
+                };
+                foreach (var d in starter) decorations.Place(d.id, new Vector3(d.x, 0f, d.z), d.yaw);
+            }
             decorations.SuppressEffects = false;
             trains.AutoPlace(new Vector3(-2f, 0f, -8f));
             save.SaveWorld();
@@ -125,7 +139,8 @@ namespace TinyTracks.Core
 
         public void NewWorld()
         {
-            trains.RemoveTrain();
+            trains.RemoveAll();
+            stations?.ClearAll();
             Commands.Execute(new ClearWorldCommand(network, decorations));
             Commands.Clear();
             save.DeleteWorld();
@@ -135,9 +150,42 @@ namespace TinyTracks.Core
             SetMode(GameMode.Build);
         }
 
+        /// <summary>Saves this world, then switches the scenery and loads (or starts) the other world's railway.</summary>
+        public void SwitchWorld(string id)
+        {
+            WorldDefinition next = world != null ? world.Find(id) : null;
+            if (next == null || next == world.world) return;
+            save.Flush();
+            trains.RemoveAll();
+            stations?.ClearAll();
+            placement.Deselect();
+            decoPlacement.Deselect();
+            SaveManager.WorldId = next.id;
+            save.Settings.lastWorld = next.id;
+            save.SaveSettings();
+            // Clear this world's railway and scenery items before the next world loads or builds its starter loop.
+            network.SuppressEffects = true;
+            decorations.SuppressEffects = true;
+            network.ClearAll();
+            decorations.ClearAll();
+            network.SuppressEffects = false;
+            decorations.SuppressEffects = false;
+            Commands.Clear();
+            world.SetWorld(next);
+            Vector2 half = next.buildableHalfSize;
+            placement.buildableHalfSize = half;
+            decoPlacement.buildableHalfSize = half;
+            cameraController.bounds = next.cameraHalfSize;
+            LoadOrCreateWorld();
+            cameraController.ResetView();
+            AudioManager.Sfx(AudioManager.Clips?.tada, 0.6f);
+            WorldSwitched?.Invoke(next);
+        }
+
         public void ClearRailway()
         {
-            trains.RemoveTrain();
+            trains.RemoveAll();
+            stations?.ClearAll();
             Commands.Execute(new ClearWorldCommand(network, decorations));
             AudioManager.Sfx(AudioManager.Clips?.trackRemove);
         }
@@ -186,6 +234,28 @@ namespace TinyTracks.Core
         }
 
         public void TrainStop() => trains.Current?.Stop();
+
+        /// <summary>The child painted the current train (null = back to its own colours).</summary>
+        public event Action<Color?> TrainPainted;
+
+        public void PaintTrain(Color? colour)
+        {
+            if (trains.Current == null) { AudioManager.Sfx(AudioManager.Clips?.invalid); return; }
+            trains.Current.Paint(colour);
+            if (trains.Current.Locomotive != null) Juice.Squash(trains.Current.Locomotive.transform, 0.12f, 0.35f);
+            AudioManager.Sfx(AudioManager.Clips?.placeDecor, 0.8f);
+            save.MarkDirty();
+            TrainPainted?.Invoke(colour);
+        }
+
+        /// <summary>Adds another train (up to three) on free track and drives it.</summary>
+        public bool AddTrain()
+        {
+            TrainController t = trains.AddTrain();
+            if (t == null) { AudioManager.Sfx(AudioManager.Clips?.invalid); return false; }
+            if (Mode == GameMode.Train) cameraController.Follow(t.Anchor);
+            return true;
+        }
         public void Whistle()
         {
             if (trains.Current != null) trains.Current.Whistle(); else AudioManager.Sfx(AudioManager.Clips?.whistle);
@@ -215,7 +285,19 @@ namespace TinyTracks.Core
             Ray ray = cam.ScreenPointToRay(screen);
 
             // The train always answers a tap with a whistle.
-            if (trains.HitsTrain(ray)) { trains.Current.Whistle(); Whistled?.Invoke(); return; }
+            // A train always answers a tap with a whistle, and becomes the one the controls drive.
+            TrainController tapped = trains.TrainHit(ray);
+            if (tapped != null)
+            {
+                if (tapped != trains.Current)
+                {
+                    trains.Select(tapped);
+                    if (Mode == GameMode.Train) cameraController.Follow(tapped.Anchor);
+                }
+                tapped.Whistle();
+                Whistled?.Invoke();
+                return;
+            }
 
             if (Mode == GameMode.Build && placement.HandleTap(screen)) return;
             if (Mode == GameMode.Decorate && decoPlacement.HandleTap(screen)) return;
