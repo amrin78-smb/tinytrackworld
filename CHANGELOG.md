@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.1: app icon, splash and logo (2026-11-16)
+
+### Added
+- **App icon:** the red locomotive on its rails, rendered in Blender (front 3/4 view, sky and hill). It ships as an
+  Android adaptive icon (separate foreground and background layers, so launchers can mask it to any shape) plus round
+  and legacy versions. It replaces the default Unity icon.
+- **Logo:** "Tiny Tracks World" as chunky rainbow 3D word-art with a white outline, a navy shadow, and the red
+  locomotive on a rail (`Art/UI/Branding/Logo.png`, made by `Tools/blender/branding/build_branding.py`).
+- **Splash screen:** start-up shows the logo on the game's sky blue. There is no "Made with Unity" screen: Unity 6 lets
+  Personal-licence projects turn it off.
+- The home screen uses the logo instead of the plain text title.
+
 ## 0.3.0: passengers, cargo, more trains, Snowy Valley, paint and surprises (2026-11-12)
 
 ### Added

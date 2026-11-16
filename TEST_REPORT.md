@@ -1,4 +1,4 @@
-# Test Report: 0.3.0 (2026-11-12)
+# Test Report: 0.3.1 (2026-11-16)
 
 This report separates **automated verification** (run in this repo) from **hardware testing** (on a phone). Nothing
 here is claimed for hardware unless it was actually run on one.
@@ -10,6 +10,14 @@ here is claimed for hardware unless it was actually run on one.
 | EditMode | **36 / 36 passed**: track shapes, graph links, snapping, duplicates and overlaps, open ends, validation, loops, junction switching, train spine traversal, dead ends, reversal, carriage following, save round-trip, corrupted and future-version saves, missing lists |
 | PlayMode | **7 / 7 passed** (+1 explicit screenshot capture). New in 0.2.1: the starter train is a real, visible locomotive, and in the closed starter loop every piece type gets a placeable ghost. Also: starter world (closed loop and train), full train lap and stop, building a loop through the placement controller then save and reload, undo and redo, every narrator line has captions and clips in both languages, **the guided tour completes with no input at all** (proves it cannot soft-lock: 13 steps, each hinted up to 3 times and then performed by the guide), the help button speaks the right tip per mode |
 | Content validation (`Tools/setup.sh`) | OK: 21 track pieces, 6 trains, 40 decorations, 32 icons, 238 world props, 23 narrator lines × 2 languages, caption font |
+
+## 0.3.1 (branding)
+
+* After the icon, splash and logo change: EditMode **36/36**, PlayMode **13/13**, and content validation OK.
+* The menu screenshots (`Logs/Showcase/01`, `22`) show the logo title in Sunny Valley and in Snowy Valley. It doesn't
+  overlap the world picker, the tagline or the conductor's bubble.
+* The APK contains the adaptive icon layers.
+* **Not yet checked on a device:** the launcher icon and the splash screen. No phone was connected for this build.
 
 ## 0.3.0 additions (Milestones 12–15)
 

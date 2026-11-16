@@ -150,11 +150,22 @@ namespace TinyTracks.UI
             Image veil = UIFactory.Image("Veil", menuRoot, null, new Color(0.55f, 0.8f, 1f, 0.18f));
             UIFactory.Stretch(veil.rectTransform);
 
-            Text title = UIFactory.Label("Title", menuRoot, "Tiny Tracks World", 118, Color.white);
-            UIFactory.Anchor(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -70f), new Vector2(1400f, 150f));
-            title.GetComponent<Outline>().effectDistance = new Vector2(5f, -5f);
-            Text tag = UIFactory.Label("Tagline", menuRoot, "Build it. Connect it. Ride it. Explore it.", 44, new Color(1f, 0.97f, 0.8f));
-            UIFactory.Anchor(tag.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -215f), new Vector2(1400f, 60f));
+            // The "Tiny Tracks World" word-art (Art/UI/Branding/Logo.png, also the splash); plain text if it is missing.
+            Sprite logo = Icon("logo");
+            if (logo != null)
+            {
+                Image title = UIFactory.Image("Title", menuRoot, logo, Color.white);
+                title.preserveAspect = true;
+                UIFactory.Anchor(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -10f), new Vector2(560f, 196f));
+            }
+            else
+            {
+                Text title = UIFactory.Label("Title", menuRoot, "Tiny Tracks World", 118, Color.white);
+                UIFactory.Anchor(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -70f), new Vector2(1400f, 150f));
+                title.GetComponent<Outline>().effectDistance = new Vector2(5f, -5f);
+            }
+            Text tag = UIFactory.Label("Tagline", menuRoot, "Build it. Connect it. Ride it. Explore it.", 40, new Color(1f, 0.97f, 0.8f));
+            UIFactory.Anchor(tag.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -204f), new Vector2(1400f, 50f));
 
             playBtn = UIFactory.Button("Play", menuRoot, Icon("play"), UIFactory.Green, 300f, 0.62f);
             UIFactory.Anchor((RectTransform)playBtn.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(300f, 300f));

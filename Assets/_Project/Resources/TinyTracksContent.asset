@@ -201,6 +201,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 3cf3f2ba643e0d0238ef93686a9c53b0, type: 3}
   - name: world_sunny
     sprite: {fileID: 21300000, guid: 42e3639d79c3b5e79b81fd73d9f92029, type: 3}
+  - name: logo
+    sprite: {fileID: 21300000, guid: 643ad5dda8db079449ec36b44eab340a, type: 3}
   voice:
   - key: welcome
     en: Welcome to Tiny Tracks World! Tap the big green button to play.

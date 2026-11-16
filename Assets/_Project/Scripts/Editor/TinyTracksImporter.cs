@@ -34,6 +34,7 @@ namespace TinyTracks.EditorTools
         {
             if (!assetPath.StartsWith("Assets/_Project/Art/UI")) return;
             var ti = (TextureImporter)assetImporter;
+            if (assetPath.Contains("/Branding/")) { Branding(ti); return; }
             ti.textureType = TextureImporterType.Sprite;
             ti.spriteImportMode = SpriteImportMode.Single;
             ti.alphaIsTransparency = true;
@@ -44,6 +45,25 @@ namespace TinyTracks.EditorTools
             android.overridden = true;
             android.maxTextureSize = 256;
             android.format = TextureImporterFormat.ASTC_6x6;
+            ti.SetPlatformTextureSettings(android);
+        }
+
+        /// <summary>The splash/menu logo (a big sprite) and the app icons (full-size, readable, uncompressed textures
+        /// the build scales to every launcher density).</summary>
+        private void Branding(TextureImporter ti)
+        {
+            bool logo = assetPath.Contains("/Logo");
+            ti.textureType = logo ? TextureImporterType.Sprite : TextureImporterType.Default;
+            if (logo) ti.spriteImportMode = SpriteImportMode.Single;
+            ti.alphaIsTransparency = true;
+            ti.mipmapEnabled = false;
+            ti.isReadable = !logo;
+            ti.maxTextureSize = logo ? 2048 : 1024;
+            ti.textureCompression = logo ? TextureImporterCompression.CompressedHQ : TextureImporterCompression.Uncompressed;
+            var android = ti.GetPlatformTextureSettings("Android");
+            android.overridden = logo;
+            android.maxTextureSize = 2048;
+            android.format = TextureImporterFormat.ASTC_4x4;
             ti.SetPlatformTextureSettings(android);
         }
 

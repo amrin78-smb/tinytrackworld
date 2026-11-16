@@ -39,8 +39,8 @@ namespace TinyTracks.EditorTools
         public const string SettingsDir = Root + "/Settings";
         public const string ScenePath = Root + "/Scenes/Main.unity";
         public const string AppId = "com.nocvault.tinytracksworld";
-        public const string Version = "0.3.0";
-        public const int VersionCode = 4;
+        public const string Version = "0.3.1";
+        public const int VersionCode = 5;
 
         [MenuItem("Tiny Tracks/Setup Project")]
         public static void Run()
@@ -48,6 +48,7 @@ namespace TinyTracks.EditorTools
             ConfigurePlayer();
             ConfigureRenderPipeline();
             AssetDatabase.Refresh();
+            ConfigureBranding();
             Texture2D detail = BuildDetailTexture();
             Dictionary<string, Material> mats = BuildMaterials(detail);
             var prefabs = BuildPrefabs(mats);
@@ -98,8 +99,7 @@ namespace TinyTracks.EditorTools
             PlayerSettings.colorSpace = ColorSpace.Linear;
             PlayerSettings.gpuSkinning = false;
             PlayerSettings.runInBackground = true;
-            PlayerSettings.SplashScreen.showUnityLogo = false;
-            PlayerSettings.SplashScreen.backgroundColor = new Color32(143, 211, 255, 255);
+            // Splash: see ConfigureBranding (needs the imported logo sprite).
             PlayerSettings.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
             // Keep every mesh channel: the trains' paint mask lives in uv2, which no shader reads, so "Optimize Mesh Data" would strip it.
             PlayerSettings.stripUnusedMeshComponents = false;
@@ -114,6 +114,52 @@ namespace TinyTracks.EditorTools
             var ps = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/ProjectSettings.asset")[0]);
             SerializedProperty handler = ps.FindProperty("activeInputHandler");
             if (handler != null) { handler.intValue = 1; ps.ApplyModifiedPropertiesWithoutUndo(); }
+        }
+
+        // ------------------------------------------------------------------------------------------------ branding
+        public const string BrandingDir = Root + "/Art/UI/Branding";
+
+        /// <summary>
+        /// App icons and the start-up splash, from the Blender renders in Art/UI/Branding
+        /// (Tools/blender/branding/build_branding.py). The splash shows only our "Tiny Tracks World" word-art on the
+        /// sky colour: Unity 6 lets Personal-licence projects turn the "Made with Unity" logo off.
+        /// </summary>
+        public static void ConfigureBranding()
+        {
+            // Import settings come from TinyTracksImporter (Branding rule); reimport once so a changed rule applies.
+            Texture2D Tex(string name, bool sprite, int max)
+            {
+                string path = $"{BrandingDir}/{name}.png";
+                var ti = AssetImporter.GetAtPath(path) as TextureImporter;
+                if (ti == null) { Debug.LogWarning("[TT Setup] missing " + path); return null; }
+                if (ti.maxTextureSize != max) ti.SaveAndReimport();
+                return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+            }
+            Tex("Logo", true, 2048);
+            Texture2D icon = Tex("AppIcon", false, 1024), round = Tex("AppIcon_Round", false, 1024);
+            Texture2D fg = Tex("AppIcon_Fg", false, 512), bg = Tex("AppIcon_Bg", false, 512);
+            Sprite logo = AssetDatabase.LoadAssetAtPath<Sprite>(BrandingDir + "/Logo.png");
+
+            PlayerSettings.SplashScreen.show = true;
+            PlayerSettings.SplashScreen.showUnityLogo = false;
+            PlayerSettings.SplashScreen.drawMode = PlayerSettings.SplashScreen.DrawMode.AllSequential;
+            PlayerSettings.SplashScreen.animationMode = PlayerSettings.SplashScreen.AnimationMode.Dolly;
+            PlayerSettings.SplashScreen.backgroundColor = new Color32(143, 211, 255, 255);
+            PlayerSettings.SplashScreen.background = null;
+            PlayerSettings.SplashScreen.logos = logo != null ? new[] { PlayerSettings.SplashScreenLogo.Create(2.5f, logo) } : new PlayerSettings.SplashScreenLogo[0];
+
+            if (icon == null) return;
+            PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { icon }, IconKind.Any);
+            void Android(PlatformIconKind kind, params Texture2D[] layers)
+            {
+                PlatformIcon[] icons = PlayerSettings.GetPlatformIcons(NamedBuildTarget.Android, kind);
+                foreach (PlatformIcon pi in icons) pi.SetTextures(layers);
+                PlayerSettings.SetPlatformIcons(NamedBuildTarget.Android, kind, icons);
+            }
+            Android(UnityEditor.Android.AndroidPlatformIconKind.Legacy, icon);
+            Android(UnityEditor.Android.AndroidPlatformIconKind.Round, round != null ? round : icon);
+            if (fg != null && bg != null) Android(UnityEditor.Android.AndroidPlatformIconKind.Adaptive, bg, fg); // layer 0 = background, 1 = foreground
+            Debug.Log($"[TT Setup] branding: logo={(logo != null)} icon={icon.width} round={(round != null)} adaptive={(fg != null && bg != null)}");
         }
 
         // ------------------------------------------------------------------------------------------------ URP
@@ -555,6 +601,8 @@ namespace TinyTracks.EditorTools
                 string p = AssetDatabase.GUIDToAssetPath(guid);
                 lib.icons.Add(new NamedSprite { name = Path.GetFileNameWithoutExtension(p), sprite = Sprite(p) });
             }
+            Sprite logoSprite = Sprite(BrandingDir + "/Logo.png");
+            if (logoSprite != null) lib.icons.Add(new NamedSprite { name = "logo", sprite = logoSprite });
             EditorUtility.SetDirty(lib);
             AssetDatabase.SaveAssets();
             return lib;
