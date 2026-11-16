@@ -323,6 +323,12 @@ MonoBehaviour:
       \u0E25\u0E2D\u0E07\u0E41\u0E1A\u0E1A\u0E2D\u0E37\u0E48\u0E19\u0E14\u0E39\u0E19\u0E30!"
     enClip: {fileID: 8300000, guid: a8600a1dea7edd1ae808b3c2f22ed50c, type: 3}
     thClip: {fileID: 8300000, guid: 1e697158a247185088f44a99c844e7df, type: 3}
+  - key: turn_piece
+    en: Tap the round arrow to turn the track!
+    th: "\u0E41\u0E15\u0E30\u0E25\u0E39\u0E01\u0E28\u0E23\u0E27\u0E07\u0E01\u0E25\u0E21
+      \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2B\u0E21\u0E38\u0E19\u0E23\u0E32\u0E07\u0E23\u0E16\u0E44\u0E1F\u0E19\u0E30!"
+    enClip: {fileID: 8300000, guid: 29b145c0b981418488a65188bbf7bcfb, type: 3}
+    thClip: {fileID: 8300000, guid: b5b6fe31d7977dbf5af07b8dfe5856c3, type: 3}
   - key: choo_choo
     en: Choo choo! Here comes the train!
     th: "\u0E1B\u0E39\u0E4A\u0E19 \u0E1B\u0E39\u0E4A\u0E19! \u0E23\u0E16\u0E44\u0E1F\u0E21\u0E32\u0E41\u0E25\u0E49\u0E27!"

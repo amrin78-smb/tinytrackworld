@@ -1,4 +1,4 @@
-# Test Report: 0.3.1 (2026-11-16)
+# Test Report: 0.3.2 (2026-11-16)
 
 This report separates **automated verification** (run in this repo) from **hardware testing** (on a phone). Nothing
 here is claimed for hardware unless it was actually run on one.
@@ -11,13 +11,30 @@ here is claimed for hardware unless it was actually run on one.
 | PlayMode | **7 / 7 passed** (+1 explicit screenshot capture). New in 0.2.1: the starter train is a real, visible locomotive, and in the closed starter loop every piece type gets a placeable ghost. Also: starter world (closed loop and train), full train lap and stop, building a loop through the placement controller then save and reload, undo and redo, every narrator line has captions and clips in both languages, **the guided tour completes with no input at all** (proves it cannot soft-lock: 13 steps, each hinted up to 3 times and then performed by the guide), the help button speaks the right tip per mode |
 | Content validation (`Tools/setup.sh`) | OK: 21 track pieces, 6 trains, 40 decorations, 32 icons, 238 world props, 23 narrator lines × 2 languages, caption font |
 
+## 0.3.2 (rotate arrow, splash colour)
+
+* EditMode **36/36**, PlayMode **13/13**, and content validation OK.
+* Screenshot `05_build_ghost` shows the arrow beside the ghost track piece.
+* The new `turn_piece` line: Whisper heard the English exactly. The Thai has the usual tone slips.
+* **Redmi A3:** installed as an update over 0.3.1.
+  * The splash now has a sky-blue background with the logo.
+  * In build mode, the arrow appears beside the ghost.
+  * Tapping the arrow turned the piece. The ghost went red where it didn't fit, and the arrow followed it.
+  * No errors in logcat.
+
 ## 0.3.1 (branding)
 
 * After the icon, splash and logo change: EditMode **36/36**, PlayMode **13/13**, and content validation OK.
 * The menu screenshots (`Logs/Showcase/01`, `22`) show the logo title in Sunny Valley and in Snowy Valley. It doesn't
   overlap the world picker, the tagline or the conductor's bubble.
 * The APK contains the adaptive icon layers.
-* **Not yet checked on a device:** the launcher icon and the splash screen. No phone was connected for this build.
+* **TCL tablet:** installed as an update over 0.3.0, and the saves loaded. The splash shows the logo, and the home screen shows the logo title. The splash background is darker than intended, because Unity's default overlay darkens it.
+* **Redmi A3 (first test on the target phone):** model 23129RN51X, Android 16, 32-bit only, PowerVR GE8320, 4 GB, 720×1650.
+  * Fresh install. It runs the armeabi-v7a build, and the Low preset was picked automatically.
+  * Over OpenGL ES 3, the menu and the first-play tour work.
+  * **Second launch OK (no PowerVR crash).** It entered play mode with the train on the starter loop.
+  * Memory was 231 MB PSS on the menu, and there were no Unity errors in logcat.
+  * Not measured yet: frame rate, memory over 15 minutes, and touch feel.
 
 ## 0.3.0 additions (Milestones 12–15)
 
@@ -87,7 +104,7 @@ Universal (armeabi-v7a + arm64-v8a), ARMv7-only and ARM64-only APKs: correct `li
 | **TCL 8183A tablet**: Android 15, Helio G85 / Mali-G52 MC2, 4 GB, 1280×800, arm64-only | ARM64 | **Pass.** Auto **Low** preset, **30 FPS** (the Low cap). Full guided tour played with real taps: Play, GO, whistle by tapping the train, faster, build tab, pick a piece, place it (✓), decorate, place a tree, back to the train. The "lead back" step was also checked (switching to Build before pressing GO). **Memory flat at 253–256 MB PSS over 4 minutes** of driving. Closed and relaunched twice: cold start 0.3 s, the saved world reloaded with the added piece and tree, and the tour did not replay. No errors in logcat. |
 | **Galaxy S23 Ultra**: Android 16, Snapdragon 8 Gen 2 / Adreno 740, 8 GB, 2316×1080 (21:9) | ARM64 / universal | **Pass.** Auto **High**, **60 FPS**. The UI fits the 21:9 screen and the camera cutout area is kept clear. The universal APK installs as arm64-v8a with no warnings. |
 | Galaxy S23 Ultra, **forced 32-bit** | ARMv7-only | **Runs:** Unity reports `armeabi-v7a`, auto Low, the tour and train work, about 328 MB PSS. Android 16 shows its standard "not compatible with the latest version of Android" warning for 32-bit-only apps on 64-bit phones, which is why only the universal APK ships. |
-| **Xiaomi Redmi A3** (target, 32-bit, PowerVR GE8320) | — | **Not tested yet** (not paired). The S23 32-bit run exercises the same ARMv7 code, but not the PowerVR GPU. |
+| **Xiaomi Redmi A3** (target, 32-bit, PowerVR GE8320, Android 16) | universal 0.3.1 | **First launch and relaunch pass.** Low preset, 231 MB PSS, no errors. See the 0.3.1 section. |
 | The owner's phone (model not recorded) | 0.1.0 | The owner reported that it installs and plays. |
 
 Bugs found on hardware and fixed in 0.2.1:

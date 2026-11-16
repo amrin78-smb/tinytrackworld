@@ -39,8 +39,8 @@ namespace TinyTracks.EditorTools
         public const string SettingsDir = Root + "/Settings";
         public const string ScenePath = Root + "/Scenes/Main.unity";
         public const string AppId = "com.nocvault.tinytracksworld";
-        public const string Version = "0.3.1";
-        public const int VersionCode = 5;
+        public const string Version = "0.3.2";
+        public const int VersionCode = 6;
 
         [MenuItem("Tiny Tracks/Setup Project")]
         public static void Run()
@@ -146,6 +146,7 @@ namespace TinyTracks.EditorTools
             PlayerSettings.SplashScreen.animationMode = PlayerSettings.SplashScreen.AnimationMode.Dolly;
             PlayerSettings.SplashScreen.backgroundColor = new Color32(143, 211, 255, 255);
             PlayerSettings.SplashScreen.background = null;
+            PlayerSettings.SplashScreen.overlayOpacity = 0f; // Unity darkens the background by default (it came out slate grey)
             PlayerSettings.SplashScreen.logos = logo != null ? new[] { PlayerSettings.SplashScreenLogo.Create(2.5f, logo) } : new PlayerSettings.SplashScreenLogo[0];
 
             if (icon == null) return;

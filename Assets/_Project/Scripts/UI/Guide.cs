@@ -19,6 +19,8 @@ namespace TinyTracks.UI
         string FirstDecoId { get; }
         /// <summary>The surprise gift, when one is waiting (else null).</summary>
         Component GiftButton { get; }
+        /// <summary>The round "turn" arrow floating next to the piece being placed (null when not shown).</summary>
+        Component RotateHandle { get; }
     }
 
     /// <summary>
@@ -80,7 +82,7 @@ namespace TinyTracks.UI
             game.ModeChanged += OnModeChanged;
             game.Whistled += () => whistles++;
             game.placement.Placed += OnTrackPlaced;
-            game.placement.Rejected += () => React("doesnt_fit", 12f);
+            game.placement.Rejected += () => { if (!PointAtRotate()) React("doesnt_fit", 12f); };
             game.placement.StateChanged += () => { if (game.placement.DeleteMode && !TutorialRunning) React("hint_delete", 40f); };
             game.decorations.Changed += () => decorPlaced = game.decorations.Count;
             game.decoPlacement.Rejected += () => React("doesnt_fit", 12f);
@@ -399,8 +401,27 @@ namespace TinyTracks.UI
             Tip(game.Mode);
         }
 
+        private float redGhostTime;
+
+        /// <summary>
+        /// "Tap the round arrow to turn the track!" with the hand on the floating arrow. Said when a track piece is
+        /// refused, or when the ghost has sat red (doesn't fit) for a few seconds. Returns false if not shown.
+        /// </summary>
+        private bool PointAtRotate()
+        {
+            if (TutorialRunning || game.Mode != GameMode.Build || ui.RotateHandle == null) return false;
+            if (lastSaid.TryGetValue("turn_piece", out float t) && Time.unscaledTime - t < 20f) return false;
+            lastSaid["turn_piece"] = Time.unscaledTime;
+            narrator.Say("turn_piece");
+            narrator.ShowTap(Narrator.Of(() => ui.RotateHandle));
+            return true;
+        }
+
         private void TickFree(float dt, bool touched)
         {
+            bool red = game.Mode == GameMode.Build && game.placement.HasGhost && !game.placement.GhostValid && !game.placement.DraggingGhost;
+            redGhostTime = red ? redGhostTime + dt : 0f;
+            if (redGhostTime > 3f) { redGhostTime = -30f; PointAtRotate(); }
             if (touched)
             {
                 idle = 0f;

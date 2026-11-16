@@ -85,9 +85,54 @@ namespace TinyTracks.UI
             helpBtn.Clicked += () => guide.Help();
             settingsRoot.SetAsLastSibling(); // the grown-ups' panel covers the bubble and the conductor
             BuildGift();
+            BuildRotateHandle();
         }
 
         // ------------------------------------------------------------------------------------------------ surprises
+        // A big round "turn" arrow that floats beside the piece being placed (track or decoration), so the child
+        // finds it where they are looking; the toolbar keeps its own rotate button too.
+        private ToyButton rotateHandle;
+        public Component RotateHandle => rotateHandle != null && rotateHandle.gameObject.activeInHierarchy ? rotateHandle : null;
+
+        private void BuildRotateHandle()
+        {
+            rotateHandle = UIFactory.Button("RotateHandle", hudRoot, Icon("rotate"), UIFactory.Orange, 124f);
+            UIFactory.Anchor((RectTransform)rotateHandle.transform, new Vector2(0f, 0f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(124f, 124f));
+            rotateHandle.Clicked += () =>
+            {
+                if (game.Mode == GameMode.Build) game.placement.Rotate();
+                else if (game.Mode == GameMode.Decorate) game.decoPlacement.Rotate();
+            };
+            rotateHandle.gameObject.SetActive(false);
+        }
+
+        private void PlaceRotateHandle()
+        {
+            if (rotateHandle == null) return;
+            Vector3? world = null;
+            if (game.Mode == GameMode.Build && game.placement.HasGhost && !game.placement.DraggingGhost && !game.placement.DeleteMode)
+                world = game.placement.GhostCenter;
+            else if (game.Mode == GameMode.Decorate && game.decoPlacement.Selected != null && !game.decoPlacement.Dragging)
+                world = game.decoPlacement.GhostPosition;
+            Camera cam = game.cameraController != null ? game.cameraController.Cam : null;
+            Vector3 s = world.HasValue && cam != null ? cam.WorldToScreenPoint(world.Value) : new Vector3(0f, 0f, -1f);
+            bool show = s.z > 0f && s.x > 0f && s.y > 0f && s.x < Screen.width && s.y < Screen.height;
+            if (rotateHandle.gameObject.activeSelf != show)
+            {
+                rotateHandle.gameObject.SetActive(show);
+                if (show) Juice.PopIn(rotateHandle.transform, 0.25f);
+            }
+            if (!show) return;
+            // To the right of the piece and a little up; kept on screen and clear of the screen edges.
+            float k = hudRoot.lossyScale.x;
+            float half = 62f * k + 12f;
+            Vector2 p = new Vector2(s.x + 150f * k, s.y + 70f * k);
+            if (p.x > Screen.width - half) p.x = s.x - 150f * k; // no room on the right: go left of the piece
+            p.x = Mathf.Clamp(p.x, half, Screen.width - half);
+            p.y = Mathf.Clamp(p.y, half + 170f * k, Screen.height - half - 120f * k); // above the bottom bar, below the top buttons
+            rotateHandle.transform.position = p;
+        }
+
         private ToyButton giftBtn;
         public Component GiftButton => giftBtn != null && giftBtn.gameObject.activeInHierarchy ? giftBtn : null;
 
@@ -770,6 +815,7 @@ namespace TinyTracks.UI
         {
             if (game == null || hudRoot == null) return;
             GameMode m = game.Mode;
+            PlaceRotateHandle();
             if (m == GameMode.Build)
             {
                 bool ghost = game.placement.HasGhost;

@@ -124,6 +124,11 @@
       "th": "อุ๊ย วางตรงนี้ไม่ได้ ลองแบบอื่นดูนะ!"
     },
     {
+      "key": "turn_piece",
+      "en": "Tap the round arrow to turn the track!",
+      "th": "แตะลูกศรวงกลม เพื่อหมุนรางรถไฟนะ!"
+    },
+    {
       "key": "choo_choo",
       "en": "Choo choo! Here comes the train!",
       "th": "ปู๊น ปู๊น! รถไฟมาแล้ว!"

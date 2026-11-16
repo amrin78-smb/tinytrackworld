@@ -35,6 +35,8 @@ namespace TinyTracks.Building
         public bool DeleteMode { get; private set; }
         public TrackType? Selected { get; private set; }
         public bool HasGhost => ghost != null;
+        /// <summary>The child is dragging the ghost (the floating rotate button hides meanwhile).</summary>
+        public bool DraggingGhost => draggingGhost;
         public bool GhostValid => current.valid && InBounds(current.pose);
 
         /// <summary>Raised after a piece is placed: (node, connectedCount, closedLoop).</summary>

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.2: easier turning, sky-blue splash (2026-11-16)
+
+### Changed
+- **Rotate arrow beside the piece:** when a track piece or a decoration is being placed, a big round orange ↻ button
+  floats next to it and follows it. Tapping it turns the piece. The toolbar rotate button is still there, but it was
+  easy to miss (feedback from play-testing).
+- **The conductor points at the arrow:** when a track piece is refused, or has stayed red (doesn't fit) for 3
+  seconds, the conductor says "Tap the round arrow to turn the track!" and the hand points at the arrow. This new
+  line is voiced in English and Thai. It doesn't play during the first-play tour.
+- **Splash screen:** the background is the game's sky blue again (Unity's default overlay had darkened it to slate).
+
 ## 0.3.1: app icon, splash and logo (2026-11-16)
 
 ### Added

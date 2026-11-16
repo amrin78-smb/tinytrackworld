@@ -32,6 +32,7 @@ namespace TinyTracks.Decorations
         public event Action Rejected;
         /// <summary>Where the ghost item stands (for the hint hand).</summary>
         public Vector3 GhostPosition => ghostPos;
+        public bool Dragging => dragging;
         public bool HasGhost => ghost != null;
 
         private GhostView ghost;

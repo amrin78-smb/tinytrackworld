@@ -12,7 +12,7 @@
 
 ## Player settings (applied by `ProjectSetup.ConfigurePlayer`, re-applied before every build)
 
-* Package `com.nocvault.tinytracksworld`, version **0.3.1** (code 5), landscape only.
+* Package `com.nocvault.tinytracksworld`, version **0.3.2** (code 6), landscape only.
 * **IL2CPP**, target architectures **ARMv7 + ARM64** (per-APK overrides for the single-ABI builds).
 * **OpenGL ES 3.0 only**. Vulkan is deliberately not used: on the sibling project the Redmi A3's PowerVR GE8320
   crashed on second launch with Vulkan.
@@ -27,7 +27,7 @@
 * **Train meshes are imported Read/Write** and `stripUnusedMeshComponents` is off: the paint mask lives in uv2, which
   no shader reads, so it would otherwise be stripped from builds.
 * **Branding** (`ProjectSetup.ConfigureBranding`): the splash shows only our logo (`showUnityLogo = false`, draw mode
-  "all sequential", 2.5 s, sky-blue background). This is allowed on a Personal licence from Unity 6 onwards. The icons
+  "all sequential", 2.5 s, sky-blue background, `overlayOpacity = 0` so Unity does not darken it). This is allowed on a Personal licence from Unity 6 onwards. The icons
   come from `Art/UI/Branding/`: a legacy 1024 px square, a round version, and adaptive layers (432 px foreground and
   background). `TinyTracksImporter` keeps these files at full size and uncompressed; other UI art is capped at 256 px.
   To regenerate them: `blender -b --factory-startup --python Tools/blender/branding/build_branding.py -- logo icon`,
